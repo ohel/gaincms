@@ -1,6 +1,6 @@
 # GainCMS
 
-A PHP blog engine I wrote for my website and tech blog. I tried Jekyll and GravCMS which were close but not quite what I wanted in the end, but their influence can be seen on this work. If all you need is a quick and simple CMS/blog with pagination and comments supports or a simple responsive web site, this might be a good base. Not by any means "user-friendly" in the modern dummy end user sense, if you have some dev skills or experience with CLI, GainCMS should be trivial to use and takes only a few minutes to get into.
+A PHP blog engine I wrote for my website and tech blog. I tried [Jekyll](http://jekyllrb.com/) and [Grav](http://getgrav.org/) which were close but not quite what I wanted in the end, but their influence can be seen on this work. If all you need is a quick and simple CMS/blog with pagination and comments supports or a simple responsive web site, this might be a good base. Not by any means "user-friendly" in the modern dummy end user sense, if you have some dev skills or experience with CLI, GainCMS should be trivial to use and takes only a few minutes to get into.
 
 ## Feature list
 
