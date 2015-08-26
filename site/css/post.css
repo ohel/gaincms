@@ -33,3 +33,20 @@ h1 {
 .footnote {
     text-align: center;
 }
+
+.pager li>a, .pager li>span {
+    background-color: #cccccc;
+    border-color: #606060;
+    color: #303030;
+}
+
+.pager .disabled>a, .pager .disabled>a:focus, .pager .disabled>a:hover, .pager .disabled>span {    
+    background-color: #cccccc;
+    border-color: #606060;
+    color: #a0a0a0;
+}
+
+#disqus_thread {
+    margin-left: 5%;
+    margin-right: 5%;
+}

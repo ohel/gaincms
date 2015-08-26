@@ -3,6 +3,38 @@
 body {
     padding-top: 50px;
     font-family: Raleway, Helvetica, Tahoma, Geneva, Arial, sans-serif;
+    font-size: 1.6rem;
+    background-color: #000000;
+    color: #cccccc;
+}
+
+body>div.container {
+    background-color: #303030;
+    min-height: 100%;
+    height: auto;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+a {
+    color: #30ccff;
+}
+
+a:hover {
+    color: #ff30ff;
+}
+
+.well {
+    background-color: #cccccc;
+    color: #303030;
+}
+
+.well a {
+    color: #303030;
+}
+
+.well a:hover {
+    color: #606060;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -98,4 +130,14 @@ body {
         width: 560px;
         height: 315px;
     }
+}
+
+pre {
+    background-color: #606060;
+    color: #ffffff;
+}
+
+code {
+    background-color: #606060;
+    color: #ffffff;
 }

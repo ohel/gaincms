@@ -20,3 +20,21 @@
     font-size: 1.2rem;
     word-spacing: 1em;
 }
+
+.pagination>.disabled>a, .pagination>.disabled>a:focus, .pagination>.disabled>a:hover, .pagination>.disabled>span, .pagination>.disabled>span:focus, .pagination>.disabled>span:hover {
+    background-color: #cccccc;
+    border-color: #606060;
+    color: #a0a0a0;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    background-color: #303030;
+    border-color: #606060;
+    color: #cccccc;
+}
+
+.pagination>li>a, .pagination>li>span {
+    background-color: #cccccc;
+    border-color: #606060;
+    color: #303030;
+}
