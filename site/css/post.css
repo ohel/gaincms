@@ -1,0 +1,35 @@
+div.share-buttons{
+    text-align: center;
+}
+
+ul.share-buttons{
+    display: inline-table;
+    list-style: none;
+    padding: 0;
+}
+
+ul.share-buttons li{
+    display: inline;
+}
+
+ul.share-buttons img{
+    width: 32px;
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+.postmetadata {
+    font-style: italic;
+    font-size: 1.2rem;
+    word-spacing: 1em;
+    margin-top: 0.5em;
+    margin-bottom: 0em;
+}
+
+h1 {
+    text-align: center;
+}
+
+.footnote {
+    text-align: center;
+}

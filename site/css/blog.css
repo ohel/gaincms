@@ -1,0 +1,22 @@
+.postlisting h1 {
+    font-size: 2.4rem;
+    margin-bottom: 0px;
+    letter-spacing: -2px;
+}
+
+@media only screen and (max-width: 400px) {
+    .postlisting h1 {
+        font-size: 1.8rem;
+        letter-spacing: -1px;
+    }
+
+    .postmetadata,.postlisting img {
+        display: none;
+    }
+}
+
+.postmetadata {
+    font-style: italic;
+    font-size: 1.2rem;
+    word-spacing: 1em;
+}
