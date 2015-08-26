@@ -1,9 +1,12 @@
 <?php
 
-# Site configuration.
-define("URL_BASE", "http://10.0.1.2");
-define("URL_DISQUS", "mysite.disqus.com");
-define("GITHUB_USER", "user");
+# Site configuration and paths.
+define("CONFIG_URL_BASE", "http://10.0.1.2");
+define("CONFIG_AUTHOR", "Site Author");
+define("CONFIG_TITLE", "Site Title");
+define("CONFIG_URL_DISQUS", "mysite.disqus.com");
+define("CONFIG_GITHUB_USER", "user");
+define("CONFIG_URL_SOME", "http%3A%2F%2Fwww.mysite.com");
 define("DIR_SITE", "site/");
 define("DIR_INCLUDE", "site/includes/");
 define("DIR_FILES", "site/files/");

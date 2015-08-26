@@ -8,7 +8,7 @@
     <meta name="author" content="<?php echo CONFIG_AUTHOR?>">
 
     <base href="<?php echo CONFIG_URL_BASE?>">
-    <link rel="icon" href="<?php echo DIR_SITE?>favicon.ico">
+    <link rel="icon" href="<?php echo DIR_SITE?>graphics/favicon.ico">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo DIR_SITE?>css/common.css">

@@ -1,5 +1,4 @@
-New testpost
-===================
+# New testpost
 
 A bit newer test post.
 
