@@ -38,4 +38,6 @@
     </div>
 </nav>
 
+<div class="background"></div>
+
 <div class="container">
