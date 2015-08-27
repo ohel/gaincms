@@ -16,7 +16,10 @@ function dateFromPath($postpath) {
 function tagsFromPath($postpath) {
 
     return implode(", ",
-        array_map(function ($p) {return substr(basename($p), 4);},
+        array_map(function ($p) {
+            $tag = substr(basename($p), 4);
+            return '<a href="blog/tags/' . $tag . '">' . $tag . "</a>";
+        },
         glob($postpath . "tag_*")));
 
 }
