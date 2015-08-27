@@ -50,9 +50,7 @@ echo '<link rel="stylesheet" href="' . DIR_SITE . 'css/blog.css">';
                 echo '<p>Filtering by tag: ' . $filter . "</p>";
             }
 
-            $posts_per_page = 5;
-
-            for ($i = (($page - 1) * $posts_per_page); $i < (min($page * $posts_per_page, count($posts))); $i++) {
+            for ($i = (($page - 1) * CONFIG_PAGINATION); $i < (min($page * CONFIG_PAGINATION, count($posts))); $i++) {
                 $postpath = $posts[$i];
                 $postdate = PostUtils\dateFromPath($postpath);
                 $posttags = PostUtils\tagsFromPath($postpath);
@@ -76,7 +74,7 @@ echo '<link rel="stylesheet" href="' . DIR_SITE . 'css/blog.css">';
                             ($page - 1) . '" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
                         }
 
-                        $page_count = (int) ceil(count($posts) / $posts_per_page);
+                        $page_count = (int) ceil(count($posts) / CONFIG_PAGINATION);
                         for ($i = 1; $i <= $page_count; $i++) {
                             echo '<li' . ($i == $page ? ' class="active"' : '') .
                             '><a href="blog/' . (isset($filter) ? ("tags/" . $filter . "/") : "") .

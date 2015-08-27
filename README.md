@@ -53,7 +53,7 @@ I keep my site on a server where I also host other stuff, therefore I wanted to 
       |- tag_software
 ```
 
-The *index.php* works only as a router. It breaks down the URL and shows the correct page (*about.php*, *blog.php* etc.). All requests are directed to *index.php* in *.htaccess*. Adding and removing subpages is therefore really simple and there's no magic involved. Basically one can write a new page from scratch and it will be shown just like that.
+The *index.php* contains the site configuration and works as a router. It breaks down the URL and shows the correct page (*about.php*, *blog.php* etc.). All requests are directed to *index.php* in *.htaccess*. Adding and removing subpages is therefore really simple and there's no magic involved. Basically one can write a new page from scratch and it will be shown just like that.
 
 In the *includes* directory there are the common header (which also contains the navigation bar) and footer along with other utilities (e.g. a Parsedown extension). The *css*, *graphics* and *files* directories contain the style definitions, images and icons, and various other files respectively.
 

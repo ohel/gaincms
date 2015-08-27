@@ -38,6 +38,6 @@
     </div>
 </nav>
 
-<div class="background"></div>
+<div class="background background-glow"></div>
 
 <div class="container">

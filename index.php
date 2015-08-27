@@ -6,7 +6,8 @@ define("CONFIG_AUTHOR", "Site Author");
 define("CONFIG_TITLE", "Site Title");
 define("CONFIG_URL_DISQUS", "mysite.disqus.com");
 define("CONFIG_GITHUB_USER", "user");
-define("CONFIG_URL_SOME", "http%3A%2F%2Fwww.mysite.com");
+define("CONFIG_URL_SOME", "http%3A%2F%2Fwww.mysite.com"); # Site URL for social media sharing.
+define("CONFIG_PAGINATION", 8); # How many posts to show per blog page.
 define("DIR_SITE", "site/");
 define("DIR_INCLUDE", "site/includes/");
 define("DIR_FILES", "site/files/");
