@@ -1,4 +1,6 @@
 <?php
+if (count(get_included_files()) == 1) { exit("Direct access not permitted."); }
+
 if (!empty($url_elements) && $url_elements[0] == "tags") {
     array_shift($url_elements);
     if (!empty($url_elements)) {

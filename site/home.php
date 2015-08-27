@@ -1,4 +1,8 @@
-<?php include(DIR_INCLUDE . "/header.php")?>
+<?php 
+if (count(get_included_files()) == 1) { exit("Direct access not permitted."); }
+
+include(DIR_INCLUDE . "/header.php")
+?>
 
 <div class="mainheader">
     <h1><?php echo CONFIG_TITLE?></h1>

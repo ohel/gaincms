@@ -1,6 +1,6 @@
 RewriteEngine On
-# Do not allow to directly open any PHP files.
-RewriteRule ^.*php$ index.php [NC]
 # Setting DirectoryIndex prevents net::ERR_INCOMPLETE_CHUNKED_ENCODING errors on main page.
 DirectoryIndex index.php
 FallbackResource /index.php
+Options -Indexes
+
