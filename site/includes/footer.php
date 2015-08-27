@@ -4,6 +4,10 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script type="text/javascript">
     $('a[href="' + "<?php if (isset($activepage)) echo $activepage?>" + '"]').parent().addClass("active");
+    function scrollToTop() {
+        $("html, body").animate({ scrollTop: 0 }, "fast");
+        return false;
+    }
 </script>
 
 <?php

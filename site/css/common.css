@@ -155,3 +155,15 @@ code {
     background-color: #606060;
     color: #ffffff;
 }
+
+div.to-top-button-container {
+    margin-top: -2.2rem;
+    text-align: center;
+}
+
+div.to-top-button-container>a {
+    margin: 0px;
+    padding: 0px;
+    font-size: 5rem;
+    cursor: pointer;
+}
