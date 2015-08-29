@@ -78,9 +78,11 @@ echo '<link rel="stylesheet" href="' . DIR_SITE . 'css/blog.css">';
 
                         $page_count = (int) ceil(count($posts) / CONFIG_PAGINATION);
                         for ($i = 1; $i <= $page_count; $i++) {
-                            echo '<li' . ($i == $page ? ' class="active"' : '') .
-                            '><a href="blog/' . (isset($filter) ? ("tags/" . $filter . "/") : "") .
-                            $i . '">' . $i . ($i == $page ? '<span class="sr-only">(current)</span>' : '') . '</a></li>';
+                            if ($i == $page) {
+                                echo '<li class="active"><a>' . $i . '<span class="sr-only">(current)</span></a></li>';
+                            } else {
+                                echo '<li><a href="blog/' . (isset($filter) ? ("tags/" . $filter . "/") : "") . $i . '">' . $i . '</a></li>';
+                            }
                         }
 
                         if ($page == $page_count) {
