@@ -29,11 +29,43 @@ body>div.container {
 }
 
 a {
+    transition: all 0.3s ease-out;
     color: #30ccff;
 }
 
 a:hover {
     color: #ff30ff;
+}
+
+a:focus {
+    color: #ff30ff;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+.navbar-inverse .navbar-nav>.active>a {
+    background-color: #303030;
+    color: #ffffff;
+}
+
+.navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus {
+    color: #303030;
+    background-color: #cccccc;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus {
+    color: #303030;
+    background-color: #cccccc;
+}
+.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
+    color: #303030;
+    background-color: #cccccc;
 }
 
 .well {
@@ -166,4 +198,5 @@ div.to-top-button-container>a {
     padding: 0px;
     font-size: 5rem;
     cursor: pointer;
+    text-decoration: none;
 }
