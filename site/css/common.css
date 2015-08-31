@@ -1,5 +1,10 @@
 @import url(//fonts.googleapis.com/css?family=Montserrat:400|Raleway:300,400,600|Inconsolata);
 
+/* For some reason on Chromium blog fonts are wrong size without this on first page load. */
+html {
+    font-size: 10px;
+}
+
 body {
     padding-top: 50px;
     font-family: Raleway, Helvetica, Tahoma, Geneva, Arial, sans-serif;
