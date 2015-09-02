@@ -4,12 +4,12 @@ if (count(get_included_files()) == 1) { exit("Direct access not permitted."); }
 include(DIR_INCLUDE . "/header.php")
 ?>
 
-<div class="mainheader">
+<header>
     <h1><?php echo CONFIG_TITLE?></h1>
     <h2><?php echo CONFIG_AUTHOR?>'s website</h2>
-</div>
+<header>
 
-<div class="introduction">
+<section>
 
     <p class="lead">
         Welcome to my website!
@@ -24,7 +24,7 @@ include(DIR_INCLUDE . "/header.php")
         -Author
     </p>
 
-</div>
+<section>
 
 <?php include(DIR_INCLUDE . "/footer.php")?>
 

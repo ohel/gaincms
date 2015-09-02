@@ -27,10 +27,10 @@ include(DIR_INCLUDE . "/PostUtils.php");
 echo '<link rel="stylesheet" property="stylesheet" type="text/css" href="' . DIR_SITE . 'css/blog.css">';
 ?>
 
-<div class="mainheader">
+<header>
     <h1>Blog</h1>
     <h2>A tech oriented blog</h2>
-</div>
+</header>
 
 <div class="container">
     <div class="row">
@@ -60,9 +60,11 @@ echo '<link rel="stylesheet" property="stylesheet" type="text/css" href="' . DIR
                 # Remove first path part and last slash.
                 $hrefpath = implode("/", array_slice(explode("/", $postpath), 1, -1)); 
                 # Add link to article and post metadata by regexp replacing.
-                echo preg_replace("/<h1>(.*)<\/h1>/", '<h1><a href="' . $hrefpath . '">$1</a></h1>' .
+                echo "<article>" .
+                    preg_replace("/<h1>(.*)<\/h1>/", '<h1><a href="' . $hrefpath . '">$1</a></h1>' .
                     '<p class="postmetadata">Posted: ' . $postdate . " / Tags: " . $posttags . "</p>",
-                    $Parsedown->setLocalPath($postpath)->text($contents), 1);
+                    $Parsedown->setLocalPath($postpath)->text($contents), 1) .
+                    "</article>";
             }
             ?>
 

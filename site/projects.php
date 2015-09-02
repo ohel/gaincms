@@ -9,10 +9,10 @@ if (count($url_elements) > 1) {
 include(DIR_INCLUDE . "/header.php")
 ?>
 
-<div class="mainheader">
+<header>
     <h1>Projects</h1>
     <h2>Various projects of mine</h2>
-</div>
+</header>
 
 <div class="container">
     <div class="row">

@@ -26,7 +26,7 @@ echo '<link rel="stylesheet" property="stylesheet" href="' . DIR_SITE . 'css/pos
             echo '<p class="postmetadata">Posted: ' . $postdate . " / Tags: " . $posttags . "</p>";
 
             $Parsedown = new ExtParsedown();
-            echo $Parsedown->setLocalPath($postpath)->text($contents);
+            echo "<article>" . $Parsedown->setLocalPath($postpath)->text($contents) . "</article>";
             ?>
         </div>
     </div>
@@ -57,7 +57,7 @@ include(DIR_INCLUDE . "/comments.php");
 
 <div class="to-top-button-container"><a onclick="scrollToTop()" title="To top">▲</a></div>
 
-<div class="footnote"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>&nbsp;This article by <?php echo CONFIG_AUTHOR?> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></div>
+<footer><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>&nbsp;This article by <?php echo CONFIG_AUTHOR?> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a><footer>
 
 <?php
 $activepage = "blog";
