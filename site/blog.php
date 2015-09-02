@@ -24,7 +24,7 @@ include(DIR_INCLUDE . "/header.php");
 include(DIR_INCLUDE . "/ExtParsedown.php");
 include(DIR_INCLUDE . "/PostUtils.php");
 
-echo '<link rel="stylesheet" type="text/css" href="' . DIR_SITE . 'css/blog.css">';
+echo '<link rel="stylesheet" property="stylesheet" type="text/css" href="' . DIR_SITE . 'css/blog.css">';
 ?>
 
 <div class="mainheader">
