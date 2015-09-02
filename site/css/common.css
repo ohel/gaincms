@@ -30,6 +30,7 @@ body>div.container {
     height: auto;
     padding-left: 0px;
     padding-right: 0px;
+    padding-bottom: 20px;
     box-shadow: 0 0 10px 2px #202020;
 }
 
