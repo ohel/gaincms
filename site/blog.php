@@ -24,7 +24,7 @@ include(DIR_INCLUDE . "/header.php");
 include(DIR_INCLUDE . "/ExtParsedown.php");
 include(DIR_INCLUDE . "/PostUtils.php");
 
-echo '<link rel="stylesheet" href="' . DIR_SITE . 'css/blog.css">';
+echo '<link rel="stylesheet" type="text/css" href="' . DIR_SITE . 'css/blog.css">';
 ?>
 
 <div class="mainheader">
@@ -61,7 +61,7 @@ echo '<link rel="stylesheet" href="' . DIR_SITE . 'css/blog.css">';
                 $hrefpath = implode("/", array_slice(explode("/", $postpath), 1, -1)); 
                 # Add link to article and post metadata by regexp replacing.
                 echo preg_replace("/<h1>(.*)<\/h1>/", '<h1><a href="' . $hrefpath . '">$1</a></h1>' .
-                    '<p class="postmetadata">Posted: ' . $postdate . " / Tags: " . $posttags . "</span>",
+                    '<p class="postmetadata">Posted: ' . $postdate . " / Tags: " . $posttags . "</p>",
                     $Parsedown->setLocalPath($postpath)->text($contents), 1);
             }
             ?>

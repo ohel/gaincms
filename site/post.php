@@ -23,7 +23,7 @@ echo '<link rel="stylesheet" href="' . DIR_SITE . 'css/post.css">';
             $posttags = PostUtils\tagsFromPath($postpath);
             $contents = file_get_contents($postpath . "article.md");
 
-            echo '<p class="postmetadata">Posted: ' . $postdate . " / Tags: " . $posttags . "</span>";
+            echo '<p class="postmetadata">Posted: ' . $postdate . " / Tags: " . $posttags . "</p>";
 
             $Parsedown = new ExtParsedown();
             echo $Parsedown->setLocalPath($postpath)->text($contents);
