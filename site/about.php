@@ -10,7 +10,7 @@ include(DIR_INCLUDE . "/header.php")
 ?>
 
 <header>
-    <h1>About</h1><span></span>
+    <h1>About</h1>
 </header>
 
 <div class="container">
