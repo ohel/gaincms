@@ -203,3 +203,8 @@ div.to-top-button-container>a {
     cursor: pointer;
     text-decoration: none;
 }
+
+header + div.container {
+    text-align: justify;
+}
+

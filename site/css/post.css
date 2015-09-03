@@ -52,3 +52,31 @@ footer {
     margin-left: 5%;
     margin-right: 5%;
 }
+
+article {
+    text-align: justify;
+}
+
+article img {
+    clear: right;
+    float: right;
+    margin: 1rem;
+    margin-left: 2rem;
+    margin-right: 0px;
+    transition: margin 0.3s ease-out;
+}
+
+@media only screen and (max-width: 1000px) {
+    article img {
+        margin-left: 1rem;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    article img {
+        float: none;
+        display: block;
+        margin-left: 0px;
+    }
+}
+
