@@ -11,7 +11,7 @@ $postpath = DIR_SITE . "posts/" . $url_elements[0] . "/";
 $contents = file_get_contents($postpath . "article.md");
 
 # Make the first line of the article the title of the page, but strip Markdown header marks first.
-$page_title =  ltrim(strtok($contents, "\n"), " #");
+$page_title = CONFIG_AUTHOR . "'s blog - " . ltrim(strtok($contents, "\n"), " #");
 include(DIR_INCLUDE . "/header.php");
 include(DIR_INCLUDE . "/ExtParsedown.php");
 include(DIR_INCLUDE . "/PostUtils.php");
