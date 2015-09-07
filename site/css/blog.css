@@ -4,6 +4,10 @@
     letter-spacing: -2px;
 }
 
+.postlisting h1:first-of-type {
+    margin-top: 0px;
+}
+
 .postlisting h1 + h2 {
     margin-top: 0.25rem;
     margin-bottom: 0.25rem;
