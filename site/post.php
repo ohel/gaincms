@@ -1,11 +1,12 @@
 <?php
 if (count(get_included_files()) == 1) { exit("Direct access not permitted."); }
 
-# This page does not have any subpages.
-if (count($url_elements) > 1) {
+# This page requires a valid subpage.
+if (count($url_elements) != 1 || !file_exists(DIR_SITE . "posts/" . $url_elements[0])) {
     require DIR_SITE . 'error.php';
     exit();
 }
+
 include(DIR_INCLUDE . "/header.php");
 include(DIR_INCLUDE . "/ExtParsedown.php");
 include(DIR_INCLUDE . "/PostUtils.php");
