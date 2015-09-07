@@ -21,7 +21,7 @@ echo '<link rel="stylesheet" property="stylesheet" href="' . DIR_SITE . 'css/pos
             $comments_id = $url_elements[0];
             $postpath = DIR_SITE . "posts/" . $url_elements[0] . "/";
             $postdate = PostUtils\dateFromPath($postpath);
-            $posttags = PostUtils\tagsFromPath($postpath);
+            $posttags = PostUtils\tagsStringFromPath($postpath);
             $contents = file_get_contents($postpath . "article.md");
 
             echo '<p class="postmetadata">Posted: ' . $postdate . " / Tags: " . $posttags . "</p>";
