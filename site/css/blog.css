@@ -5,9 +5,10 @@
 }
 
 .postlisting h1 + h2 {
-  margin: 0px;
-  font-size: 2.0rem;
-  text-align: left;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+    font-size: 2.0rem;
+    text-align: left;
 }
 
 @media only screen and (max-width: 400px) {
@@ -17,7 +18,8 @@
     }
 
     .postlisting h1 + h2 {
-      font-size: 1.6rem;
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
     }
     .postmetadata,.postlisting img {
         display: none;
