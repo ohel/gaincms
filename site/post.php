@@ -7,6 +7,11 @@ if (count($url_elements) != 1 || !file_exists(DIR_SITE . "posts/" . $url_element
     exit();
 }
 
+$postpath = DIR_SITE . "posts/" . $url_elements[0] . "/";
+$contents = file_get_contents($postpath . "article.md");
+
+# Make the first line of the article the title of the page, but strip Markdown header marks first.
+$page_title =  ltrim(strtok($contents, "\n"), " #");
 include(DIR_INCLUDE . "/header.php");
 include(DIR_INCLUDE . "/ExtParsedown.php");
 include(DIR_INCLUDE . "/PostUtils.php");
@@ -18,12 +23,8 @@ echo '<link rel="stylesheet" property="stylesheet" href="' . DIR_SITE . 'css/pos
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <?php
-            $comments_id = $url_elements[0];
-            $postpath = DIR_SITE . "posts/" . $url_elements[0] . "/";
             $postdate = PostUtils\dateFromPath($postpath);
             $posttags = PostUtils\tagsStringFromPath($postpath);
-            $contents = file_get_contents($postpath . "article.md");
-
             echo '<p class="postmetadata">Posted: ' . $postdate . " / Tags: " . $posttags . "</p>";
 
             $Parsedown = new ExtParsedown();
@@ -53,6 +54,7 @@ echo '<link rel="stylesheet" property="stylesheet" href="' . DIR_SITE . 'css/pos
 
 <?php
 include(DIR_INCLUDE . "/someshare.php");
+$comments_id = $url_elements[0];
 include(DIR_INCLUDE . "/comments.php");
 ?>
 

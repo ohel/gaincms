@@ -7,6 +7,7 @@ if (!empty($url_elements)) {
     exit();
 }
 
+$page_title = CONFIG_AUTHOR . "'s website - About";
 include(DIR_INCLUDE . "/header.php")
 ?>
 

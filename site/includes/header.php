@@ -14,7 +14,13 @@
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo DIR_SITE?>css/common.css">
 
-    <title><?php echo CONFIG_AUTHOR?>'s Website</title>
+    <?php
+    if (isset($page_title)) {
+        echo "<title>" . $page_title . "</title>";
+    } else {
+        echo "<title>" . CONFIG_AUTHOR . "'s website</title>";
+    }
+    ?>
 </head>
 <body>
 

@@ -20,6 +20,7 @@ if (!empty($url_elements)) {
     exit();
 }
 
+$page_title = CONFIG_AUTHOR . "'s website - Blog";
 include(DIR_INCLUDE . "/header.php");
 include(DIR_INCLUDE . "/ExtParsedown.php");
 include(DIR_INCLUDE . "/PostUtils.php");
