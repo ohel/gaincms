@@ -26,7 +26,7 @@ ul.share-buttons img{
     margin-bottom: 0em;
 }
 
-.postmetadata {
+.postmetadata > a {
     word-spacing: 0px;
 }
 
