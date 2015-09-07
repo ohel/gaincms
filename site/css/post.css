@@ -34,6 +34,10 @@ h1 {
     text-align: center;
 }
 
+h1 + h2 {
+    font-size: 2.0rem;
+}
+
 footer {
     padding-left: 15px;
     padding-right: 15px;
