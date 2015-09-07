@@ -29,7 +29,11 @@
 .postmetadata {
     font-style: italic;
     font-size: 1.2rem;
-    word-spacing: 1em;
+    word-spacing: 0.5em;
+}
+
+.postmetadata > a {
+    word-spacing: 0px;
 }
 
 .pagination>.disabled>a, .pagination>.disabled>a:focus, .pagination>.disabled>a:hover, .pagination>.disabled>span, .pagination>.disabled>span:focus, .pagination>.disabled>span:hover {

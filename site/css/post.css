@@ -21,9 +21,13 @@ ul.share-buttons img{
 .postmetadata {
     font-style: italic;
     font-size: 1.2rem;
-    word-spacing: 1em;
+    word-spacing: 0.5em;
     margin-top: 0.5em;
     margin-bottom: 0em;
+}
+
+.postmetadata {
+    word-spacing: 0px;
 }
 
 h1 {
