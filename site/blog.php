@@ -61,7 +61,7 @@ echo '<link rel="stylesheet" property="stylesheet" type="text/css" href="' . DIR
                 $hrefpath = implode("/", array_slice(explode("/", $postpath), 1, -1)); 
                 # Add link to article and post metadata by regexp replacing.
                 echo "<article>" .
-                    preg_replace("/<h1>(.*)<\/h1>/", '<h1><a href="' . $hrefpath . '">$1</a></h1>' .
+                    preg_replace("/<h1>(.*)<\/h1>(\n<h2>.*<\/h2>)?/", '<h1><a href="' . $hrefpath . '">$1</a></h1>$2' .
                     '<p class="postmetadata">Posted: ' . $postdate . " / Tags: " . $posttags . "</p>",
                     $Parsedown->setLocalPath($postpath)->text($contents), 1) .
                     "</article>";
