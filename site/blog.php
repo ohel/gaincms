@@ -49,13 +49,13 @@ echo '<link rel="stylesheet" property="stylesheet" type="text/css" href="' . DIR
                     }
                 }
                 $posts = array_values($posts);
-                echo '<p>Filtering by tag: ' . $filter . "</p>";
+                echo '<p>Filtering by tag: ' . str_replace('_', ' ', $filter) . "</p>";
             }
 
             for ($i = (($page - 1) * CONFIG_PAGINATION); $i < (min($page * CONFIG_PAGINATION, count($posts))); $i++) {
                 $postpath = $posts[$i];
                 $postdate = PostUtils\dateFromPath($postpath);
-                $posttags = PostUtils\tagsFromPath($postpath);
+                $posttags = PostUtils\tagsStringFromPath($postpath);
                 $contents = file_get_contents($postpath . "intro.md");
                 # Remove first path part and last slash.
                 $hrefpath = implode("/", array_slice(explode("/", $postpath), 1, -1)); 
@@ -105,11 +105,9 @@ echo '<link rel="stylesheet" property="stylesheet" type="text/css" href="' . DIR
                 <h4>Filter by tag</h4>
                 <ul class="list-unstyled">
                     <?php
-                    $tagspath = DIR_SITE . "tags/";
-                    $tags = glob($tagspath . "*");
-                    foreach ($tags as $tagpath) {
-                        $tag = substr($tagpath, strlen($tagspath) + 4); # tag_
-                        echo '<li><a href="blog/tags/' . $tag . '">' . $tag . "</a></li>";
+                    $tags = PostUtils\tagsFromPath(DIR_SITE . "tags/");
+                    foreach ($tags as $tag) {
+                        echo "<li>" . $tag . "</li>";
                     }
                     ?>
                 </ul>

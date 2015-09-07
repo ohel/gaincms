@@ -13,14 +13,18 @@ function dateFromPath($postpath) {
 
 }
 
-function tagsFromPath($postpath) {
+function tagsStringFromPath($path) {
 
-    return implode(", ",
-        array_map(function ($p) {
-            $tag = substr(basename($p), 4);
-            return '<a href="blog/tags/' . $tag . '">' . $tag . "</a>";
-        },
-        glob($postpath . "tag_*")));
+    return implode(", ", tagsFromPath($path));
+
+}
+
+function tagsFromPath($path) {
+
+    return array_map(function ($p) {
+            $tag = substr(basename($p), 4); # tag_
+            return '<a href="blog/tags/' . $tag . '">' . str_replace('_', ' ', $tag) . "</a>";
+        }, glob($path . "tag_*"));
 
 }
 
