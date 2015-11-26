@@ -37,7 +37,7 @@ echo '<link rel="stylesheet" property="stylesheet" href="' . DIR_SITE . 'css/pos
 <nav>
     <ul class="pager">
         <?php
-        $posts = glob(DIR_SITE . "posts/*", GLOB_ONLYDIR|GLOB_MARK);
+        $posts = glob(DIR_SITE . DIR_POSTS_GLOB, GLOB_ONLYDIR|GLOB_MARK);
         $i = array_search($postpath, $posts);
 
         echo ($i > 0) ?

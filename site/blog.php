@@ -41,7 +41,7 @@ echo '<link rel="stylesheet" property="stylesheet" type="text/css" href="' . DIR
             <?php
 
             $Parsedown = new ExtParsedown();
-            $posts = array_reverse(glob(DIR_SITE . "posts/*", GLOB_ONLYDIR|GLOB_MARK));
+            $posts = array_reverse(glob(DIR_SITE . DIR_POSTS_GLOB, GLOB_ONLYDIR|GLOB_MARK));
             if (isset($filter)) {
                 $postcount = count($posts);
                 for ($i = 0; $i < $postcount; $i++) {
