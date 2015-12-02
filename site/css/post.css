@@ -90,11 +90,13 @@ article img {
 
 div.contactnote {
     text-align: center;
-    line-height: 1rem;
+    line-height: 1.5rem;
     padding-top: 0.4em;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .disclaimer {
-    font-size: 0.8rem;
+    font-size: 1.0rem;
     color: #ff3060;
 }
