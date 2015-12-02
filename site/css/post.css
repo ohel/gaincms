@@ -88,3 +88,13 @@ article img {
     }
 }
 
+div.contactnote {
+    text-align: center;
+    line-height: 1rem;
+    padding-top: 0.4em;
+}
+
+.disclaimer {
+    font-size: 0.8rem;
+    color: #ff3060;
+}
