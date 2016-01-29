@@ -11,6 +11,7 @@ GainCMS is a simple PHP blog engine for generic websites and blogs. Influenced b
 * Pagination
 * Tags
 * PHP routing
+* Multiple blog support
 * Simple and easy to modify
 
 ## Structure explained
@@ -53,13 +54,13 @@ Below is a rough diagram of GainCMS structure, where + denotes a directory and -
 
 ```
 
-The *index.php* contains the site configuration and works as a router. It breaks down the URL and shows the correct page (*about.php*, *blog.php* etc.). All requests are directed to *index.php* in *.htaccess*. Adding and removing subpages is therefore straightforward and there's no magic involved. Basically one can write a new page from scratch and it will be shown just like that.
+The *index.php* contains the site configuration and works as a router. It breaks down the URL and shows the correct page (*about.php*, *blog.php* etc.). All requests are directed to *index.php* in *.htaccess*. Adding and removing subpages is therefore straightforward and there's no magic involved. Basically one can write a new page from scratch and it will be shown just like that. The configuration of blogs is also defined here.
 
 In the *includes* directory there are the common header (which also contains the navigation bar) and footer along with other utilities (e.g. a Parsedown extension). The *css*, *graphics* and *files* directories contain the style definitions, images and icons, and various other files respectively.
 
 The *tags* directory contains tags the website reader can use to filter blog content. They are just empty files - what matters is their name: `tag_<tag name>`.
 
-Blog articles go to the *posts* directory. Every article is contained in its own subdirectory, whose name must begin with a date in the `YYYY-MM-DD` format, with the exception of unpublished articles. Their directories begin with an underscore. The directory name of an article is also used as the ID for Disqus comments.
+Blog articles go to directories configured in index.php, by default to *posts*. Every article is contained in its own subdirectory, whose name must begin with a date in the `YYYY-MM-DD` format, with the exception of unpublished articles. Their directories begin with an underscore. The directory name of an article is also used as the ID for Disqus comments.
 
 Each blog article consists of the article itself in *article.md*, a short intro in *intro.md* (shown in the blog post listing, *blog.php*), tags, and files/images if referred to in the article. The tags are again just empty files whose names should match those in the *tags* directory. See the included example article files for details.
 
