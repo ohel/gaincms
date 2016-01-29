@@ -29,8 +29,8 @@ echo '<link rel="stylesheet" property="stylesheet" type="text/css" href="' . DIR
 ?>
 
 <header>
-    <h1>Blog</h1>
-    <h2>A tech oriented blog</h2>
+    <h1><?php echo $page_meta[2]?></h1>
+    <h2><?php echo $page_meta[3]?></h2>
 </header>
 
 <div class="container">
@@ -41,7 +41,7 @@ echo '<link rel="stylesheet" property="stylesheet" type="text/css" href="' . DIR
             <?php
 
             $Parsedown = new ExtParsedown();
-            $posts = array_reverse(glob(DIR_SITE . DIR_POSTS_GLOB, GLOB_ONLYDIR|GLOB_MARK));
+            $posts = array_reverse(glob(DIR_SITE . $page_meta[1] . DIR_POSTS_GLOB, GLOB_ONLYDIR|GLOB_MARK));
             if (isset($filter)) {
                 $postcount = count($posts);
                 for ($i = 0; $i < $postcount; $i++) {
@@ -75,7 +75,7 @@ echo '<link rel="stylesheet" property="stylesheet" type="text/css" href="' . DIR
                         if ($page == 1) {
                             echo '<li class="disabled"><span aria-hidden="true">&laquo;</span></li>';
                         } else {
-                            echo '<li><a href="blog/' . (isset($filter) ? ("tags/" . $filter . "/") : "") .
+                            echo '<li><a href="' . $page_meta[0] . (isset($filter) ? ("tags/" . $filter . "/") : "") .
                             ($page - 1) . '" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
                         }
 
@@ -84,14 +84,14 @@ echo '<link rel="stylesheet" property="stylesheet" type="text/css" href="' . DIR
                             if ($i == $page) {
                                 echo '<li class="active"><a>' . $i . '<span class="sr-only">(current)</span></a></li>';
                             } else {
-                                echo '<li><a href="blog/' . (isset($filter) ? ("tags/" . $filter . "/") : "") . $i . '">' . $i . '</a></li>';
+                                echo '<li><a href="' . $page_meta[0] . (isset($filter) ? ("tags/" . $filter . "/") : "") . $i . '">' . $i . '</a></li>';
                             }
                         }
 
                         if ($page == $page_count) {
                             echo '<li class="disabled"><span aria-hidden="true">&raquo;</span></li>';
                         } else {
-                            echo '<li><a href="blog/' . (isset($filter) ? ("tags/" . $filter . "/") : "") .
+                            echo '<li><a href="' . $page_meta[0] . (isset($filter) ? ("tags/" . $filter . "/") : "") .
                             ($page + 1) . '" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>';
                         }
                     ?>
@@ -119,8 +119,5 @@ echo '<link rel="stylesheet" property="stylesheet" type="text/css" href="' . DIR
     </div> <!-- row -->
 </div> <!-- container -->
 
-<?php
-$activepage = "blog";
-include(DIR_INCLUDE . "/footer.php");
-?>
+<?php include(DIR_INCLUDE . "/footer.php")?>
 

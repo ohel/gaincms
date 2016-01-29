@@ -29,11 +29,7 @@ include(DIR_INCLUDE . "/header.php")
     </div> <!-- row -->
 </div> <!-- container -->
 
-<?php
-$activepage = "projects";
-$skipclosingtags = true;
-include(DIR_INCLUDE . "/footer.php");
-?>
+<?php include(DIR_INCLUDE . "/footer.php")?>
 
 <script type="text/javascript">
     $("#github-projects").html('<span>Querying <a href="https://github.com/<?php echo CONFIG_GITHUB_USER?>/">my GitHub repositories</a>...</span>');

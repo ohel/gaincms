@@ -34,7 +34,5 @@ include(DIR_INCLUDE . "/header.php")
     </div> <!-- row -->
 </div> <!-- container -->
 
-<?php
-$activepage = "about";
-include(DIR_INCLUDE . "/footer.php");
-?>
+<?php include(DIR_INCLUDE . "/footer.php")?>
+

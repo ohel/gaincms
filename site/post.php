@@ -2,12 +2,12 @@
 if (count(get_included_files()) == 1) { exit("Direct access not permitted."); }
 
 # This page requires a valid subpage.
-if (count($url_elements) != 1 || !file_exists(DIR_SITE . "posts/" . $url_elements[0])) {
+if (count($url_elements) != 1 || !file_exists(DIR_SITE . $page_meta . $url_elements[0])) {
     require DIR_SITE . 'error.php';
     exit();
 }
 
-$postpath = DIR_SITE . "posts/" . $url_elements[0] . "/";
+$postpath = DIR_SITE . $page_meta . $url_elements[0] . "/";
 $contents = file_get_contents($postpath . "article.md");
 
 # Make the first line of the article the title of the page, but strip Markdown header marks first.
@@ -37,7 +37,7 @@ echo '<link rel="stylesheet" property="stylesheet" href="' . DIR_SITE . 'css/pos
 <nav>
     <ul class="pager">
         <?php
-        $posts = glob(DIR_SITE . DIR_POSTS_GLOB, GLOB_ONLYDIR|GLOB_MARK);
+        $posts = glob(DIR_SITE . $page_meta . DIR_POSTS_GLOB, GLOB_ONLYDIR|GLOB_MARK);
         $i = array_search($postpath, $posts);
 
         echo ($i > 0) ?
@@ -62,8 +62,5 @@ include(DIR_INCLUDE . "/comments.php");
 
 <footer><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>&nbsp;This article by <?php echo CONFIG_AUTHOR?> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a><footer>
 
-<?php
-$activepage = "blog";
-include(DIR_INCLUDE . "/footer.php");
-?>
+<?php include(DIR_INCLUDE . "/footer.php")?>
 

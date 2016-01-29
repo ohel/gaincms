@@ -11,7 +11,7 @@ define("CONFIG_PAGINATION", 8); # How many posts to show per blog page.
 define("DIR_SITE", "site/");
 define("DIR_INCLUDE", "site/includes/");
 define("DIR_FILES", "site/files/");
-define("DIR_POSTS_GLOB", "posts/[^_]*"); # Used to glob blog posts. Begin article directory with underscore to skip it.
+define("DIR_POSTS_GLOB", "[^_]*"); # Used to glob blog posts. Begin article directory with underscore to skip it.
 
 $path = ltrim($_SERVER["REQUEST_URI"], "/");
 $url_elements = explode('/', $path);
@@ -32,15 +32,32 @@ if (empty($url_elements)) {
 
     case "blog":
         $page = "blog";
+        $page_meta = array("blog/", "posts/", "Blog", "A tech-oriented blog");
+        $navbarhighlight = "blogs";
         break;
     case "posts":
         $page = "post";
+        $page_meta = "posts/";
+        $navbarhighlight = "blogs";
+        break;
+    case "blog2":
+        $page = "blog";
+        $page_meta = array("blog2/", "posts2/", "Blog 2", "Another blog");
+        $navbarhighlight = "blogs";
+        break;
+    case "posts2":
+        $page = "post";
+        $page_meta = "posts2/";
+        $navbarhighlight = "blogs";
         break;
     case "projects":
         $page = "projects";
+        $skipclosingtags = true;
+        $navbarhighlight = $page;
         break;
     case "about":
         $page = "about";
+        $navbarhighlight = $page;
         break;
     default:
         $page = "error";
