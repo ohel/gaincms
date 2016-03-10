@@ -37,7 +37,7 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="blogs" onclick="$('#blogs-submenu').toggleClass('navbar-submenu-invisible'); return false;">Blogs</a>
+                <li><a href="blogs" onclick="$('#blogs-submenu').toggleClass('navbar-submenu-invisible'); return false;">Blogs <span class="caret"></span></a>
                     <ul id="blogs-submenu" class="nav navbar-nav navbar-submenu navbar-submenu-invisible">
                         <li><a href="blog">Blog</a></li>
                         <li><a href="blog2">Another blog</a></li>
