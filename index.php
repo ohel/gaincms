@@ -37,7 +37,7 @@ if (empty($url_elements)) {
         break;
     case "posts":
         $page = "post";
-        $page_meta = "posts/";
+        $page_meta = array("blog/", "posts/");
         $navbarhighlight = "blogs";
         break;
     case "blog2":
@@ -47,7 +47,7 @@ if (empty($url_elements)) {
         break;
     case "posts2":
         $page = "post";
-        $page_meta = "posts2/";
+        $page_meta = array("blog2/", "posts2/");
         $navbarhighlight = "blogs";
         break;
     case "projects":

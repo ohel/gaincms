@@ -1,13 +1,16 @@
 <?php
 if (count(get_included_files()) == 1) { exit("Direct access not permitted."); }
 
+$blog_url = $page_meta[0];
+$blog_dir = $page_meta[1];
+
 # This page requires a valid subpage.
-if (count($url_elements) != 1 || !file_exists(DIR_SITE . $page_meta . $url_elements[0])) {
+if (count($url_elements) != 1 || !file_exists(DIR_SITE . $blog_dir . $url_elements[0])) {
     require DIR_SITE . 'error.php';
     exit();
 }
 
-$postpath = DIR_SITE . $page_meta . $url_elements[0] . "/";
+$postpath = DIR_SITE . $blog_dir . $url_elements[0] . "/";
 $contents = file_get_contents($postpath . "article.md");
 
 # Make the first line of the article the title of the page, but strip Markdown header marks first.
@@ -24,7 +27,7 @@ echo '<link rel="stylesheet" property="stylesheet" href="' . DIR_SITE . 'css/pos
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <?php
             $postdate = PostUtils\dateFromPath($postpath);
-            $posttags = PostUtils\tagsStringFromPath($postpath);
+            $posttags = PostUtils\tagsStringFromPath($postpath, $blog_url);
             echo '<p class="postmetadata">Posted: ' . $postdate . " / Tags: " . $posttags . "</p>";
 
             $Parsedown = new ExtParsedown();
@@ -37,7 +40,7 @@ echo '<link rel="stylesheet" property="stylesheet" href="' . DIR_SITE . 'css/pos
 <nav>
     <ul class="pager">
         <?php
-        $posts = glob(DIR_SITE . $page_meta . DIR_POSTS_GLOB, GLOB_ONLYDIR|GLOB_MARK);
+        $posts = glob(DIR_SITE . $blog_dir . DIR_POSTS_GLOB, GLOB_ONLYDIR|GLOB_MARK);
         $i = array_search($postpath, $posts);
 
         echo ($i > 0) ?

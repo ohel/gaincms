@@ -26,11 +26,16 @@ include(DIR_INCLUDE . "/ExtParsedown.php");
 include(DIR_INCLUDE . "/PostUtils.php");
 
 echo '<link rel="stylesheet" property="stylesheet" type="text/css" href="' . DIR_SITE . 'css/blog.css">';
+
+$blog_url = $page_meta[0];
+$blog_dir = $page_meta[1];
+$blog_title = $page_meta[2];
+$blog_description = $page_meta[3];
 ?>
 
 <header>
-    <h1><?php echo $page_meta[2]?></h1>
-    <h2><?php echo $page_meta[3]?></h2>
+    <h1><?php echo $blog_title?></h1>
+    <h2><?php echo $blog_description?></h2>
 </header>
 
 <div class="container">
@@ -41,7 +46,7 @@ echo '<link rel="stylesheet" property="stylesheet" type="text/css" href="' . DIR
             <?php
 
             $Parsedown = new ExtParsedown();
-            $posts = array_reverse(glob(DIR_SITE . $page_meta[1] . DIR_POSTS_GLOB, GLOB_ONLYDIR|GLOB_MARK));
+            $posts = array_reverse(glob(DIR_SITE . $blog_dir . DIR_POSTS_GLOB, GLOB_ONLYDIR|GLOB_MARK));
             if (isset($filter)) {
                 $postcount = count($posts);
                 for ($i = 0; $i < $postcount; $i++) {
@@ -56,7 +61,7 @@ echo '<link rel="stylesheet" property="stylesheet" type="text/css" href="' . DIR
             for ($i = (($page - 1) * CONFIG_PAGINATION); $i < (min($page * CONFIG_PAGINATION, count($posts))); $i++) {
                 $postpath = $posts[$i];
                 $postdate = PostUtils\dateFromPath($postpath);
-                $posttags = PostUtils\tagsStringFromPath($postpath);
+                $posttags = PostUtils\tagsStringFromPath($postpath, $blog_url);
                 $contents = file_get_contents($postpath . "intro.md");
                 # Remove first path part and last slash.
                 $hrefpath = implode("/", array_slice(explode("/", $postpath), 1, -1)); 
@@ -75,7 +80,7 @@ echo '<link rel="stylesheet" property="stylesheet" type="text/css" href="' . DIR
                         if ($page == 1) {
                             echo '<li class="disabled"><span aria-hidden="true">&laquo;</span></li>';
                         } else {
-                            echo '<li><a href="' . $page_meta[0] . (isset($filter) ? ("tags/" . $filter . "/") : "") .
+                            echo '<li><a href="' . $blog_url . (isset($filter) ? ("tags/" . $filter . "/") : "") .
                             ($page - 1) . '" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
                         }
 
@@ -84,14 +89,14 @@ echo '<link rel="stylesheet" property="stylesheet" type="text/css" href="' . DIR
                             if ($i == $page) {
                                 echo '<li class="active"><a>' . $i . '<span class="sr-only">(current)</span></a></li>';
                             } else {
-                                echo '<li><a href="' . $page_meta[0] . (isset($filter) ? ("tags/" . $filter . "/") : "") . $i . '">' . $i . '</a></li>';
+                                echo '<li><a href="' . $blog_url . (isset($filter) ? ("tags/" . $filter . "/") : "") . $i . '">' . $i . '</a></li>';
                             }
                         }
 
                         if ($page == $page_count) {
                             echo '<li class="disabled"><span aria-hidden="true">&raquo;</span></li>';
                         } else {
-                            echo '<li><a href="' . $page_meta[0] . (isset($filter) ? ("tags/" . $filter . "/") : "") .
+                            echo '<li><a href="' . $blog_url . (isset($filter) ? ("tags/" . $filter . "/") : "") .
                             ($page + 1) . '" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>';
                         }
                     ?>
@@ -106,7 +111,7 @@ echo '<link rel="stylesheet" property="stylesheet" type="text/css" href="' . DIR
                 <h4>Filter by tag</h4>
                 <ul class="list-unstyled">
                     <?php
-                    $tags = PostUtils\tagsFromPath(DIR_SITE . "tags/");
+                    $tags = PostUtils\tagsFromPath(DIR_SITE . "tags_" . $blog_dir, $blog_url);
                     foreach ($tags as $tag) {
                         echo "<li>" . $tag . "</li>";
                     }

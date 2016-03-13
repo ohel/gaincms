@@ -13,17 +13,17 @@ function dateFromPath($postpath) {
 
 }
 
-function tagsStringFromPath($path) {
+function tagsStringFromPath($path, $href_prefix = "") {
 
-    return implode(", ", tagsFromPath($path));
+    return implode(", ", tagsFromPath($path, $href_prefix));
 
 }
 
-function tagsFromPath($path) {
+function tagsFromPath($path, $href_prefix) {
 
-    return array_map(function ($p) {
+    return array_map(function ($p) use ($href_prefix) {
             $tag = substr(basename($p), 4); # tag_
-            return '<a href="blog/tags/' . $tag . '">' . str_replace('_', ' ', $tag) . "</a>";
+            return '<a href="' . $href_prefix . 'tags/' . $tag . '">' . str_replace('_', ' ', $tag) . "</a>";
         }, glob($path . "tag_*"));
 
 }
