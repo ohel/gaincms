@@ -75,8 +75,12 @@ a:visited {
     background-color: #cccccc;
 }
 
+.navbar-submenu {
+    margin: 0;
+}
+
 @media only screen and (max-width: 767px) {
-    .navbar-submenu {
+    .navbar-submenu>li>a {
         padding-left: 50px;
     }
 }
