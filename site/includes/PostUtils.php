@@ -15,16 +15,18 @@ function dateFromPath($postpath) {
 
 function tagsStringFromPath($path, $href_prefix = "") {
 
-    return implode(", ", tagsFromPath($path, $href_prefix));
+    $tags = array_map(function ($tagpath) use ($href_prefix) { return basename($tagpath); }, glob($path . DIR_TAGS_GLOB));
+    return implode(", ", filterLinksFromTags($tags, $href_prefix));
 
 }
 
-function tagsFromPath($path, $href_prefix) {
+# Creates hyperlinks from tags for filtering. Converts underscores to spaces visually.
+function filterLinksFromTags($tags, $href_prefix) {
 
-    return array_map(function ($p) use ($href_prefix) {
-            $tag = substr(basename($p), 4); # tag_
+    return array_map(function ($tag) use ($href_prefix) {
+            $tag = substr($tag, strlen(DIR_TAGS_GLOB) - 1); # Assuming final character is wildcard. TODO: refactor so no assumption necessary.
             return '<a href="' . $href_prefix . 'tags/' . $tag . '">' . str_replace('_', ' ', $tag) . "</a>";
-        }, glob($path . "tag_*"));
+        }, $tags);
 
 }
 

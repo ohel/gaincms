@@ -47,13 +47,24 @@ $blog_description = $page_meta[3];
 
             $Parsedown = new ExtParsedown();
             $posts = array_reverse(glob(DIR_SITE . $blog_dir . DIR_POSTS_GLOB, GLOB_ONLYDIR|GLOB_MARK));
-            if (isset($filter)) {
-                $postcount = count($posts);
-                for ($i = 0; $i < $postcount; $i++) {
-                    if (!file_exists($posts[$i] . "tag_" . $filter)) {
-                        unset($posts[$i]);
-                    }
+            $postcount = count($posts);
+
+            # TODO: optimize tag globbing. This method might be slow if there are hundreds of blog posts and a lot of readers.
+            $tags = array();
+            for ($i = 0; $i < $postcount; $i++) {
+                # Create an array of all the tags there exists.
+                $tags = array_merge($tags, array_map(function($tagpath) { return basename($tagpath); }, glob($posts[$i] . DIR_TAGS_GLOB, GLOB_NOSORT)));
+
+                # Filter if post doesn't have matching tag.
+                if (isset($filter) && !file_exists($posts[$i] . "tag_" . $filter)) {
+                    unset($posts[$i]);
                 }
+            }
+
+            $tags = array_unique($tags);
+            asort($tags);
+
+            if (isset($filter)) {
                 $posts = array_values($posts);
                 echo '<p>Filtering by tag: ' . str_replace('_', ' ', $filter) . "</p>";
             }
@@ -111,7 +122,7 @@ $blog_description = $page_meta[3];
                 <h4>Filter by tag</h4>
                 <ul class="list-unstyled">
                     <?php
-                    $tags = PostUtils\tagsFromPath(DIR_SITE . "tags_" . $blog_dir, $blog_url);
+                    $tags = PostUtils\filterLinksFromTags($tags, $blog_url);
                     foreach ($tags as $tag) {
                         echo "<li>" . $tag . "</li>";
                     }
