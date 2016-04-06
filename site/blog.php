@@ -73,6 +73,9 @@ $blog_description = $page_meta[3];
                 $postpath = $posts[$i];
                 $postdate = PostUtils\dateFromPath($postpath);
                 $posttags = PostUtils\tagsStringFromPath($postpath, $blog_url);
+                if (!file_exists($postpath . "intro.md"))
+                    continue; # Intro does not exist so nothing to show. Note: this is a user error.
+
                 $contents = file_get_contents($postpath . "intro.md");
                 # Remove first path part and last slash.
                 $hrefpath = implode("/", array_slice(explode("/", $postpath), 1, -1)); 
