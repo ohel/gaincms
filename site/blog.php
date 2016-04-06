@@ -55,7 +55,7 @@ $blog_description = $page_meta[3];
                 # Create an array of all the tags there exists.
                 $tags = array_merge($tags, array_map(function($tagpath) { return basename($tagpath); }, glob($posts[$i] . DIR_TAGS_GLOB, GLOB_NOSORT)));
 
-                # Filter if post doesn't have matching tag.
+                # Filter if post doesn't have matching tag. # TODO: get rid of string literal.
                 if (isset($filter) && !file_exists($posts[$i] . "tag_" . $filter)) {
                     unset($posts[$i]);
                 }

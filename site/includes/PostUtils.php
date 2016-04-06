@@ -15,7 +15,7 @@ function dateFromPath($postpath) {
 
 function tagsStringFromPath($path, $href_prefix = "") {
 
-    $tags = array_map(function ($tagpath) use ($href_prefix) { return basename($tagpath); }, glob($path . DIR_TAGS_GLOB));
+    $tags = array_map(function ($tagpath) { return basename($tagpath); }, glob($path . DIR_TAGS_GLOB));
     return implode(", ", filterLinksFromTags($tags, $href_prefix));
 
 }
