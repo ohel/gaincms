@@ -12,7 +12,7 @@ define("DIR_SITE", "site/");
 define("DIR_INCLUDE", "site/includes/");
 define("DIR_FILES", "site/files/");
 define("DIR_POSTS_GLOB", "[^_]*"); # Used to glob blog posts. Begin article directory with underscore to skip it.
-define("DIR_TAGS_GLOB", "tag_*"); # Used to glob tags.
+define("DIR_TAG_PREFIX", "tag_");
 
 $path = ltrim($_SERVER["REQUEST_URI"], "/");
 $url_elements = explode('/', $path);

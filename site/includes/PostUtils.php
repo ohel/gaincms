@@ -15,7 +15,7 @@ function dateFromPath($postpath) {
 
 function tagsStringFromPath($path, $href_prefix = "") {
 
-    $tags = array_map(function ($tagpath) { return basename($tagpath); }, glob($path . DIR_TAGS_GLOB));
+    $tags = array_map(function ($tagpath) { return basename($tagpath); }, glob($path . DIR_TAG_PREFIX . "*"));
     return implode(", ", filterLinksFromTags($tags, $href_prefix));
 
 }
@@ -24,7 +24,7 @@ function tagsStringFromPath($path, $href_prefix = "") {
 function filterLinksFromTags($tags, $href_prefix) {
 
     return array_map(function ($tag) use ($href_prefix) {
-            $tag = substr($tag, strlen(DIR_TAGS_GLOB) - 1); # Assuming final character is wildcard. TODO: refactor so no assumption necessary.
+            $tag = substr($tag, strlen(DIR_TAG_PREFIX));
             return '<a href="' . $href_prefix . 'tags/' . $tag . '">' . str_replace('_', ' ', $tag) . "</a>";
         }, $tags);
 
