@@ -71,8 +71,10 @@ article img {
     margin: 1rem;
     margin-left: 2rem;
     margin-right: 0px;
+    max-width: 100%;
     transition: margin 0.3s ease-out;
 }
+
 
 @media only screen and (max-width: 1000px) {
     article img {
@@ -86,6 +88,13 @@ article img {
         display: block;
         margin-left: 0px;
     }
+}
+
+article span+img {
+    clear: none;
+    float: none;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 div.contactnote {
