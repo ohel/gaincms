@@ -90,7 +90,7 @@ article img {
     }
 }
 
-article span+img {
+article span+img, article span+a>img {
     clear: none;
     float: none;
     margin-left: 0;
