@@ -41,7 +41,7 @@ $blog_description = $page_meta[3];
 <div class="container">
     <div class="row">
 
-        <div class="col-sm-6 col-sm-offset-2 col-md-6 col-md-offset-2 col-lg-6 col-lg-offset-2 postlisting">
+        <div class="col-sm-7 col-sm-offset-1 col-lg-6 col-lg-offset-2 postlisting">
 
             <?php
 
@@ -119,7 +119,7 @@ $blog_description = $page_meta[3];
 
         </div> <!-- col -->
 
-        <div class="col-sm-4 col-md-3 col-lg-3">
+        <div class="col-sm-4 col-md-3">
 
             <div class="well">
                 <h4>Filter by tag</h4>

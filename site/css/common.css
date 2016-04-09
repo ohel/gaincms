@@ -124,13 +124,31 @@ a:visited {
     color: #606060;
 }
 
+.well h4 {
+    margin: 0 0 1rem 0;
+}
+
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Montserrat", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
-  font-weight: 400;
+    font-family: "Montserrat", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+    font-weight: 400;
+    transition: all 300ms linear;
 }
 
 h1 {
-  letter-spacing: -3px;
+    letter-spacing: -3px;
+}
+
+h2, h3 {
+    letter-spacing: -1px;
+}
+
+h1 + h2 {
+    margin: -0.5rem 0 2rem 0;
+    font-size: 2.5rem;
+    line-height: 1;
+    text-align: center;
+    font-family: "Raleway", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+    font-weight: 300;
 }
 
 @media only screen and (max-width: 400px) {
@@ -142,27 +160,11 @@ h1 {
     h2 {
         font-size: 1.8rem;
     }
+
+    h1 + h2 {
+        font-size: 1.8rem;
+    }
 }
-
-h2 {
-  letter-spacing: -1px; }
-
-h3 {
-  letter-spacing: -1px; }
-
-h1 + h2 {
-  margin: -0.5rem 0 2rem 0;
-  font-size: 2rem;
-  line-height: 1;
-  text-align: center;
-  font-family: "Raleway", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
-  font-weight: 300; }
-  @media only all and (min-width: 48em) and (max-width: 59.938em) {
-    h1 + h2 {
-      font-size: 1.6rem; } }
-  @media only all and (max-width: 47.938em) {
-    h1 + h2 {
-      font-size: 1.5rem; } }
 
 header, section {
     padding-left: 15px;

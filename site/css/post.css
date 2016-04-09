@@ -34,10 +34,6 @@ h1 {
     text-align: center;
 }
 
-h1 + h2 {
-    font-size: 2.0rem;
-}
-
 footer {
     padding-left: 15px;
     padding-right: 15px;
@@ -76,13 +72,13 @@ article img {
 }
 
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 991px) {
     article img {
         margin-left: 1rem;
     }
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 767px) {
     article img {
         float: none;
         display: block;
