@@ -1,11 +1,11 @@
 .postlisting h1 {
     font-size: 2.8rem;
     letter-spacing: -2px;
-    line-height: 0.6;
+    margin-top: 0;
 }
 
 .postlisting h1 + h2 {
-    margin: 0.25rem 0;
+    margin-bottom: 0.5rem;
     text-align: left;
 }
 
