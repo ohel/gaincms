@@ -21,7 +21,6 @@
         }
     }
 
-
     if (isset($page_title)) {
         echo "<title>" . $page_title . "</title>";
     } else {

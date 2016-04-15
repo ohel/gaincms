@@ -1,0 +1,49 @@
+.navbar-inverse .navbar-nav>.active>a {
+    background-color: #303030;
+    color: #ffffff;
+}
+
+.navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus,
+.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus,
+.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
+    background-color: #cccccc;
+    color: #303030;
+}
+
+.navbar-submenu {
+    margin: 0;
+}
+
+@media only screen and (max-width: 767px) {
+    .navbar-submenu>li>a {
+        padding-left: 50px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .navbar-submenu {
+        white-space: nowrap;
+        position: absolute;
+        top: 50px;
+        width: auto;
+        background-color: #222;
+        -webkit-transition: opacity 0.25s;
+        transition: opacity 0.25s;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .navbar-submenu-invisible {
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .navbar-inverse .navbar-nav>li:hover .navbar-submenu, .navbar-inverse .navbar-nav>li>a:focus+.navbar-submenu {
+        opacity: 1;
+        height: auto;
+    }
+}
+

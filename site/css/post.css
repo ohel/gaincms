@@ -68,6 +68,7 @@ article img {
     margin-left: 2rem;
     margin-right: 0px;
     max-width: 100%;
+    -webkit-transition: margin 0.3s ease-out;
     transition: margin 0.3s ease-out;
 }
 

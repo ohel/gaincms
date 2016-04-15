@@ -5,19 +5,19 @@ html {
 }
 
 body {
-    height: 100%;
-    padding-top: 50px;
+    background-color: #000000;
+    color: #cccccc;
     font-family: Raleway, Helvetica, Tahoma, Geneva, Arial, sans-serif;
     font-size: 16px; /* Apparently, Chromium can't handle rem in body. */
-    color: #cccccc;
-    background-color: #000000;
+    height: 100%;
+    padding-top: 50px;
 }
 
 body>div.background {
-    z-index: -1;
+    height: 100%;
     position: fixed;
     width: 100%;
-    height: 100%;
+    z-index: -1;
 }
 
 body>div.background-glow {
@@ -26,89 +26,26 @@ body>div.background-glow {
 
 body>div.container {
     background-color: rgba(48, 48, 48, 0.8);
-    min-height: 100%;
+    box-shadow: 0 0 10px 2px #202020;
     height: auto;
+    min-height: 100%;
+    padding-bottom: 20px;
     padding-left: 0px;
     padding-right: 0px;
-    padding-bottom: 20px;
-    box-shadow: 0 0 10px 2px #202020;
 }
 
 a {
-    transition: all 0.3s ease-out;
     color: #30ccff;
+    -webkit-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
 }
 
-a:hover {
+a:hover, a:focus {
     color: #ff30ff;
 }
 
-a:focus {
-    color: #ff30ff;
-}
-
-a:link {
+a:link, a:visited {
     text-decoration: none;
-}
-
-a:visited {
-    text-decoration: none;
-}
-
-.navbar-inverse .navbar-nav>.active>a {
-    background-color: #303030;
-    color: #ffffff;
-}
-
-.navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus {
-    color: #303030;
-    background-color: #cccccc;
-}
-
-.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus {
-    color: #303030;
-    background-color: #cccccc;
-}
-
-.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
-    color: #303030;
-    background-color: #cccccc;
-}
-
-.navbar-submenu {
-    margin: 0;
-}
-
-@media only screen and (max-width: 767px) {
-    .navbar-submenu>li>a {
-        padding-left: 50px;
-    }
-}
-
-@media only screen and (min-width: 768px) {
-    .navbar-submenu {
-        white-space: nowrap;
-        position: absolute;
-        top: 50px;
-        width: auto;
-        background-color: #222;
-        transition: opacity 0.25s;
-    }
-}
-
-@media only screen and (min-width: 768px) {
-    .navbar-submenu-invisible {
-        opacity: 0;
-        height: 0;
-        overflow: hidden;
-    }
-}
-
-@media only screen and (min-width: 768px) {
-    .navbar-inverse .navbar-nav>li:hover .navbar-submenu, .navbar-inverse .navbar-nav>li>a:focus+.navbar-submenu {
-        opacity: 1;
-        height: auto;
-    }
 }
 
 .well {
@@ -131,6 +68,7 @@ a:visited {
 h1, h2, h3, h4, h5, h6 {
     font-family: "Montserrat", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
     font-weight: 400;
+    -webkit-transition: all 300ms linear;
     transition: all 300ms linear;
 }
 
@@ -181,10 +119,10 @@ header, section {
 }
 
 .video-container {
-    vertical-align: middle;
     display: inline-block;
-    position: relative;
     overflow: hidden;
+    position: relative;
+    vertical-align: middle;
     width: 100%;
 }
 
@@ -194,20 +132,20 @@ header, section {
 
 .video-container iframe {
     border: none;
+    height: 100%;
     position: absolute;
     width: 100%;
-    height: 100%;
 }
 
 /* The normal YouTube embedding size is 560x315 */
 @media only screen and (min-width: 620px) {
     .video-container {
-        vertical-align: middle;
         display: inline-block;
-        position: relative;
-        overflow: hidden;
-        width: 560px;
         height: 315px;
+        overflow: hidden;
+        position: relative;
+        vertical-align: middle;
+        width: 560px;
     }
 
     .video-container-16-9 {
@@ -215,17 +153,12 @@ header, section {
     }
 
     .video-container iframe {
-        width: 560px;
         height: 315px;
+        width: 560px;
     }
 }
 
-pre {
-    background-color: #606060;
-    color: #ffffff;
-}
-
-code {
+pre, code {
     background-color: #606060;
     color: #ffffff;
 }
@@ -236,10 +169,10 @@ div.to-top-button-container {
 }
 
 div.to-top-button-container>a {
+    cursor: pointer;
+    font-size: 5rem;
     margin: 0px;
     padding: 0px;
-    font-size: 5rem;
-    cursor: pointer;
     text-decoration: none;
 }
 
