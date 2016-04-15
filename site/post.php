@@ -15,11 +15,10 @@ $contents = file_get_contents($postpath . "article.md");
 
 # Make the first line of the article the title of the page, but strip Markdown header marks first.
 $page_title = CONFIG_AUTHOR . "'s blog - " . ltrim(strtok($contents, "\n"), " #");
+array_push($extra_styles, "post");
 include(DIR_INCLUDE . "/header.php");
 include(DIR_INCLUDE . "/ExtParsedown.php");
 include(DIR_INCLUDE . "/PostUtils.php");
-
-echo '<link rel="stylesheet" property="stylesheet" href="' . DIR_SITE . 'css/post.css">';
 ?>
 
 <div class="container">

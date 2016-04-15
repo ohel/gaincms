@@ -15,6 +15,13 @@
     <link rel="stylesheet" type="text/css" href="<?php echo DIR_SITE?>css/common.css">
 
     <?php
+    if (is_array($extra_styles)) {
+        foreach ($extra_styles as $style) {
+            echo '<link rel="stylesheet" type="text/css" href="' . DIR_SITE . 'css/' . $style . '.css">';
+        }
+    }
+
+
     if (isset($page_title)) {
         echo "<title>" . $page_title . "</title>";
     } else {

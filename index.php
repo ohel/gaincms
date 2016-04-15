@@ -63,6 +63,7 @@ if (empty($url_elements)) {
         $page = "error";
 }
 
+$extra_styles = array();
 require DIR_SITE . $page . ".php";
 
 ?>
