@@ -13,6 +13,7 @@
 
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo DIR_SITE?>css/common.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo DIR_SITE?>css/nav.css">
 
     <?php
     if (is_array($extra_styles)) {
