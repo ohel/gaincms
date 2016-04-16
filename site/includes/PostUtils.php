@@ -25,7 +25,7 @@ function filterLinksFromTags($tags, $href_prefix) {
 
     return array_map(function ($tag) use ($href_prefix) {
             $tag = substr($tag, strlen(DIR_TAG_PREFIX));
-            return '<a href="' . $href_prefix . 'tags/' . $tag . '">' . str_replace('_', ' ', $tag) . "</a>";
+            return '<a href="' . $href_prefix . 'tags/' . str_replace(' ', '%20', $tag) . '">' . str_replace('_', ' ', $tag) . "</a>";
         }, $tags);
 
 }
