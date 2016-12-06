@@ -22,8 +22,8 @@ ul.share-buttons img{
     font-style: italic;
     font-size: 1.2rem;
     word-spacing: 0.5em;
-    margin-top: 0.5em;
     margin-bottom: 0em;
+    padding: 15px 0;
 }
 
 .postmetadata > a {
@@ -34,15 +34,18 @@ h1 {
     text-align: center;
 }
 
-footer {
-    padding-left: 15px;
-    padding-right: 15px;
-    text-align: center;
+h1 + h2 {
+    font-size: 3.0rem;
+}
+
+h1, h2 {
+    clear: both;
 }
 
 .pager li>a, .pager li>span {
     background-color: #cccccc;
     border-color: #606060;
+    border-radius: 5px;
     color: #303030;
 }
 
@@ -52,57 +55,89 @@ footer {
     color: #a0a0a0;
 }
 
-#disqus_thread {
-    margin-left: 5%;
-    margin-right: 5%;
-}
-
 article {
     text-align: justify;
 }
 
 article img {
-    clear: right;
+    border-radius: 5px;
+    clear: none;
     float: right;
-    margin: 1rem;
-    margin-left: 2rem;
-    margin-right: 0px;
+    margin: 2rem;
     max-width: 100%;
     -webkit-transition: margin 0.3s ease-out;
+    -moz-transition: margin 0.3s ease-out;
+    -o-transition: margin 0.3s ease-out;
     transition: margin 0.3s ease-out;
 }
 
 
 @media only screen and (max-width: 991px) {
     article img {
-        margin-left: 1rem;
-    }
-}
-
-@media only screen and (max-width: 767px) {
-    article img {
-        float: none;
         display: block;
-        margin-left: 0px;
+        float: none;
+        left: 50%;
+        margin: 2rem 0;
+        position: relative;
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%);
     }
 }
 
-article span+img, article span+a>img {
-    clear: none;
+/* This spreads images more evenly across a page. */
+article > p > a:nth-child(2) > img {
+    clear: both;
+}
+
+br.clearfloat, br.panorama {
+    display: none;
+}
+
+article br.clearfloat+img, article br.clearfloat+a>img {
+    clear: both;
     float: none;
-    margin-left: 0;
-    margin-right: 0;
+}
+
+article br.panorama+img, article br.panorama+a>img {
+    display:block;
+    left: 50%;
+    margin: 4rem 0;
+    position: relative;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    width: 100%;
+}
+
+div.to-top-button-container {
+    margin-top: -2.2rem;
+    text-align: center;
+}
+
+div.to-top-button-container>a {
+    cursor: pointer;
+    font-size: 5rem;
+    margin: 0px;
+    padding: 0px;
+    text-decoration: none;
 }
 
 div.contactnote {
     text-align: center;
-    line-height: 1.5rem;
-    padding-top: 0.4em;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 20px 5px;
 }
 
 .disclaimer {
-    font-size: 1.0rem;
     color: #ff3060;
+}
+
+#disqus_thread {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+div.license {
+    margin-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: center;
 }

@@ -1,12 +1,16 @@
 .postlisting h1 {
-    font-size: 2.8rem;
+    font-size: 2.4rem;
     letter-spacing: -2px;
     margin-top: 0;
 }
 
-.postlisting h1 + h2 {
-    margin-bottom: 0.5rem;
+.postlisting h1, .postlisting h2 {
     text-align: left;
+}
+
+.postlisting h1 + h2 {
+    margin: 0.5rem 0;
+    font-size: 2.0rem;
 }
 
 .postlisting img {
@@ -14,28 +18,31 @@
     max-width: 100%;
 }
 
-.postlisting article {
-    margin-bottom: 40px;
-}
-
 @media only screen and (max-width: 400px) {
     .postlisting h1 {
-        font-size: 2.0rem;
+        font-size: 1.8rem;
         letter-spacing: -1px;
     }
 
     .postlisting h1 + h2 {
-        margin-bottom: 1rem;
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
     }
     .postmetadata, .postlisting img {
         display: none;
     }
 }
 
+.postlisting p {
+    margin-top: 1rem;
+}
+
 .postmetadata {
     font-style: italic;
     font-size: 1.2rem;
     word-spacing: 0.5em;
+    margin: 0;
+    line-height: normal;
 }
 
 .postmetadata > a {
@@ -58,4 +65,36 @@
     background-color: #cccccc;
     border-color: #606060;
     color: #303030;
+}
+
+.navbuttoncontainer {
+    text-align: center;
+}
+
+article {
+    padding: 0 0 30px 0;
+}
+
+.well {
+    background-color: #cccccc;
+    color: #303030;
+}
+
+.well a {
+    color: #303030;
+}
+
+.well a:hover {
+    color: #606060;
+}
+
+@media only screen and (min-width: 768px) {
+    .well {
+        position: fixed;
+    }
+}
+
+.well h4 {
+    margin: 0 0 1rem 0;
+    text-align: left;
 }
