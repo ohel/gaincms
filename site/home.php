@@ -7,7 +7,7 @@ include(DIR_INCLUDE . "/header.php")
 <header>
     <h1><?php echo CONFIG_TITLE?></h1>
     <h2><?php echo CONFIG_AUTHOR?>'s website</h2>
-<header>
+</header>
 
 <section>
 
@@ -24,7 +24,7 @@ include(DIR_INCLUDE . "/header.php")
         -Author
     </p>
 
-<section>
+</section>
 
 <?php include(DIR_INCLUDE . "/footer.php")?>
 
