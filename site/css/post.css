@@ -1,29 +1,27 @@
-div.share-buttons{
+div.share-buttons {
     text-align: center;
 }
 
-ul.share-buttons{
+ul.share-buttons {
     display: inline-table;
     list-style: none;
     padding: 0;
 }
 
-ul.share-buttons li{
+ul.share-buttons li {
     display: inline;
 }
 
-ul.share-buttons img{
-    width: 32px;
+ul.share-buttons img {
     margin-left: 1px;
     margin-right: 1px;
+    width: 32px;
 }
 
 .postmetadata {
     font-style: italic;
     font-size: 1.2rem;
     word-spacing: 0.5em;
-    margin-bottom: 0em;
-    padding: 15px 0;
 }
 
 .postmetadata > a {
@@ -31,15 +29,14 @@ ul.share-buttons img{
 }
 
 h1 {
+    margin-bottom: 40px;
     text-align: center;
 }
 
 h1 + h2 {
     font-size: 3.0rem;
-}
-
-h1, h2 {
-    clear: both;
+    margin-bottom: 30px;
+    margin-top: -30px;
 }
 
 .pager li>a, .pager li>span {
@@ -63,7 +60,7 @@ article img {
     border-radius: 5px;
     clear: none;
     float: right;
-    margin: 2rem;
+    margin: 10px 20px;
     max-width: 100%;
     -webkit-transition: margin 0.3s ease-out;
     -moz-transition: margin 0.3s ease-out;
@@ -89,16 +86,14 @@ article > p > a:nth-child(2) > img {
     clear: both;
 }
 
-br.clearfloat, br.panorama {
-    display: none;
-}
-
-article br.clearfloat+img, article br.clearfloat+a>img {
+article br {
     clear: both;
     float: none;
+    height: 0;
+    line-height: 0;
 }
 
-article br.panorama+img, article br.panorama+a>img {
+br.panorama+img, br.panorama+a>img {
     display:block;
     left: 50%;
     margin: 4rem 0;
