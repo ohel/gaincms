@@ -8,6 +8,14 @@
     <meta name="description" content="<?php echo CONFIG_AUTHOR?>'s Website">
     <meta name="author" content="<?php echo CONFIG_AUTHOR?>">
 
+    <meta property="og:type" content="website" />
+    <?php if (isset($og_data) && is_array($og_data)) {
+        if (array_key_exists("og:title", $og_data)) { echo '
+    <meta property="og:title" content="' . $og_data["og:title"] . '" />' . "\n"; }
+        if (array_key_exists("og:description", $og_data)) { echo '
+    <meta property="og:description" content="' . $og_data["og:description"] . '" />' . "\n"; }
+    } ?>
+
     <base href="<?php echo CONFIG_URL_BASE?>">
     <link rel="icon" href="<?php echo DIR_SITE?>graphics/favicon.ico">
 
@@ -25,7 +33,7 @@
     if (isset($page_title)) {
         echo "<title>" . $page_title . "</title>";
     } else {
-        echo "<title>" . CONFIG_AUTHOR . "'s website</title>";
+        echo "<title>" . CONFIG_TITLE . "</title>";
     }
     ?>
 </head>

@@ -20,16 +20,16 @@ if (!empty($url_elements)) {
     exit();
 }
 
-$page_title = CONFIG_AUTHOR . "'s website - Blog";
-array_push($extra_styles, "blog");
-include(DIR_INCLUDE . "/header.php");
-include(DIR_INCLUDE . "/ExtParsedown.php");
-include(DIR_INCLUDE . "/PostUtils.php");
-
 $blog_url = $page_meta[0];
 $blog_dir = $page_meta[1];
 $blog_title = $page_meta[2];
 $blog_description = $page_meta[3];
+
+$page_title = CONFIG_TITLE . " - " . $blog_title;
+array_push($extra_styles, "blog");
+include(DIR_INCLUDE . "/header.php");
+include(DIR_INCLUDE . "/ExtParsedown.php");
+include(DIR_INCLUDE . "/PostUtils.php");
 ?>
 
 <header>

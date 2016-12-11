@@ -11,13 +11,23 @@ if (count($url_elements) != 1 || !file_exists(DIR_SITE . $blog_dir . $url_elemen
 }
 
 $postpath = DIR_SITE . $blog_dir . $url_elements[0] . "/";
-$contents = file_get_contents($postpath . "article.md");
 
-# Make the first line of the article the title of the page, but strip Markdown header marks first.
-$page_title = CONFIG_AUTHOR . "'s blog - " . ltrim(strtok($contents, "\n"), " #");
+include(DIR_INCLUDE . "/ExtParsedown.php");
+$Parsedown = new ExtParsedown();
+$intro_contents = file_get_contents($postpath . "intro.md");
+$parsed_intro = $Parsedown->setLocalPath($postpath)->text($intro_contents);
+
+# Use main header as title, and rest of the intro as description.
+$title_start = strpos($parsed_intro, "<h1>") + 4;
+$title_length = strpos($parsed_intro, "</h1>") - $title_start;
+$description_start = strpos($parsed_intro, "<p>");
+$og_data = array();
+$og_data["og:title"] = substr($parsed_intro, $title_start, $title_length);
+$og_data["og:description"] = strip_tags(substr($parsed_intro, $description_start));
+$page_title = CONFIG_TITLE . " - " . $og_data["og:title"];
+
 array_push($extra_styles, "post");
 include(DIR_INCLUDE . "/header.php");
-include(DIR_INCLUDE . "/ExtParsedown.php");
 include(DIR_INCLUDE . "/PostUtils.php");
 ?>
 
@@ -27,9 +37,8 @@ include(DIR_INCLUDE . "/PostUtils.php");
             <?php
             $postdate = PostUtils\dateFromPath($postpath);
             $posttags = PostUtils\tagsStringFromPath($postpath, $blog_url);
+            $contents = file_get_contents($postpath . "article.md");
             echo '<p class="postmetadata">Posted: ' . $postdate . " / Tags: " . $posttags . "</p>";
-
-            $Parsedown = new ExtParsedown();
             echo "<article>" . $Parsedown->setLocalPath($postpath)->text($contents) . "</article>";
             ?>
         </div>
