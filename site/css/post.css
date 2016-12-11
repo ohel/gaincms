@@ -89,11 +89,11 @@ article > p > a:nth-child(2) > img {
 article br {
     clear: both;
     content: "";
-    float: none;
+    display: block;
 }
 
 br.panorama+img, br.panorama+a>img {
-    display:block;
+    display: block;
     left: 50%;
     margin: 4rem 0;
     position: relative;
