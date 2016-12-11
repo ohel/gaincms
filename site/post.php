@@ -10,7 +10,8 @@ if (count($url_elements) != 1 || !file_exists(DIR_SITE . $blog_dir . $url_elemen
     exit();
 }
 
-$postpath = DIR_SITE . $blog_dir . $url_elements[0] . "/";
+$post_dir = $url_elements[0];
+$postpath = DIR_SITE . $blog_dir . $post_dir . "/";
 
 include(DIR_INCLUDE . "/ExtParsedown.php");
 $Parsedown = new ExtParsedown();
@@ -22,8 +23,13 @@ $title_start = strpos($parsed_intro, "<h1>") + 4;
 $title_length = strpos($parsed_intro, "</h1>") - $title_start;
 $description_start = strpos($parsed_intro, "<p>");
 $og_data = array();
+$og_data["og:url"] = CONFIG_URL_BASE . "/" . $blog_dir . $post_dir;
+$og_data["og:type"] = "article";
 $og_data["og:title"] = substr($parsed_intro, $title_start, $title_length);
 $og_data["og:description"] = strip_tags(substr($parsed_intro, $description_start));
+if (file_exists($postpath . "og_image.jpg")) {
+    $og_data["og:image"] = $postpath . "og_image.jpg";
+}
 $page_title = CONFIG_TITLE . " - " . $og_data["og:title"];
 
 array_push($extra_styles, "post");
@@ -65,7 +71,7 @@ include(DIR_INCLUDE . "/PostUtils.php");
 
 <?php
 include(DIR_INCLUDE . "/someshare.php");
-$comments_id = $url_elements[0];
+$comments_id = $post_dir;
 include(DIR_INCLUDE . "/comments.php");
 ?>
 

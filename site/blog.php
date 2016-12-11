@@ -24,8 +24,14 @@ $blog_url = $page_meta[0];
 $blog_dir = $page_meta[1];
 $blog_title = $page_meta[2];
 $blog_description = $page_meta[3];
-
 $page_title = CONFIG_TITLE . " - " . $blog_title;
+
+$og_data = array();
+$og_data["og:url"] = CONFIG_URL_BASE . "/" . preg_replace('%/$%', '', $blog_url);
+$og_data["og:type"] = "blog";
+$og_data["og:title"] = $blog_title;
+$og_data["og:description"] = $blog_description;
+
 array_push($extra_styles, "blog");
 include(DIR_INCLUDE . "/header.php");
 include(DIR_INCLUDE . "/ExtParsedown.php");
