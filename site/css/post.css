@@ -76,7 +76,6 @@ article img {
     transition: margin 0.3s ease-out;
 }
 
-
 @media only screen and (max-width: 991px) {
     article img {
         display: block;
@@ -87,6 +86,14 @@ article img {
         -webkit-transform: translateX(-50%);
         transform: translateX(-50%);
     }
+}
+
+article .video-container {
+    left: 50%;
+    margin: 4rem 0;
+    position: relative;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
 }
 
 /* This spreads images more evenly across a page. */
