@@ -88,9 +88,8 @@ article > p > a:nth-child(2) > img {
 
 article br {
     clear: both;
+    content: "";
     float: none;
-    height: 0;
-    line-height: 0;
 }
 
 br.panorama+img, br.panorama+a>img {
