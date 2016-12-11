@@ -60,7 +60,7 @@ article img {
     border-radius: 5px;
     clear: none;
     float: right;
-    margin: 10px 20px;
+    margin: 10px 0 10px 20px;
     max-width: 100%;
     -webkit-transition: margin 0.3s ease-out;
     -moz-transition: margin 0.3s ease-out;
