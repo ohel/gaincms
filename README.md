@@ -45,6 +45,8 @@ Below is a rough diagram of GainCMS structure, where + denotes a directory and -
      | |- tag_software
      | |- tag_spaces work too
      | |- tag_but_are_converted_anyway
+     | |- thumb_woot.jpg
+     | |- woot.jpg
      |+ _2015-11_26_unpublished/
        \
        |- article.md
@@ -57,9 +59,13 @@ In the *includes* directory there are the common header (which also contains the
 
 Blog articles go to directories configured in index.php, by default to *posts*. Every article is contained in its own subdirectory, whose name must begin with a date in the `YYYY-MM-DD` format, with the exception of unpublished articles. Their directories begin with an underscore. The directory name of an article is also used as the ID for Disqus comments.
 
+## Articles
+
 Each blog article consists of the article itself in *article.md*, a short intro in *intro.md* (shown in the blog post listing, *blog.php*), tags, and files/images if referred to in the article. The tags are just empty files whose names should begin with `tag_` by default. Spaces in tags are supported, but underscores are converted to spaces anyway in hyperlinks.
 
 The paths and glob patterns are customizable in index.php.
+
+There are two special tags to roughly control the layout of the pictures within the article: *<br>* which will perform a clear for floating images, and *<br class="panorama">* which will make the next image full width. I have yet to see a case where I'd need the *<br>* tag as a line break in an article, so I decided to make it a special one.
 
 ## Project goals by the original author
 
