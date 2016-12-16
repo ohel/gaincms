@@ -70,7 +70,7 @@ There are two special tags to roughly control the layout of the pictures within 
 
 ## Visitor statistics
 
-GainCMS has its own simple visitor statistics support so as not to give too much information to big corporations. To enable the visitor statistic, create the directory *DIR_STATS_BASE*, defined in *index.php*.
+GainCMS has its own simple visitor statistics support so as not to give too much information to big corporations. To enable the visitor statistic, create the directory *DIR_STATS_BASE*, defined in *index.php*. Statistics may be parsed with the Python script *parse_stats.py*.
 
 ## Project goals by the original author
 
