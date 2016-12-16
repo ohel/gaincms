@@ -1,20 +1,20 @@
 <?php
 
 # Site configuration and paths.
-define("CONFIG_URL_BASE", "http://10.0.1.2");
 define("CONFIG_AUTHOR", "Site Author");
-define("CONFIG_TITLE", "Site Title");
-define("CONFIG_URL_DISQUS", "mysite.disqus.com");
 define("CONFIG_GITHUB_USER", "user");
 define("CONFIG_PAGINATION", 8); # How many posts to show per blog page.
-define("DIR_SITE", "site/");
-define("DIR_INCLUDE", "site/includes/");
+define("CONFIG_TITLE", "Site Title");
+define("CONFIG_URL_BASE", "http://10.0.1.2");
+define("CONFIG_URL_DISQUS", "mysite.disqus.com");
 define("DIR_FILES", "site/files/");
+define("DIR_INCLUDE", "site/includes/");
 define("DIR_POSTS_GLOB", "[^_]*"); # Used to glob blog posts. Begin article directory with underscore to skip it.
+define("DIR_SITE", "site/");
+define("DIR_STATS_BASE", "site/stats/");
 define("DIR_TAG_PREFIX", "tag_");
 
-$path = ltrim($_SERVER["REQUEST_URI"], "/");
-$url_elements = explode('/', $path);
+$url_elements = explode('/', ltrim($_SERVER["REQUEST_URI"], "/"));
 
 # Remove trailing slashes from url elements.
 $lastelem = end($url_elements);
@@ -52,7 +52,6 @@ if (empty($url_elements)) {
         break;
     case "projects":
         $page = "projects";
-        $skipclosingtags = true;
         $navbarhighlight = $page;
         break;
     case "about":
@@ -65,5 +64,15 @@ if (empty($url_elements)) {
 
 $extra_styles = array();
 require DIR_SITE . $page . ".php";
+
+# Visitor statistics logging.
+if (file_exists(DIR_STATS_BASE) && isset($stats_dir) && isset($_SERVER["REMOTE_ADDR"])) {
+    if (!file_exists(DIR_STATS_BASE . $stats_dir)) {
+        mkdir(DIR_STATS_BASE . $stats_dir, 0755, true);
+    }
+    $stats_file = fopen(DIR_STATS_BASE . $stats_dir . "/" . $_SERVER["REMOTE_ADDR"], "a");
+    fwrite($stats_file, date("Y-m-d H:i:s") . (isset($_SERVER["HTTP_REFERER"]) ? " " . $_SERVER["HTTP_REFERER"] : "") . "\n");
+    fclose($stats_file);
+}
 
 ?>

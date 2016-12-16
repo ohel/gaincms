@@ -3,18 +3,19 @@ require("Parsedown.php");
 
 class ExtParsedown extends Parsedown
 {
+    static function isLocal($path) {
+        return preg_match('~^(\w+:)?//~', $path) === 0;
+    }
+
+    protected $localPath;
+
     # Setting local path here will fix relative links in Markdown articles.
     function setLocalPath($localPath) {
         $this->localPath = $localPath;
         return $this;
     }
 
-    protected $localPath;
-
-    static function isLocal($path) {
-        return preg_match('~^(\w+:)?//~', $path) === 0;
-    }
-
+    # Overrides original from Parsedown.php.
     protected function inlineLink($Excerpt) {
 
         $Link = parent::inlineLink($Excerpt);

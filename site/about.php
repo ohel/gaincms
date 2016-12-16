@@ -8,31 +8,36 @@ if (!empty($url_elements)) {
 }
 
 $page_title = CONFIG_AUTHOR . "'s website - About";
-include(DIR_INCLUDE . "/header.php")
+include(DIR_INCLUDE . "/header.php");
+
+$stats_dir = "about";
 ?>
 
-<header>
-    <h1>About</h1>
-</header>
-
 <div class="container">
-    <div class="row">
 
-        <div class="col-sm-8 col-sm-offset-2">
+    <header>
+        <h1>About</h1>
+    </header>
 
-            <h2>About me</h2>
-            <p>Coming soon...</p>
+    <div class="container">
+        <div class="row">
 
-            <h2>My social network sites</h2>
-            <p>Coming soon...</p>
+            <div class="col-sm-8 col-sm-offset-2">
 
-            <h2>About this website</h2>
-            <p>Coming soon...</p>
+                <h2>About me</h2>
+                <p>Coming soon...</p>
 
-        </div> <!-- col -->
+                <h2>My social network sites</h2>
+                <p>Coming soon...</p>
 
-    </div> <!-- row -->
-</div> <!-- container -->
+                <h2>About this website</h2>
+                <p>Coming soon...</p>
 
-<?php include(DIR_INCLUDE . "/footer.php")?>
+            </div>
 
+        </div>
+    </div>
+
+</div>
+
+<?php include(DIR_INCLUDE . "/htmlend.php");?>

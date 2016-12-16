@@ -8,29 +8,30 @@ if (!empty($url_elements)) {
 }
 
 $page_title = CONFIG_AUTHOR . "'s website - Projects";
-include(DIR_INCLUDE . "/header.php")
+include(DIR_INCLUDE . "/header.php");
+
+$stats_dir = "projects";
 ?>
 
-<header>
-    <h1>Projects</h1>
-    <h2>Various projects of mine</h2>
-</header>
-
 <div class="container">
-    <div class="row">
 
-        <div class="col-sm-8 col-sm-offset-2">
+    <header>
+        <h1>Projects</h1>
+        <h2>Various projects of mine</h2>
+    </header>
 
-            <h2>GitHub</h2>
-            <div id="github-projects"><noscript>Enable JavaScript to see listing of <a href="https://github.com/<?php echo CONFIG_GITHUB_USER?>/">my repos.</a></noscript></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <h2>GitHub</h2>
+                <div id="github-projects"><noscript>Enable JavaScript to see listing of <a href="https://github.com/<?php echo CONFIG_GITHUB_USER?>/">my repos.</a></noscript></div>
+            </div>
+        </div>
+    </div>
 
-        </div> <!-- col -->
+</div>
 
-    </div> <!-- row -->
-</div> <!-- container -->
-
-<?php include(DIR_INCLUDE . "/footer.php")?>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript">
     $("#github-projects").html('<span>Querying <a href="https://github.com/<?php echo CONFIG_GITHUB_USER?>/">my GitHub repositories</a>...</span>');
     $.getJSON("https://api.github.com/users/<?php echo CONFIG_GITHUB_USER?>/repos", function(data) {
@@ -42,4 +43,4 @@ include(DIR_INCLUDE . "/header.php")
     });
 </script>
 
-</body></html>
+<?php include(DIR_INCLUDE . "/htmlend.php");?>

@@ -74,5 +74,3 @@
 </nav>
 
 <div class="background background-glow"></div>
-
-<div class="container">
