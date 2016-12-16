@@ -1,18 +1,19 @@
 # GainCMS
 
-GainCMS is a simple PHP blog engine for generic websites and blogs. Influenced by [Jekyll](http://jekyllrb.com/) and [Grav](http://getgrav.org/) which are close but not as simple as this. If all you need is a quick and simple CMS/blog with pagination and comments supports or a simple responsive web site, this might be a good base. Not by any means "user-friendly" in the modern dummy end user sense, if you have some dev skills or experience with CLI, GainCMS should be trivial to use and takes only a few minutes to get into.
+GainCMS is a simple PHP blog engine for generic websites and blogs, influenced by Jekyll and Grav which are close but not as simple and effective as this. If all you need is a quick and simple CMS/blog with pagination and comments supports or a simple responsive web site, this might be a good base. Not by any means "user-friendly" in the modern dummy end user sense, if you have some dev skills or experience with CLI, GainCMS should be trivial to use and takes only a few minutes to get into.
 
 ## Feature list
 
+* Simple and easy to modify
 * Flat file blog CMS
 * Responsive design (Bootstrap)
 * Markdown articles (Parsedown)
 * Disqus comments
 * Pagination
-* Tags
+* Tagging
 * PHP routing
 * Multiple blog support
-* Simple and easy to modify
+* Simple visitor statistics
 
 ## Structure explained
 
@@ -66,6 +67,10 @@ Each blog article consists of the article itself in *article.md*, a short intro 
 The paths and glob patterns are customizable in index.php.
 
 There are two special tags to roughly control the layout of the pictures within the article: *<br>* which will perform a clear for floating images, and *<br class="panorama">* which will make the next image full width. I have yet to see a case where I'd need the *<br>* tag as a line break in an article, so I decided to make it a special one.
+
+## Visitor statistics
+
+GainCMS has its own simple visitor statistics support so as not to give too much information to big corporations. To enable the visitor statistic, create the directory *DIR_STATS_BASE*, defined in *index.php*.
 
 ## Project goals by the original author
 
