@@ -145,19 +145,39 @@ def printStats(visits):
 
     print("\nTotal site visits: %s" % len(visits))
 
+    unique_ips = set([visit.ipv4 for visit in visits])
+    print("\nTotal site visitors: %s" % len(unique_ips))
+
     print("\nVisits by page:\n")
     pages = list(set([visit.page for visit in visits]))
     pages.sort()
     for page in pages:
         page_visits = list(filter(lambda v: v.page == page, visits))
-        print("     %50s %s" % ((page + " ").ljust(49, "."), len(page_visits)))
+        print("   %50s %s" % ((page + " ").ljust(49, "."), len(page_visits)))
 
-    print("\nVisits by country:\n")
+    print("\nVisitors by country:\n")
+    unique_visitors = list(filter(lambda v: v.ipv4 in unique_ips and not unique_ips.remove(v.ipv4), visits))
     countries = list(set([visit.country for visit in visits]))
     countries.sort()
     for country in countries:
-        country_visits = list(filter(lambda v: v.country == country, visits))
-        print("     %50s %s" % ((country + " ").ljust(49, "."), len(country_visits)))
+        country_visits = list(filter(lambda v: v.country == country, unique_visitors))
+        print("   %50s %s" % ((country + " ").ljust(49, "."), len(country_visits)))
 
 printStats(visits)
-print("\n")
+
+def pageStats(page):
+    page_visits = [visit for visit in visits if visit.page == page]
+    print("\nStatistics for page: %s\n" % page)
+    print("   %15s %15s %20s %s" % ("Visitor".ljust(15), "Country".ljust(15), "Timestamp".ljust(20), "Referrer\n"))
+    for visit in page_visits:
+        print("   %15s %15s %20s %s" % (visit.ipv4.ljust(15), visit.country.ljust(15), visit.timestamp.ljust(20), visit.ref))
+
+def showAll():
+    pages = list(set([visit.page for visit in visits]))
+    pages.sort()
+    for page in pages:
+        pageStats(page)
+
+print("\nType pageStats(\"page name\") to show detailed statistics for a page.")
+print("Type showAll() to show detailed statistics for every page.")
+
