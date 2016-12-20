@@ -1,3 +1,5 @@
 # DIY acoustic panels
 
-I made some acoustic panels. Here I'll tell how... ![Panels](thumb.jpg)
+![Panels](thumb.jpg)
+
+I made some acoustic panels. Here I'll tell how... Also, a picture of the panels.

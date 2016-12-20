@@ -64,27 +64,72 @@ article p:before {
     width: 12em;
 }
 
+article figure {
+    display: table;
+    float: right;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+article figure figcaption {
+    border-color: #606060;
+    border-radius: 0 0 5px 5px;
+    border-style: solid;
+    border-top-style: none;
+    border-width: 1px;
+    color: #cccccc;
+    font-style: italic;
+    margin: 0 0 0 20px;
+    padding: 5px 10px;
+}
+
 article img {
     border-radius: 5px;
-    clear: none;
     float: right;
     margin: 10px 0 10px 20px;
     max-width: 100%;
-    -webkit-transition: margin 0.3s ease-out;
-    -moz-transition: margin 0.3s ease-out;
-    -o-transition: margin 0.3s ease-out;
-    transition: margin 0.3s ease-out;
+}
+
+article figure img {
+    border-radius: 5px 5px 0 0;
+    display: table-row;
+    float: none;
+    margin-bottom: 0;
+}
+
+/* A panorama photo. */
+article em>img, article em>a>img {
+    display: block;
+    left: 50%;
+    margin: 4rem 0 0 0;
+    position: relative;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    width: 100%;
+}
+
+article figure em figcaption, article em img:only-child {
+    margin-left: 0;
+    margin-bottom: 4rem;
 }
 
 @media only screen and (max-width: 991px) {
-    article img {
-        display: block;
+    article figure, article p>img, article p>a>img {
         float: none;
-        left: 50%;
         margin: 2rem 0;
+        left: 50%;
         position: relative;
         -webkit-transform: translateX(-50%);
         transform: translateX(-50%);
+    }
+
+    article figure img, article figure figcaption {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    article p>img, article p>a>img {
+        display: block;
     }
 }
 
@@ -96,25 +141,10 @@ article .video-container {
     transform: translateX(-50%);
 }
 
-/* This spreads images more evenly across a page. */
-article > p > a:nth-child(2) > img {
-    clear: both;
-}
-
 article br {
     clear: both;
     content: "";
     display: block;
-}
-
-br.panorama+img, br.panorama+a>img {
-    display: block;
-    left: 50%;
-    margin: 4rem 0;
-    position: relative;
-    transform: translateX(-50%);
-    -webkit-transform: translateX(-50%);
-    width: 100%;
 }
 
 div.to-top-button-container {

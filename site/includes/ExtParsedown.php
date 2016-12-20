@@ -15,7 +15,37 @@ class ExtParsedown extends Parsedown
         return $this;
     }
 
-    # Overrides original from Parsedown.php.
+    # Override for img elements with title: put them inside figure elements and give them a caption.
+    protected function element(array $Element) {
+
+        if ($Element['name'] != 'img') {
+            return parent::element($Element);
+        }
+
+        $markup = '';
+        if (isset($Element['attributes']['title'])) {
+            $markup = '<figure>';
+        }
+        $markup .= '<img';
+
+        foreach ($Element['attributes'] as $name => $value)
+        {
+            if ($value === null)
+            {
+                continue;
+            }
+
+            $markup .= ' '.$name.'="'.$value.'"';
+        }
+
+        $markup .= ' />';
+        if (isset($Element['attributes']['title'])) {
+            $markup .= '<figcaption>' . $Element['attributes']['title'] . '</figcaption></figure>';
+        }
+
+        return $markup;
+    }
+
     protected function inlineLink($Excerpt) {
 
         $Link = parent::inlineLink($Excerpt);

@@ -66,7 +66,7 @@ Each blog article consists of the article itself in *article.md*, a short intro 
 
 The paths and glob patterns are customizable in index.php.
 
-There are two special tags to roughly control the layout of the pictures within the article: *<br>* which will perform a clear for floating images, and *<br class="panorama">* which will make the next image full width. I have yet to see a case where I'd need the *<br>* tag as a line break in an article, so I decided to make it a special one.
+There are two special tags to roughly control the layout of the pictures within the article: *<br>* which will perform a clear for floating images, and an emphasis (using asterisks) around an image, which will make the image full width. I have yet to see a case where I'd need the *<br>* tag as a line break in an article, so I decided to make it a special one.
 
 ## Visitor statistics
 
