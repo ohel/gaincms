@@ -76,11 +76,10 @@ article figure figcaption {
     border-color: #606060;
     border-radius: 0 0 5px 5px;
     border-style: solid;
-    border-top-style: none;
     border-width: 1px;
     color: #cccccc;
     font-style: italic;
-    margin: 0 0 0 20px;
+    margin: 0 0 10px 20px;
     padding: 5px 10px;
 }
 
