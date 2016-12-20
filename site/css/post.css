@@ -71,6 +71,7 @@ article figure {
     overflow: hidden;
 }
 
+/* Using display: table-caption should limit the width to that of the image, but it doesn't work for some reason. Have to use a manual <br> in the title for now. */
 article figure figcaption {
     border-color: #606060;
     border-radius: 0 0 5px 5px;
@@ -92,7 +93,7 @@ article img {
 
 article figure img {
     border-radius: 5px 5px 0 0;
-    display: table-row;
+    display: block;
     float: none;
     margin-bottom: 0;
 }
@@ -141,7 +142,7 @@ article .video-container {
     transform: translateX(-50%);
 }
 
-article br {
+article p>br {
     clear: both;
     content: "";
     display: block;
