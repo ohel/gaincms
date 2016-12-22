@@ -108,7 +108,11 @@ def parseGeoData(visits):
         visit.country = list(filter(lambda c: c.geoid == visit.geoid, countries))[0].country.replace("\n", "").replace("\"", "")
 
     def applyGeoData(visit):
-        [vb1, vb2, vb3, vb4] = visit.ipv4.split(".")
+        try:
+            [vb1, vb2, vb3, vb4] = visit.ipv4.split(".")
+        except:
+            visit.country = "Unknown"
+            return
         main_block_matches = list(filter(lambda gip: gip.ipv4_block_1 == vb1, geoips))
         candidates = lambda c: [c] if c else []
         candidates = candidates(next((gip for gip in reversed(main_block_matches) if gip.ipv4_block_2 < vb2), None))
@@ -116,6 +120,7 @@ def parseGeoData(visits):
 
         if len(candidates) == 0:
             print("No candidate found for IP: %s" % visit.ipv4)
+            visit.country = "Unknown"
             return
         if all(map(lambda gip: gip.geoid == candidates[0].geoid, candidates)):
             visit.geoid = candidates[0].geoid
@@ -132,6 +137,7 @@ def parseGeoData(visits):
             print("Multiple GeoIP matches for IP %s, something is wrong." % visit.ipv4)
         elif len(match) == 0:
             print("No match found for IP: %s" % visit.ipv4)
+            visit.country = "Unknown"
         else:
             visit.geoid = match[0].geoid
             applyCountry(visit)
