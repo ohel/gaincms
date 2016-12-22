@@ -71,7 +71,11 @@ if (file_exists(DIR_STATS_BASE) && isset($stats_dir) && isset($_SERVER["REMOTE_A
         mkdir(DIR_STATS_BASE . $stats_dir, 0755, true);
     }
     $stats_file = fopen(DIR_STATS_BASE . $stats_dir . "/" . $_SERVER["REMOTE_ADDR"], "a");
-    fwrite($stats_file, date("Y-m-d H:i:s") . (isset($_SERVER["HTTP_REFERER"]) ? " " . $_SERVER["HTTP_REFERER"] : "") . "\n");
+    fwrite($stats_file,
+        date("Y-m-d H:i:s") .
+        (isset($_SERVER["HTTP_USER_AGENT"]) ? " \"" . $_SERVER["HTTP_USER_AGENT"] . "\"": "Unknown") .
+        (isset($_SERVER["HTTP_REFERER"]) ? " " . $_SERVER["HTTP_REFERER"] : "") .
+        "\n");
     fclose($stats_file);
 }
 
