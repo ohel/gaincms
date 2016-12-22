@@ -18,14 +18,14 @@ $Parsedown = new ExtParsedown();
 $intro_contents = file_get_contents($postpath . "intro.md");
 $parsed_intro = $Parsedown->setLocalPath($postpath)->text($intro_contents);
 
-# Use main header as title, and rest of the intro as description.
-$title_start = strpos($parsed_intro, "<h1>") + 4;
-$title_length = strpos($parsed_intro, "</h1>") - $title_start;
+# Use headers as title, and rest of the intro as description.
 $description_start = strpos($parsed_intro, "<p>");
+$pre_description = substr($parsed_intro, 0, $description_start);
+preg_match("/<h1>(?P<main>.*)<\/h1>[^<]*(<h2>(?P<sub>.*)<\/h2>)?/", $pre_description, $titles);
 $og_data = array();
 $og_data["og:url"] = CONFIG_URL_BASE . "/" . $blog_dir . $post_dir;
 $og_data["og:type"] = "article";
-$og_data["og:title"] = substr($parsed_intro, $title_start, $title_length);
+$og_data["og:title"] = $titles["main"] . (isset($titles["sub"]) ? (": " . $titles["sub"]) : "");
 $og_data["og:description"] = strip_tags(substr($parsed_intro, $description_start));
 if (file_exists($postpath . "og_image.jpg")) {
     $og_data["og:image"] = $postpath . "og_image.jpg";
