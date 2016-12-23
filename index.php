@@ -12,7 +12,7 @@ define("DIR_FILES", "site/files/");
 define("DIR_INCLUDE", "site/includes/");
 define("DIR_POSTS_GLOB", "[^_]*"); # Used to glob blog posts. Begin article directory with underscore to skip it.
 define("DIR_SITE", "site/");
-define("DIR_STATS_BASE", "site/stats/");
+define("DIR_STATS_BASE", "site_stats/");
 define("DIR_TAG_PREFIX", "tag_");
 
 $url_elements = explode('/', ltrim($_SERVER["REQUEST_URI"], "/"));
@@ -78,9 +78,10 @@ if (file_exists(DIR_STATS_BASE) && isset($stats_dir) && isset($_SERVER["REMOTE_A
         mkdir(DIR_STATS_BASE . $stats_dir, 0755, true);
     }
     $stats_file = fopen(DIR_STATS_BASE . $stats_dir . "/" . $_SERVER["REMOTE_ADDR"], "a");
+    # Write only a maximum of 200 characters user agent.
     fwrite($stats_file,
         date("Y-m-d H:i:s") .
-        " \"" . (isset($_SERVER["HTTP_USER_AGENT"]) ? $_SERVER["HTTP_USER_AGENT"] : "Unknown") . "\"" .
+        " \"" . (isset($_SERVER["HTTP_USER_AGENT"]) ? $_SERVER["HTTP_USER_AGENT"][:200] : "Unknown") . "\"" .
         (isset($_SERVER["HTTP_REFERER"]) ? " " . $_SERVER["HTTP_REFERER"] : "") .
         "\n");
     fclose($stats_file);

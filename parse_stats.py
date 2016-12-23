@@ -1,43 +1,61 @@
 #!/usr/bin/python3
-import os
+import os, re
 from ipaddress import ip_address # Requires Python 3.3 or newer.
 from sys import argv
 
 FILE_IP2ID = "GeoLite2-Country-Blocks-IPv4.csv"
 FILE_ID2COUNTRY = "GeoLite2-Country-Locations-en.csv"
+UA_IGNORE_LIST = [
+    "Googlebot",
+    "AdsBot",
+    "XML-Sitemaps"
+]
 
-visits = [];
+print("Run the script with: python3 -i %s for studying statistics manually." % os.path.basename(argv[0]))
 
 def parseVisitData(visits):
 
     print("Parsing visit data...")
 
     class Visit:
-        def __init__(self, page, ipv4, timestamp, ref):
-            self.page = page;
-            self.ipv4 = ipv4;
-            self.timestamp = timestamp;
-            self.ref = ref;
-            self.geoid = 0;
+
+        def __init__(self, page, ipv4, timestamp, ua, ref):
+
             self.country = "";
+            self.geoid = 0;
+            self.ipv4 = ipv4;
+            self.page = page;
+            self.ref = ref;
+            self.timestamp = timestamp;
+            self.useragent = ua;
 
     def addPageVisit(page, ip, visit_data):
-        split_data = visit_data.split()
-        ref = split_data[2] if len(split_data) > 2 else ""
-        visits.append(Visit(page, ip, "%s %s" % (split_data[0], split_data[1]), ref))
+
+        split_data = re.search(r"(?P<timestamp>\S+ \S+) (?P<ua>\".*\")( (?P<ref>\S+))?", visit_data)
+        if (not split_data or not split_data.group("timestamp") or not split_data.group("ua")):
+            print("Regex matching went wrong with data: %s" % visit_data)
+            return
+
+        ref = split_data.group("ref") if split_data.group("ref") else ""
+        ua = split_data.group("ua")
+        if (any(map(lambda x: x in ua, UA_IGNORE_LIST))): return
+
+        visits.append(Visit(page, ip, split_data.group("timestamp"), ua, ref))
 
     for root_dir, directories, ordinary_files in os.walk(argv[1] if len(argv) > 1 else '.'):
+
         for page in directories:
 
             visitors = []
             page_dir = os.path.join(root_dir, page)
 
             for page_root_dir, page_directories, ips in os.walk(page_dir):
+
                 check_ip = ""
                 try:
                     for ip in ips:
                         check_ip = ip
-                        ip_address(ip)
+                        ip_address(ip) # ipv4 or ipv6
                     visitors.extend(ips)
                 except:
                     print("Not a valid statistics file: %s" % check_ip)
@@ -45,20 +63,17 @@ def parseVisitData(visits):
                     break
 
             for visitor in visitors:
-                file = open(os.path.join(page_dir, visitor))
-                for visit_data in file:
-                    addPageVisit(page, visitor, visit_data)
-                file.close()
 
-parseVisitData(visits)
+                file = open(os.path.join(page_dir, visitor))
+                for visit_data in file: addPageVisit(page, visitor, visit_data)
+                file.close()
 
 def parseGeoData(visits):
 
     # GeoIP parsing requires sorted GeoLite2 data, which is available on MaxMind's website.
     geopath = '.'
     if not (os.path.isfile(FILE_IP2ID) and os.path.isfile(FILE_ID2COUNTRY)):
-        if len(argv) > 1:
-            geopath = argv[1]
+        if len(argv) > 1: geopath = argv[1]
         if not (os.path.isfile(os.path.join(geopath, FILE_IP2ID)) and os.path.isfile(os.path.join(geopath, FILE_ID2COUNTRY))):
             print("GeoLite2 data not found, not parsing country data.")
             return
@@ -66,7 +81,9 @@ def parseGeoData(visits):
     print("Parsing GeoIP country data...")
 
     class GeoIP:
+
         def __init__(self, geolite2_csv_line):
+
             split_data = geolite2_csv_line.split(",")
             ipv4_blocks = split_data[0].split(".")
             self.ipv4_block_1 = ipv4_blocks[0]
@@ -79,7 +96,9 @@ def parseGeoData(visits):
             self.ipv4_max_val = 0
 
     class GeoCountry:
+
         def __init__(self, geolite2_csv_line):
+
             split_data = geolite2_csv_line.split(",")
             self.geoid = split_data[0]
             self.country = split_data[5]
@@ -88,38 +107,42 @@ def parseGeoData(visits):
     with open(os.path.join(geopath, FILE_IP2ID)) as f:
         firstline = True
         for line in f:
-            if not firstline: # Skip the header line.
-                geoips.append(GeoIP(line))
+            # Skip the header line.
+            if not firstline: geoips.append(GeoIP(line))
             firstline = False
 
-    with open(os.path.join(geopath, FILE_ID2COUNTRY)) as f:
-        data_id2country = f.readlines()
+    with open(os.path.join(geopath, FILE_ID2COUNTRY)) as f: data_id2country = f.readlines()
     data_id2country.pop(0) # Pop the header line.
     countries = list(map(GeoCountry, data_id2country))
 
     def ip2value(b1, b2, b3, b4):
+
         return pow(2,24) * int(b1) + pow(2,16) * int(b2) + pow(2,8) * int(b3) + int(b4)
 
     def applyValues(gip):
+
         gip.ipv4_min_val = ip2value(gip.ipv4_block_1, gip.ipv4_block_2, gip.ipv4_block_3, gip.ipv4_block_4)
         gip.ipv4_max_val = int(gip.ipv4_min_val) + pow(2, (32 - int(gip.netmask)) - 1)
 
     def applyCountry(visit):
+
         visit.country = list(filter(lambda c: c.geoid == visit.geoid, countries))[0].country.replace("\n", "").replace("\"", "")
 
     def applyGeoData(visit):
+
         try:
             [vb1, vb2, vb3, vb4] = visit.ipv4.split(".")
         except:
             visit.country = "Unknown"
             return
+
         main_block_matches = list(filter(lambda gip: gip.ipv4_block_1 == vb1, geoips))
         candidates = lambda c: [c] if c else []
         candidates = candidates(next((gip for gip in reversed(main_block_matches) if gip.ipv4_block_2 < vb2), None))
         candidates.extend(list(filter(lambda gip: gip.ipv4_block_2 == vb2, main_block_matches)))
 
         if len(candidates) == 0:
-            print("No candidate found for IP: %s" % visit.ipv4)
+            print("No GeoIP candidate found for IP: %s" % visit.ipv4)
             visit.country = "Unknown"
             return
         if all(map(lambda gip: gip.geoid == candidates[0].geoid, candidates)):
@@ -136,16 +159,13 @@ def parseGeoData(visits):
         if len(match) > 1:
             print("Multiple GeoIP matches for IP %s, something is wrong." % visit.ipv4)
         elif len(match) == 0:
-            print("No match found for IP: %s" % visit.ipv4)
+            print("No GeoIP match found for IP: %s" % visit.ipv4)
             visit.country = "Unknown"
         else:
             visit.geoid = match[0].geoid
             applyCountry(visit)
 
-    for visit in visits:
-        applyGeoData(visit)
-
-parseGeoData(visits)
+    for visit in visits: applyGeoData(visit)
 
 def printStats(visits):
 
@@ -169,9 +189,10 @@ def printStats(visits):
         country_visits = list(filter(lambda v: v.country == country, unique_visitors))
         print("   %50s %s" % ((country + " ").ljust(49, "."), len(country_visits)))
 
-printStats(visits)
+visits = [];
 
 def pageStats(page):
+
     page_visits = [visit for visit in visits if visit.page == page]
     print("\nStatistics for page: %s\n" % page)
     print("   %15s %15s %20s %s" % ("Visitor".ljust(15), "Country".ljust(15), "Timestamp".ljust(20), "Referrer\n"))
@@ -179,11 +200,22 @@ def pageStats(page):
         print("   %15s %15s %20s %s" % (visit.ipv4.ljust(15), visit.country.ljust(15), visit.timestamp.ljust(20), visit.ref))
 
 def showAll():
+
     pages = list(set([visit.page for visit in visits]))
     pages.sort()
     for page in pages:
         pageStats(page)
 
-print("\nType pageStats(\"page name\") to show detailed statistics for a page.")
-print("Type showAll() to show detailed statistics for every page.")
+def parseStats():
 
+    visits = [];
+    parseVisitData(visits)
+    parseGeoData(visits)
+    printStats(visits)
+
+parseStats()
+
+print("\nAvailable statistics parsing functions:")
+print("pageStats(\"page name\") - show detailed statistics for a page")
+print("showAll() - show detailed statistics for every page")
+print("parseStats() - parse statistics again (e.g. if UA_IGNORE_LIST has been modified)")
