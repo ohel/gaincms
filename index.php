@@ -81,7 +81,7 @@ if (file_exists(DIR_STATS_BASE) && isset($stats_dir) && isset($_SERVER["REMOTE_A
     # Write only a maximum of 200 characters user agent.
     fwrite($stats_file,
         date("Y-m-d H:i:s") .
-        " \"" . (isset($_SERVER["HTTP_USER_AGENT"]) ? $_SERVER["HTTP_USER_AGENT"][:200] : "Unknown") . "\"" .
+        " \"" . (isset($_SERVER["HTTP_USER_AGENT"]) ? substr($_SERVER["HTTP_USER_AGENT"], 0, 200) : "Unknown") . "\"" .
         (isset($_SERVER["HTTP_REFERER"]) ? " " . $_SERVER["HTTP_REFERER"] : "") .
         "\n");
     fclose($stats_file);
