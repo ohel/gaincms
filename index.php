@@ -4,6 +4,7 @@
 define("CONFIG_AUTHOR", "Site Author");
 define("CONFIG_GITHUB_USER", "user");
 define("CONFIG_PAGINATION", 8); # How many posts to show per blog page.
+define("CONFIG_STATS_IP_IGNORE_FILE", "stats_ip_ignore.txt"); # Skip the IPs found in this file from visitor statistics.
 define("CONFIG_TITLE", "Site Title");
 define("CONFIG_URL_BASE", "http://10.0.1.2");
 define("CONFIG_URL_DISQUS", "mysite.disqus.com");
@@ -67,13 +68,19 @@ require DIR_SITE . $page . ".php";
 
 # Visitor statistics logging.
 if (file_exists(DIR_STATS_BASE) && isset($stats_dir) && isset($_SERVER["REMOTE_ADDR"])) {
+
+    if (file_exists(CONFIG_STATS_IP_IGNORE_FILE) &&
+        strpos(file_get_contents(CONFIG_STATS_IP_IGNORE_FILE), $_SERVER["REMOTE_ADDR"]) !== false) {
+        exit();
+    }
+
     if (!file_exists(DIR_STATS_BASE . $stats_dir)) {
         mkdir(DIR_STATS_BASE . $stats_dir, 0755, true);
     }
     $stats_file = fopen(DIR_STATS_BASE . $stats_dir . "/" . $_SERVER["REMOTE_ADDR"], "a");
     fwrite($stats_file,
         date("Y-m-d H:i:s") .
-        (isset($_SERVER["HTTP_USER_AGENT"]) ? " \"" . $_SERVER["HTTP_USER_AGENT"] . "\"": "Unknown") .
+        " \"" . (isset($_SERVER["HTTP_USER_AGENT"]) ? $_SERVER["HTTP_USER_AGENT"] : "Unknown") . "\"" .
         (isset($_SERVER["HTTP_REFERER"]) ? " " . $_SERVER["HTTP_REFERER"] : "") .
         "\n");
     fclose($stats_file);
