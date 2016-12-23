@@ -15,6 +15,9 @@ GainCMS is a simple PHP blog engine for generic websites and blogs, influenced b
 * Multiple blog support
 * Simple visitor statistics
 
+Sample screenshot from the original author's blog:
+![Screenshot](screenshot.jpg)
+
 ## Structure explained
 
 Below is a rough diagram of GainCMS structure, where + denotes a directory and - denotes a file. The first line of the diagram is the root directory.
