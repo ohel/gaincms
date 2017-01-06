@@ -84,8 +84,8 @@ Each blog article consists of the article itself in *article.md*, a short intro 
 The paths and glob patterns are customizable in *index.php*.
 
 There are two special tags to roughly control the layout of the pictures within the article:
-* *<br>* inside an article paragraph will perform a clear for floating images.
-* Emphasis using asterisks around an image will make the image full width. In Markdown, you would write `*[![Alt text](jpg "Description.")](thumb.jpg)*`.
+* `<br>` inside an article paragraph will perform a clear for floating images.
+* Emphasis using asterisks around an image will make the image full width. In Markdown, you would write `*[![Alt text](jpg "Description.")](thumb.jpg)*`. This is useful for impressive panorama images.
 
 ## Visitor statistics
 
