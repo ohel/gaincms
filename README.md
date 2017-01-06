@@ -18,6 +18,20 @@ GainCMS is a simple PHP blog engine for generic websites and blogs, influenced b
 Sample screenshot from the original author's blog:
 ![Screenshot](screenshot.jpg)
 
+## Requirements and installation
+
+Required software:
+
+* **Apache** 2.2.16 or newer with **mod_rewrite** for *.htaccess* routing to work correctly.
+* **PHP** whose minimum version in theory should be 4.3, but it hasn't been tested. Development's been done mainly on PHP 5.5 and 7.0.
+* For statistics parsing (optional), Python 3 is required.
+
+To get things running:
+
+1. Install required server software.
+2. Copy or clone the contents of this repository to your web server root directory (usually */var/www*).
+3. Configure the `CONFIG_URL_BASE` variable (and optionally the `CONFIG_GITHUB_USER` and `CONFIG_URL_DISQUS` variables) in *index.php*.
+
 ## Structure explained
 
 Below is a rough diagram of GainCMS structure, where + denotes a directory and - denotes a file. The first line of the diagram is the root directory.
