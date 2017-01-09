@@ -22,15 +22,19 @@ Sample screenshot from the original author's blog:
 
 Required software:
 
-* **Apache** 2.2.16 or newer with **mod_rewrite** for *.htaccess* routing to work correctly.
+* Either **Apache** or **nginx**:
+    * Apache 2.2.16 or newer with rewrite module.
+    * nginx 1.10 tested, probably works with earlier versions too.
 * **PHP** 4.3 or newer.
 * For statistics parsing (optional), Python 3 is required.
 
 To get things running:
 
-1. Install required software.
-2. Copy the contents of this repository to your web server root directory (usually */var/www*).
+1. Install required software. Refer to [Web server configuration](#web-server-configuration) below for more instructions.
+2. Copy the contents of the repository into your web server root directory (e.g. */var/www*).
 3. Configure the `CONFIG_URL_BASE` variable (and optionally the `CONFIG_GITHUB_USER` and `CONFIG_URL_DISQUS` variables) in *index.php*.
+
+The site should now work correctly. Check file permissions if you get any errors.
 
 ## Structure explained
 
@@ -90,6 +94,78 @@ There are two special tags to roughly control the layout of the pictures within 
 ## Visitor statistics
 
 GainCMS has its own simple visitor statistics support so as not to give too much information to big corporations. To enable the visitor statistic, simply create the directory *DIR_STATS_BASE*, defined in *index.php*. Statistics may be parsed with the Python script *parse_stats.py*. You may also ignore IP addresses from the statistics: see `CONFIG_STATS_IP_IGNORE_FILE` in *index.php*. List one IP per line in the file. The addresses mentioned there won't be logged.
+
+## Web server configuration
+
+### Apache
+
+Enable the rewrite module and PHP, either by module or php-fpm.
+
+### nginx
+
+The commands shown here must be run with elevated privileges (root).
+
+1. For secure installation, it is generally recommended to create a new user and a group for the site:
+```
+groupadd gaincms
+useradd -g gaincms gaincms
+```
+2. Create the php-fpm pool config */etc/php/7.0/fpm/pool.d/gaincms.conf* (location may vary):
+```
+[gaincms]
+user = gaincms
+group = gaincms
+listen = /run/php/php7.0-fpm-gaincms.sock
+listen.owner = www-data
+listen.group = www-data
+pm = dynamic
+pm.max_children = 5
+pm.start_servers = 2
+pm.min_spare_servers = 1
+pm.max_spare_servers = 3
+chdir = /
+php_admin_value[disable_functions] = allow_url_fopen, exec, passthru, popen, proc_open, shell_exec, show_source, system
+```
+3. Create the nginx site */etc/nginx/sites-available/gaincms*:
+```
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    root /var/www;
+    index index.php;
+    autoindex off;
+    server_name 10.0.1.2;
+
+    location / {
+        try_files $uri /index.php$is_args$args;
+    }
+
+    location ~ ^/index\.php(/|$) {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php7.0-fpm-gaincms.sock;
+
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param HTTPS off;
+
+        internal;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}
+```
+4. Edit the `server_name` to something more reasonable, set `root` to your web server root directory, and enable the site by symlinking:
+```
+ln -s /etc/nginx/sites-available/gaincms /etc/nginx/sites-enabled/
+```
+5. Finally, restart the *php-fpm* and *nginx* services; e.g. for System V init scripts:
+```
+service php7.0-fpm restart
+service nginx restart
+```
 
 ## Project goals by the original author
 
