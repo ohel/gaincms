@@ -24,7 +24,7 @@ Required software:
 
 * Either **Apache** or **nginx**:
     * Apache 2.2.16 or newer with rewrite module.
-    * nginx 1.10 tested, probably works with earlier versions too.
+    * nginx 1.10 tested, probably works also with earlier versions.
 * **PHP** 4.3 or newer.
 * For statistics parsing (optional), Python 3 is required.
 
@@ -105,12 +105,12 @@ Enable the rewrite module and PHP, either by module or php-fpm.
 
 The commands shown here must be run with elevated privileges (root).
 
-1. For secure installation, it is generally recommended to create a new user and a group for the site:
+* For secure installation, it is generally recommended to create a new user and a group for the site:
 ```
 groupadd gaincms
 useradd -g gaincms gaincms
 ```
-2. Create the php-fpm pool config */etc/php/7.0/fpm/pool.d/gaincms.conf* (location may vary):
+* Create the php-fpm pool config */etc/php/7.0/fpm/pool.d/gaincms.conf* (location may vary):
 ```
 [gaincms]
 user = gaincms
@@ -126,7 +126,7 @@ pm.max_spare_servers = 3
 chdir = /
 php_admin_value[disable_functions] = allow_url_fopen, exec, passthru, popen, proc_open, shell_exec, show_source, system
 ```
-3. Create the nginx site */etc/nginx/sites-available/gaincms*:
+* Create the nginx site */etc/nginx/sites-available/gaincms*:
 ```
 server {
     listen 80 default_server;
@@ -157,11 +157,11 @@ server {
     }
 }
 ```
-4. Edit the `server_name` to something more reasonable, set `root` to your web server root directory, and enable the site by symlinking:
+* Edit the `server_name` to something more reasonable, set `root` to your web server root directory, and enable the site by symlinking:
 ```
 ln -s /etc/nginx/sites-available/gaincms /etc/nginx/sites-enabled/
 ```
-5. Finally, restart the *php-fpm* and *nginx* services; e.g. for System V init scripts:
+* Finally, restart the *php-fpm* and *nginx* services; e.g. for System V init scripts:
 ```
 service php7.0-fpm restart
 service nginx restart
