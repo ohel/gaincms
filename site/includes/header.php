@@ -1,4 +1,11 @@
+<?php
+# Copyright 2015-2017 Olli Helin
+# This file is part of GainCMS, a free software released under the terms of the
+# GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
+?>
 <!DOCTYPE html>
+<!-- This site was created using GainCMS, a free software released under the
+terms of the GPL-3.0 license. See more at https://github.com/ohel/gaincms -->
 <html lang="en">
 <head>
     <meta charset="utf-8">

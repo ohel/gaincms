@@ -1,4 +1,10 @@
-<?php # Share buttons generated using https://simplesharingbuttons.com/
+<?php
+# Copyright 2015-2017 Olli Helin
+# This file is part of GainCMS, a free software released under the terms of the
+# GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
+
+# Share buttons generated using https://simplesharingbuttons.com/
+
 if (isset($_SERVER["HTTPS"]) && ($_SERVER["HTTPS"] == "on" || $_SERVER["HTTPS"] == 1) ||
     isset($_SERVER["HTTP_X_FORWARDED_PROTO"]) && $_SERVER["HTTP_X_FORWARDED_PROTO"] == "https") {
     $protocol = "https://";

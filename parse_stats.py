@@ -1,4 +1,9 @@
 #!/usr/bin/python3
+
+# Copyright 2016-2017 Olli Helin
+# This file is part of GainCMS, a free software released under the terms of the
+# GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
+
 import os, re
 from ipaddress import ip_address # Requires Python 3.3 or newer.
 from sys import argv

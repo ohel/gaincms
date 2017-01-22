@@ -173,4 +173,4 @@ I made this CMS to have a simple yet flexible platform to write about things I'v
 
 ## License
 
-GainCMS uses Parsedown and Bootstrap, which are [MIT](http://opensource.org/licenses/MIT) licensed. The social media share icons are [CC](https://creativecommons.org/licenses/by/3.0/) by [Aha-Soft Team](http://www.aha-soft.com/free-icons/). GainCMS itself is [GPL-3.0](http://www.gnu.org/licenses/gpl-3.0.txt).
+GainCMS is released under the terms of the [GNU General Public License v3](http://www.gnu.org/licenses/gpl-3.0.txt). GainCMS uses Parsedown and Bootstrap, which are [MIT](http://opensource.org/licenses/MIT) licensed. The social media share icons are [CC](https://creativecommons.org/licenses/by/3.0/) by [Aha-Soft Team](http://www.aha-soft.com/free-icons/). By default all the articles published with GainCMS have the [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/). Edit the file *post.php* to change that.
