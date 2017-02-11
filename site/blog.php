@@ -142,6 +142,8 @@ $stats_dir = $blog_url;
         </div>
     </div>
 
+    <?php include(DIR_INCLUDE . "/poweredby.php");?>
+
 </div>
 
 <?php include(DIR_INCLUDE . "/htmlend.php");?>

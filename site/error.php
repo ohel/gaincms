@@ -16,6 +16,8 @@ include(DIR_INCLUDE . "/header.php");
         <h2>The resource was not found</h2>
     </header>
 
+    <?php include(DIR_INCLUDE . "/poweredby.php");?>
+
 </div>
 
 <?php include(DIR_INCLUDE . "/htmlend.php");?>

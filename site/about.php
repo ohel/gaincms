@@ -42,6 +42,8 @@ $stats_dir = "about";
         </div>
     </div>
 
+    <?php include(DIR_INCLUDE . "/poweredby.php");?>
+
 </div>
 
 <?php include(DIR_INCLUDE . "/htmlend.php");?>

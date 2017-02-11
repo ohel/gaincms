@@ -4,7 +4,7 @@
     GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 */
 
-@import url(//fonts.googleapis.com/css?family=Montserrat:400|Raleway:300,400,600|Inconsolata);
+@import url(//fonts.googleapis.com/css?family=Montserrat:400|Raleway:300);
 
 html {
     height: 100%;
@@ -19,23 +19,28 @@ body {
     padding-top: 50px;
 }
 
-body>div.background {
+body > div.background {
     height: 100%;
     position: fixed;
     width: 100%;
     z-index: -1;
 }
 
-body>div.background-glow {
+body > div.background-glow {
     background-image: radial-gradient(at bottom, rgba(40, 58, 64, 0.6), rgba(0, 0, 0, 0.6));
 }
 
-body>div.container {
+body > div.container {
     background-color: rgba(48, 48, 48, 0.8);
     box-shadow: 0 0 10px 2px #202020;
+    display: -webkit-flex;
+    /* display: flex; /* Mozilla needs this to flex, but IE doesn't work with it at all. */
     height: auto;
     min-height: 100%;
     padding: 40px 0;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    flex-direction: column;
 }
 
 a {
@@ -53,7 +58,7 @@ a:link, a:visited {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: "Montserrat", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+    font-family: Montserrat, Helvetica, Tahoma, Geneva, Arial, sans-serif;
     font-weight: 400;
     margin: 40px 0 10px 0;
     -webkit-transition: all 300ms linear;
@@ -77,7 +82,7 @@ h1 + h2 {
     font-size: 2.5rem;
     line-height: 1;
     text-align: center;
-    font-family: "Raleway", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+    font-family: Raleway, Helvetica, Tahoma, Geneva, Arial, sans-serif;
     font-weight: 300;
 }
 
@@ -144,3 +149,16 @@ header + div.container {
     text-align: justify;
 }
 
+div.flex-filler {
+    -webkit-flex: 1;
+    -moz-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+
+#powered-by, #powered-by > a {
+    color: #909090;
+    font-size: 1.25rem;
+    margin-top: 15px;
+    text-align: center;
+}
