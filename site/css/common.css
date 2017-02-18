@@ -120,23 +120,14 @@ header, section {
 }
 
 /* The normal YouTube embedding size is 560x315 */
-@media only screen and (min-width: 620px) {
-    .video-container {
-        display: inline-block;
+@media only screen and (min-width: 992px) {
+    .video-container, .video-container iframe {
         height: 315px;
-        overflow: hidden;
-        position: relative;
-        vertical-align: middle;
         width: 560px;
     }
 
     .video-container-16-9 {
         padding-bottom: 0px;
-    }
-
-    .video-container iframe {
-        height: 315px;
-        width: 560px;
     }
 }
 
