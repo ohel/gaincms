@@ -38,7 +38,7 @@ The site should now work correctly. Check file permissions if you get any errors
 
 ## Structure explained
 
-Below is a rough diagram of GainCMS structure, where + denotes a directory and - denotes a file. The first line of the diagram is the root directory.
+Below is a rough example diagram of GainCMS structure, where + denotes a directory and - denotes a file. The first line of the diagram is the root directory.
 
 ```
 + /
@@ -73,6 +73,8 @@ Below is a rough diagram of GainCMS structure, where + denotes a directory and -
        \
        |- article.md
 
+    etc.
+
 ```
 
 The *index.php* contains the site configuration and works as a router. It breaks down the URL and shows the correct page (*about.php*, *blog.php* etc.). All requests are directed to *index.php* in *.htaccess*. Adding and removing subpages is therefore straightforward and there's no magic involved. Basically one can write a new page from scratch and it will be shown just like that. The configuration of blogs is also defined here.
@@ -83,7 +85,7 @@ Blog articles go to directories configured in *index.php*, by default to *posts*
 
 ## Articles
 
-Each blog article consists of the article itself in *article.md*, a short intro in *intro.md* (which shown in the blog post listing and social media shares), tags, and other files such as images if referred to in the article. The tags are just empty files whose names should begin with `tag_` by default. Spaces in tags are supported, but underscores are converted to spaces anyway in hyperlinks.
+Each blog article consists of the article itself in *article.md*, a short intro in *intro.md* (which is shown in the blog post listing and social media shares), tags, and other files such as images if referred to in the article. The tags are just empty files whose names should begin with `tag_` by default. Spaces in tags are supported, but underscores are converted to spaces anyway in hyperlinks.
 
 The paths and glob patterns are customizable in *index.php*.
 
