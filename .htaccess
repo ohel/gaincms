@@ -1,6 +1,11 @@
 RewriteEngine On
+
+# Private address for local development and testing.
+RewriteCond %{HTTP_HOST} !^10\.0\.1\.2$
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
 # Setting DirectoryIndex prevents net::ERR_INCOMPLETE_CHUNKED_ENCODING errors on main page.
 DirectoryIndex index.php
 FallbackResource /index.php
 Options -Indexes
-

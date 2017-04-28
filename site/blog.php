@@ -31,7 +31,7 @@ $blog_description = $page_meta[3];
 $page_title = CONFIG_TITLE . " - " . $blog_title;
 
 $og_data = array();
-$og_data["og:url"] = CONFIG_URL_BASE . "/" . preg_replace('%/$%', '', $blog_url);
+$og_data["og:url"] = preg_replace('%/$%', '', $blog_url);
 $og_data["og:type"] = "blog";
 $og_data["og:title"] = $blog_title;
 $og_data["og:description"] = $blog_description;

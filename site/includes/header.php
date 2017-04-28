@@ -23,7 +23,7 @@ terms of the GPL-3.0 license. See more at https://github.com/ohel/gaincms -->
 
     if (isset($og_data) && is_array($og_data)) {
         if (array_key_exists("og:url", $og_data)) { echo '
-    <meta property="og:url" content="' . $og_data["og:url"] . '" />' . "\n"; }
+    <meta property="og:url" content="' . CONFIG_URL_BASE . "/" . $og_data["og:url"] . '" />' . "\n"; }
         if (array_key_exists("og:type", $og_data)) { echo '
     <meta property="og:type" content="' . $og_data["og:type"] . '" />' . "\n"; }
         if (array_key_exists("og:title", $og_data)) { echo '

@@ -9,7 +9,7 @@ define("CONFIG_GITHUB_USER", "user");
 define("CONFIG_PAGINATION", 8); # How many posts to show per blog page.
 define("CONFIG_STATS_IP_IGNORE_FILE", "stats_ip_ignore.txt"); # Skip the IPs found in this file from visitor statistics.
 define("CONFIG_TITLE", "Site Title");
-define("CONFIG_URL_BASE", "http://10.0.1.2");
+define("CONFIG_URL_BASE", "http://10.0.1.2"); # One could prefix URLs with a slash, but this saves the trouble and is needed for Open Graph data anyway.
 define("CONFIG_URL_DISQUS", "mysite.disqus.com");
 define("DIR_FILES", "site/files/");
 define("DIR_INCLUDE", "site/includes/");
@@ -35,9 +35,9 @@ if (empty($url_elements)) {
 } else switch(array_shift($url_elements)) {
 
     case "blog":
-        $page = "blog";
-        $page_meta = array("blog/", "posts/", "Blog", "A tech-oriented blog");
-        $navbarhighlight = "blogs";
+        $page = "blog"; # Which PHP page to load.
+        $page_meta = array("blog/", "posts/", "Blog", "A tech-oriented blog"); # Page-specific metadata.
+        $navbarhighlight = "blogs"; # The navigation bar link with corresponding href will be highlighted.
         break;
     case "posts":
         $page = "post";
@@ -81,7 +81,7 @@ if (file_exists(DIR_STATS_BASE) && isset($stats_dir) && isset($_SERVER["REMOTE_A
         mkdir(DIR_STATS_BASE . $stats_dir, 0755, true);
     }
     $stats_file = fopen(DIR_STATS_BASE . $stats_dir . "/" . $_SERVER["REMOTE_ADDR"], "a");
-    # Write only a maximum of 200 characters user agent.
+    # Write only a maximum of 200 characters for the user agent.
     fwrite($stats_file,
         date("Y-m-d H:i:s") .
         " \"" . (isset($_SERVER["HTTP_USER_AGENT"]) ? substr($_SERVER["HTTP_USER_AGENT"], 0, 200) : "Unknown") . "\"" .

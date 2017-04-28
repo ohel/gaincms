@@ -27,7 +27,7 @@ $description_start = strpos($parsed_intro, "<p>");
 $pre_description = substr($parsed_intro, 0, $description_start);
 preg_match("/<h1>(?P<main>.*)<\/h1>[^<]*(<h2>(?P<sub>.*)<\/h2>)?/", $pre_description, $titles);
 $og_data = array();
-$og_data["og:url"] = CONFIG_URL_BASE . "/" . $blog_dir . $post_dir;
+$og_data["og:url"] = $blog_dir . $post_dir;
 $og_data["og:type"] = "article";
 $og_data["og:title"] = $titles["main"] . (isset($titles["sub"]) ? (": " . $titles["sub"]) : "");
 $og_data["og:description"] = strip_tags(substr($parsed_intro, $description_start));
