@@ -3,15 +3,17 @@ DIY acoustic panels
 
 I made these panels. [![Panels](thumb.jpg)](panels_1.jpg)
 
-Another paragraph. And another image, with title.
+Another paragraph. And another image, with title. We will clear all floating images with a br tag next.
+</br>
 
-![Vuorivilla](panels_2.jpg "Testing image title. This one is a really long one so as to wrap over multiple lines and so on.")
+Next, a couple of pictures.
 
-And the same without a title.
+[![Vuorivilla](thumb_2.jpg "Testing image title. This one is a really long one so as to wrap over multiple lines and so on.")](panels_2.jpg)
 
 ![Vuorivilla](panels_2.jpg)
 
-And the same with a title, with emphasis (a panorama).
+</br>
+Finally the same picture with a title, with emphasis (a panorama).
 
 *![Vuorivilla](panels_2.jpg "This is a really important picture.")*
 

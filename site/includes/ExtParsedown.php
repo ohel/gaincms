@@ -26,9 +26,9 @@ class ExtParsedown extends Parsedown
             return parent::element($Element);
         }
 
-        $markup = '';
+        $markup = '<div class="img-container">';
         if (isset($Element['attributes']['title'])) {
-            $markup = '<figure>';
+            $markup .= '<figure>';
         }
         $markup .= '<img';
 
@@ -47,6 +47,7 @@ class ExtParsedown extends Parsedown
             $markup .= '<figcaption>' . $Element['attributes']['title'] . '</figcaption></figure>';
         }
 
+        $markup .= '</div>';
         return $markup;
     }
 

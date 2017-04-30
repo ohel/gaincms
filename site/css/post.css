@@ -70,41 +70,42 @@ article p:before {
     width: 12em;
 }
 
-article figure {
-    display: table;
+article div.img-container {
     float: right;
-    max-width: 100%;
-    overflow: hidden;
+    margin: 10px 0 10px 20px;
+    text-align: justify;
 }
 
-/* Using display: table-caption should limit the width to that of the image, but it doesn't work for some reason. Have to use a manual <br> in the title for now. */
-article figure figcaption {
+article div.img-container img {
+    border-radius: 5px;
+    margin: 0;
+    max-width: 100%;
+}
+
+article div.img-container figure, article div.img-container figure a {
+    display: table;
+}
+
+article div.img-container figure img {
+    border-radius: 5px 5px 0 0;
+}
+
+article div.img-container figure figcaption {
     border-color: #606060;
     border-radius: 0 0 5px 5px;
     border-style: solid;
     border-width: 1px;
+    caption-side: bottom;
     color: #cccccc;
+    display: table-caption;
     font-style: italic;
-    margin: 0 0 10px 20px;
+    margin: 0;
     padding: 5px 10px;
-}
-
-article img {
-    border-radius: 5px;
-    float: right;
-    margin: 10px 0 10px 20px;
-    max-width: 100%;
-}
-
-article figure img {
-    border-radius: 5px 5px 0 0;
-    display: block;
-    float: none;
-    margin-bottom: 0;
+    width: 100%;
 }
 
 /* A panorama photo. */
-article em>img, article em>a>img {
+article div.img-container em>img, article div.img-container em>a>img {
     display: block;
     left: 50%;
     margin: 4rem 0 0 0;
@@ -114,28 +115,27 @@ article em>img, article em>a>img {
     width: 100%;
 }
 
-article figure em figcaption, article em img:only-child {
-    margin-left: 0;
+article div.img-container figure em {
+    display: table;
     margin-bottom: 4rem;
 }
 
+@media only screen and (min-width: 992px) {
+    article div.img-container figure em {
+        margin-left: -20px;
+    }
+}
+
 @media only screen and (max-width: 991px) {
-    article figure, article p>img, article p>a>img {
+    article div.img-container {
         float: none;
         margin: 2rem 0;
+    }
+    article div.img-container figure, article div.img-container img {
         left: 50%;
         position: relative;
         -webkit-transform: translateX(-50%);
         transform: translateX(-50%);
-    }
-
-    article figure img, article figure figcaption {
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-    article p>img, article p>a>img {
-        display: block;
     }
 }
 
