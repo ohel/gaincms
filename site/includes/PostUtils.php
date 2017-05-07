@@ -5,15 +5,39 @@
 
 namespace PostUtils;
 
-function dateFromPath($postpath) {
+function localizedDateFromPath($path, $lang = "en") {
 
-    $pathelements = explode("/", $postpath);
+    $date = dateFromPath($path);
+
+    if ($lang == "en") {
+        return $date;
+    }
+
+    # Date format is: yyyy-mm-dd
+    $year = substr($date, 0, 4);
+    $month = substr($date, 5, 2);
+    $day = substr($date, 8, 2);
+
+    if ($lang == "fi") {
+        return ltrim($day, '0') . "." . ltrim($month, '0') . "." . $year;
+    } else if ($lang == "fr") {
+        return $day . "/" . $month . "/" . $year;
+    }
+
+    return $date; # Default to yyyy-mm-dd
+
+}
+
+function dateFromPath($path) {
+
+    $pathelements = explode("/", $path);
     $lastelement = end($pathelements);
     if (empty($lastelement)) {
         array_pop($pathelements);
     }
 
-    return substr(end($pathelements), 0, 10); # For example: 2015-01-30
+    # Date format is: yyyy-mm-dd
+    return substr(end($pathelements), 0, 10);
 
 }
 
