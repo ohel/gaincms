@@ -52,7 +52,7 @@ $stats_dir = $blog_url . $post_dir;
                 $postdate = PostUtils\dateFromPath($postpath);
                 $posttags = PostUtils\tagsStringFromPath($postpath, $blog_url);
                 $contents = file_get_contents($postpath . "article.md");
-                echo '<p class="postmetadata">Posted: ' . $postdate . " / Tags: " . $posttags . "</p>";
+                echo '<p class="postmetadata">Posted: ' . $postdate . CONFIG_META_SEPARATOR . "Tags: " . $posttags . "</p>";
                 echo "<article>" . $Parsedown->setLocalPath($postpath)->text($contents) . "</article>";
                 ?>
             </div>

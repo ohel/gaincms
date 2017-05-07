@@ -89,7 +89,7 @@ $stats_dir = $blog_url;
                     # Add link to article and post metadata.
                     echo "<article>" .
                         preg_replace("/<h1>(.*)<\/h1>(\n<h2>.*<\/h2>)?/", '<h1><a href="' . $hrefpath . '">$1</a></h1>$2' .
-                        '<p class="postmetadata">Posted: ' . $postdate . " / Tags: " . $posttags . "</p>",
+                        '<p class="postmetadata">Posted: ' . $postdate . CONFIG_META_SEPARATOR . "Tags: " . $posttags . "</p>",
                         $Parsedown->setLocalPath($postpath)->text($contents), 1) .
                         "</article>";
                 }

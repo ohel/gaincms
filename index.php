@@ -11,6 +11,7 @@ define("CONFIG_STATS_IP_IGNORE_FILE", "stats_ip_ignore.txt"); # Skip the IPs fou
 define("CONFIG_TITLE", "Site Title");
 define("CONFIG_URL_BASE", "http://10.0.1.2"); # One could prefix URLs with a slash, but this saves the trouble and is needed for Open Graph data anyway.
 define("CONFIG_URL_DISQUS", "mysite.disqus.com");
+define("CONFIG_META_SEPARATOR", " | "); # Used to separate displayed post metadata, for example date and tags.
 define("DIR_FILES", "site/files/");
 define("DIR_INCLUDE", "site/includes/");
 define("DIR_POSTS_GLOB", "[^_]*"); # Used to glob blog posts. Begin article directory with underscore to skip it.
