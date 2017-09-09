@@ -7,7 +7,7 @@
 .postlisting h1 {
     clear: both;
     font-size: 2.4rem;
-    letter-spacing: -2px;
+    letter-spacing: -1px;
     margin-top: 0;
 }
 
@@ -30,7 +30,6 @@
 @media only screen and (max-width: 400px) {
     .postlisting h1 {
         font-size: 1.8rem;
-        letter-spacing: -1px;
     }
 
     .postlisting h1 + h2 {
