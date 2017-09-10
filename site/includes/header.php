@@ -22,22 +22,17 @@ terms of the GPL-3.0 license. See more at https://github.com/ohel/gaincms -->
     echo "<title>" . $page_title . "</title>";
 
     if (isset($og_data) && is_array($og_data)) {
-        if (array_key_exists("og:url", $og_data)) { echo '
-    <meta property="og:url" content="' . CONFIG_URL_BASE . "/" . $og_data["og:url"] . '" />' . "\n"; }
-        if (array_key_exists("og:type", $og_data)) { echo '
-    <meta property="og:type" content="' . $og_data["og:type"] . '" />' . "\n"; }
-        if (array_key_exists("og:title", $og_data)) { echo '
-    <meta property="og:title" content="' . $og_data["og:title"] . '" />' . "\n"; }
-        if (array_key_exists("og:description", $og_data)) { echo '
-    <meta property="og:description" content="' . $og_data["og:description"] . '" />' . "\n"; }
-        if (array_key_exists("og:image", $og_data)) { echo '
-    <meta property="og:image" content="' . CONFIG_URL_BASE . "/" . $og_data["og:image"] . '" />' . "\n"; }
+        if (array_key_exists("og:url", $og_data)) { echo '<meta property="og:url" content="' . CONFIG_URL_BASE . "/" . $og_data["og:url"] . '" />' . "\n"; }
+        if (array_key_exists("og:type", $og_data)) { echo '<meta property="og:type" content="' . $og_data["og:type"] . '" />' . "\n"; }
+        if (array_key_exists("og:title", $og_data)) { echo '<meta property="og:title" content="' . $og_data["og:title"] . '" />' . "\n"; }
+        if (array_key_exists("og:description", $og_data)) { echo '<meta property="og:description" content="' . $og_data["og:description"] . '" />' . "\n"; }
+        if (array_key_exists("og:image", $og_data)) { echo '<meta property="og:image" content="' . CONFIG_URL_BASE . "/" . $og_data["og:image"] . '" />' . "\n"; }
     } else {
         echo '
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="' . $page_title . '" />
-    <meta property="og:description" content="' . CONFIG_AUTHOR . "'s website" . '" />' . "\n"; }
-    ?>
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="' . $page_title . '" />
+        <meta property="og:description" content="' . CONFIG_AUTHOR . "'s website" . '" />' . "\n";
+    } ?>
 
     <base href="<?php echo CONFIG_URL_BASE?>">
     <link rel="icon" href="<?php echo DIR_SITE?>graphics/favicon.ico">
