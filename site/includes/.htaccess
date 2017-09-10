@@ -1,1 +1,10 @@
 Deny from all
+<FilesMatch "^bootstrap\.min\.css$">
+Allow from all
+</FilesMatch>
+<FilesMatch "^bootstrap\.min\.js$">
+Allow from all
+</FilesMatch>
+<FilesMatch "^jquery\.min\.js$">
+Allow from all
+</FilesMatch>
