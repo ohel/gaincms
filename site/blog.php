@@ -81,19 +81,33 @@ $stats_dir = $blog_url;
                     $postpath = $posts[$i];
                     $postdate = PostUtils\dateFromPath($postpath);
                     $posttags = PostUtils\tagsStringFromPath($postpath, $blog_url);
-                    if (!file_exists($postpath . "intro.md"))
-                        continue; # Intro does not exist so nothing to show. Note: this is a user error.
 
+                    # If intro does not exist there is nothing to show. Note: this is a user error.
+                    if (!file_exists($postpath . "intro.md")) {
+                        continue;
+                    }
                     $contents = file_get_contents($postpath . "intro.md");
-                    $hrefpath = implode("/", array_slice(explode("/", $postpath), 1, -1)); # Removes first path part and last slash.
-                    # Add link to article and post metadata.
-                    echo "<article>" .
-                        preg_replace("/<h1>(.*)<\/h1>(\n<h2>.*<\/h2>)?/", '<h1><a href="' . $hrefpath . '">$1</a></h1>$2' .
-                        '<p class="postmetadata">Posted: ' . $postdate . CONFIG_META_SEPARATOR . "Tags: " . $posttags . "</p>",
-                        $Parsedown->setLocalPath($postpath)->text($contents), 1) .
-                        "</article>";
-                }
-                ?>
+
+                    # Remove first path part and last slash for proper href URL to the article.
+                    $hrefpath = implode("/", array_slice(explode("/", $postpath), 1, -1));
+
+                    $preview_ext = "";
+                    if (file_exists($postpath . "intro.jpg")) {
+                        $preview_ext = "jpg";
+                    } elseif (file_exists($postpath . "intro.png")) {
+                        $preview_ext = "png";
+                    }
+                    # The element structure is as Parsedown would do it.
+                    $preview_image = empty($preview_ext) ? "" :
+                        ('<p></p><div class="img-container"><img src="' . $postpath . '/intro.' . $preview_ext . '" alt="Preview"></div><p></p>');
+
+                    # Add header links to article and post metadata.
+                    echo "<article>" . preg_replace("/<h1>(.*)<\/h1>(\n<h2>.*<\/h2>)?/",
+                        '<h1><a href="' . $hrefpath . '">$1</a></h1>$2' .
+                        '<p class="postmetadata">Posted: ' . $postdate . CONFIG_META_SEPARATOR . "Tags: " . $posttags . "</p>" .
+                        $preview_image,
+                        $Parsedown->setLocalPath($postpath)->text($contents), 1) . "</article>";
+                } ?>
 
                 <nav class="navbuttoncontainer">
                     <ul class="pagination">
