@@ -3,7 +3,7 @@
 # This file is part of GainCMS, a free software released under the terms of the
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 
-if (count(get_included_files()) == 1) { exit("Direct access not permitted."); }
+if (count(get_included_files()) == 1) { exit("Direct access is not permitted."); }
 
 if (!empty($url_elements) && $url_elements[0] == "tags") {
     array_shift($url_elements);
@@ -29,6 +29,7 @@ $blog_dir = $page_meta[1];
 $blog_title = $page_meta[2];
 $blog_description = $page_meta[3];
 $page_title = CONFIG_TITLE . " - " . $blog_title;
+$page_meta_description = $blog_title . " - " . $blog_description;
 
 $og_data = array();
 $og_data["og:url"] = preg_replace('%/$%', '', $blog_url);

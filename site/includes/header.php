@@ -12,7 +12,11 @@ terms of the GPL-3.0 license. See more at https://github.com/ohel/gaincms -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <meta name="description" content="<?php echo CONFIG_AUTHOR?>'s Website">
+    <?php
+    if (!isset($page_meta_description)) {
+        $page_meta_description = CONFIG_AUTHOR . "'s Website";
+    } ?>
+    <meta name="description" content="<?php echo $page_meta_description?>">
     <meta name="author" content="<?php echo CONFIG_AUTHOR?>">
 
     <?php
@@ -22,16 +26,16 @@ terms of the GPL-3.0 license. See more at https://github.com/ohel/gaincms -->
     echo "<title>" . $page_title . "</title>";
 
     if (isset($og_data) && is_array($og_data)) {
-        if (array_key_exists("og:url", $og_data)) { echo '<meta property="og:url" content="' . CONFIG_URL_BASE . "/" . $og_data["og:url"] . '" />' . "\n"; }
-        if (array_key_exists("og:type", $og_data)) { echo '<meta property="og:type" content="' . $og_data["og:type"] . '" />' . "\n"; }
-        if (array_key_exists("og:title", $og_data)) { echo '<meta property="og:title" content="' . $og_data["og:title"] . '" />' . "\n"; }
-        if (array_key_exists("og:description", $og_data)) { echo '<meta property="og:description" content="' . $og_data["og:description"] . '" />' . "\n"; }
-        if (array_key_exists("og:image", $og_data)) { echo '<meta property="og:image" content="' . CONFIG_URL_BASE . "/" . $og_data["og:image"] . '" />' . "\n"; }
+        if (array_key_exists("og:url", $og_data)) { echo '<meta property="og:url" content="' . CONFIG_URL_BASE . "/" . $og_data["og:url"] . '" />'; }
+        if (array_key_exists("og:type", $og_data)) { echo '<meta property="og:type" content="' . $og_data["og:type"] . '" />'; }
+        if (array_key_exists("og:title", $og_data)) { echo '<meta property="og:title" content="' . $og_data["og:title"] . '" />'; }
+        if (array_key_exists("og:description", $og_data)) { echo '<meta property="og:description" content="' . $og_data["og:description"] . '" />'; }
+        if (array_key_exists("og:image", $og_data)) { echo '<meta property="og:image" content="' . CONFIG_URL_BASE . "/" . $og_data["og:image"] . '" />'; }
     } else {
         echo '
         <meta property="og:type" content="website" />
         <meta property="og:title" content="' . $page_title . '" />
-        <meta property="og:description" content="' . CONFIG_AUTHOR . "'s website" . '" />' . "\n";
+        <meta property="og:description" content="' . $page_meta_description . '" />';
     } ?>
 
     <base href="<?php echo CONFIG_URL_BASE?>">

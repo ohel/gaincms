@@ -3,7 +3,7 @@
 # This file is part of GainCMS, a free software released under the terms of the
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 
-if (count(get_included_files()) == 1) { exit("Direct access not permitted."); }
+if (count(get_included_files()) == 1) { exit("Direct access is not permitted."); }
 
 # This page does not have any subpages.
 if (!empty($url_elements)) {
@@ -11,7 +11,8 @@ if (!empty($url_elements)) {
     exit();
 }
 
-$page_title = CONFIG_AUTHOR . "'s website - Projects";
+$page_title = CONFIG_TITLE . " - Projects";
+$page_meta_description = "Information about various projects made by " . CONFIG_AUTHOR . ", the author of the website.";
 include(DIR_INCLUDE . "/header.php");
 
 $stats_dir = "projects";

@@ -3,7 +3,7 @@
 # This file is part of GainCMS, a free software released under the terms of the
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 
-if (count(get_included_files()) == 1) { exit("Direct access not permitted."); }
+if (count(get_included_files()) == 1) { exit("Direct access is not permitted."); }
 
 header($_SERVER['SERVER_PROTOCOL'] . " 404 Not Found");
 include(DIR_INCLUDE . "/header.php");

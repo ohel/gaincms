@@ -3,10 +3,11 @@
 # This file is part of GainCMS, a free software released under the terms of the
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 
-if (count(get_included_files()) == 1) { exit("Direct access not permitted."); }
+if (count(get_included_files()) == 1) { exit("Direct access is not permitted."); }
 
 $blog_url = $page_meta[0];
 $blog_dir = $page_meta[1];
+$blog_title = $page_meta[2];
 
 # This page requires a valid subpage.
 if (count($url_elements) != 1 || !file_exists(DIR_SITE . $blog_dir . $url_elements[0])) {
@@ -34,7 +35,8 @@ $og_data["og:description"] = strip_tags(substr($parsed_intro, $description_start
 if (file_exists($postpath . "og_image.jpg")) {
     $og_data["og:image"] = $postpath . "og_image.jpg";
 }
-$page_title = CONFIG_TITLE . " - " . $og_data["og:title"];
+$page_title = CONFIG_TITLE . " - " . $blog_title . " - " . $og_data["og:title"];
+$page_meta_description = $blog_title . " article - " . $og_data["og:title"];
 
 array_push($extra_styles, "post");
 include(DIR_INCLUDE . "/header.php");

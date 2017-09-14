@@ -29,6 +29,9 @@ while (empty($lastelem)) {
 }
 
 # Routing.
+# $page: Which PHP page to load.
+# $page_meta: Page-specific metadata.
+# $navbarhighlight: The navigation bar link with corresponding href will be highlighted.
 if (empty($url_elements)) {
 
     $page = "home";
@@ -36,23 +39,17 @@ if (empty($url_elements)) {
 } else switch(array_shift($url_elements)) {
 
     case "blog":
-        $page = "blog"; # Which PHP page to load.
-        $page_meta = array("blog/", "posts/", "Blog", "A tech-oriented blog"); # Page-specific metadata.
-        $navbarhighlight = "blogs"; # The navigation bar link with corresponding href will be highlighted.
-        break;
+        $page = "blog";
     case "posts":
-        $page = "post";
-        $page_meta = array("blog/", "posts/");
+        isset($page) || $page = "post";
+        $page_meta = array("blog/", "posts/", "Blog", "A tech-oriented blog");
         $navbarhighlight = "blogs";
         break;
     case "blog2":
         $page = "blog";
-        $page_meta = array("blog2/", "posts2/", "Blog 2", "Another blog");
-        $navbarhighlight = "blogs";
-        break;
     case "posts2":
-        $page = "post";
-        $page_meta = array("blog2/", "posts2/");
+        isset($page) || $page = "post";
+        $page_meta = array("blog2/", "posts2/", "Blog 2", "Another blog");
         $navbarhighlight = "blogs";
         break;
     case "projects":
