@@ -4,20 +4,20 @@
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 
 # Site configuration and paths.
-define("CONFIG_AUTHOR", "Site Author");
-define("CONFIG_GITHUB_USER", "user");
+define("CONFIG_AUTHOR", "Site Author"); # Your name.
+define("CONFIG_GITHUB_USER", "user"); # Your GitHub user name, for retrieving projects.
+define("CONFIG_META_SEPARATOR", " | "); # Used to separate displayed post metadata, for example date and tags.
 define("CONFIG_PAGINATION", 8); # How many posts to show per blog page.
 define("CONFIG_STATS_IP_IGNORE_FILE", "stats_ip_ignore.txt"); # Skip the IPs found in this file from visitor statistics.
-define("CONFIG_TITLE", "Site Title");
+define("CONFIG_TITLE", "Site Title"); # Name of your website.
 define("CONFIG_URL_BASE", "http://10.0.1.2"); # One could prefix URLs with a slash, but this saves the trouble and is needed for Open Graph data anyway.
-define("CONFIG_URL_DISQUS", "mysite.disqus.com");
-define("CONFIG_META_SEPARATOR", " | "); # Used to separate displayed post metadata, for example date and tags.
-define("DIR_FILES", "site/files/");
-define("DIR_INCLUDE", "site/includes/");
+define("CONFIG_URL_DISQUS", "mysite.disqus.com"); # URL for Disqus comments.
+define("DIR_FILES", "site/files/"); # Location of miscellaneous files (e.g. downloadable documents). Optional, use where it feels handy.
+define("DIR_INCLUDE", "site/includes/"); # Location of includable code files.
 define("DIR_POSTS_GLOB", "[^_]*"); # Used to glob blog posts. Begin article directory with underscore to skip it.
-define("DIR_SITE", "site/");
-define("DIR_STATS_BASE", "site_stats/");
-define("DIR_TAG_PREFIX", "tag_");
+define("DIR_SITE", "site/"); # Location of site data. You may use a subdirectory to keep the root more clean.
+define("DIR_STATS_BASE", "site_stats/"); # If collecting visitor statistics, the location to store them.
+define("DIR_TAG_PREFIX", "tag_"); # Prefix used to identify blog article tags.
 
 $url_elements = explode('/', ltrim($_SERVER["REQUEST_URI"], "/"));
 
