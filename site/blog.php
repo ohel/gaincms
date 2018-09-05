@@ -98,9 +98,10 @@ $stats_dir = $blog_url;
                     } elseif (file_exists($postpath . "intro.png")) {
                         $preview_ext = "png";
                     }
-                    # The element structure is as Parsedown would do it.
+                    # Except for the link, the element structure is as Parsedown would do it.
                     $preview_image = empty($preview_ext) ? "" :
-                        ('<p></p><div class="img-container"><img src="' . $postpath . '/intro.' . $preview_ext . '" alt="Preview"></div><p></p>');
+                        ('<p></p><a href="' . $hrefpath . '"><div class="img-container"><img src="' .
+                        $postpath . '/intro.' . $preview_ext . '" alt="Preview"></div></a><p></p>');
 
                     # Add header links to article and post metadata.
                     echo "<article>" . preg_replace("/<h1>(.*)<\/h1>(\n<h2>.*<\/h2>)?/",
