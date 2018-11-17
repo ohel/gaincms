@@ -19,7 +19,10 @@ define("DIR_SITE", "site/"); # Location of site data. You may use a subdirectory
 define("DIR_STATS_BASE", "site_stats/"); # If collecting visitor statistics, the location to store them.
 define("DIR_TAG_PREFIX", "tag_"); # Prefix used to identify blog article tags.
 
-$url_elements = explode('/', ltrim($_SERVER["REQUEST_URI"], "/"));
+# We don't expect any query parameters so strip them.
+# Query parameters are not an error either, because for example social media sites sometimes add some parameters to links.
+$query_stripped_url = explode('?', $_SERVER["REQUEST_URI"])[0];
+$url_elements = explode('/', ltrim($query_stripped_url, "/"));
 
 # Remove trailing slashes from url elements.
 $lastelem = end($url_elements);
