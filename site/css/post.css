@@ -1,5 +1,5 @@
 /*
-    Copyright 2015-2017 Olli Helin
+    Copyright 2015-2018 Olli Helin
     This file is part of GainCMS, a free software released under the terms of the
     GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 */
@@ -104,26 +104,18 @@ article div.img-container figure figcaption {
     width: 100%;
 }
 
-/* A panorama photo. */
-article div.img-container em>img, article div.img-container em>a>img {
-    display: block;
-    left: 50%;
-    margin: 4rem 0 0 0;
+/* Use <div class="prepare-img-highlight"></div> before an image
+ * to make it stand out. Good for panorama images and such. */
+article div.prepare-img-highlight+p+div.img-container {
+    float: none;
+    margin: 1em 0;
+}
+
+article div.prepare-img-highlight+p+div.img-container>figure {
     position: relative;
+    left: 50%;
     transform: translateX(-50%);
     -webkit-transform: translateX(-50%);
-    width: 100%;
-}
-
-article div.img-container figure em {
-    display: table;
-    margin-bottom: 4rem;
-}
-
-@media only screen and (min-width: 992px) {
-    article div.img-container figure em {
-        margin-left: -20px;
-    }
 }
 
 @media only screen and (max-width: 991px) {
