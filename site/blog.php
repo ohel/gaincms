@@ -1,5 +1,5 @@
 <?php
-# Copyright 2015-2017 Olli Helin
+# Copyright 2015-2018 Olli Helin
 # This file is part of GainCMS, a free software released under the terms of the
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -58,10 +58,10 @@ $stats_dir = $blog_url;
             <div class="col-sm-7 col-sm-offset-1 col-lg-6 col-lg-offset-2 postlisting">
                 <?php
                 $Parsedown = new ExtParsedown();
-                $posts = array_reverse(glob(DIR_SITE . $blog_dir . DIR_POSTS_GLOB, GLOB_ONLYDIR|GLOB_MARK));
+                $posts = PostUtils\getPostsByPath($blog_dir);
                 $postcount = count($posts);
 
-                # Post filtering by tag. This method of globbing all tags might be slow if there are hundreds of blog posts and a lot of readers.
+                # Get all tags and filter posts by tag. This method of globbing all tags might be slow if there are hundreds of blog posts and a lot of readers.
                 $tags = array();
                 for ($i = 0; $i < $postcount; $i++) {
                     $tags = array_merge($tags, array_map(function($tagpath) { return basename($tagpath); }, glob($posts[$i] . DIR_TAG_PREFIX . "*", GLOB_NOSORT)));
@@ -69,9 +69,8 @@ $stats_dir = $blog_url;
                         unset($posts[$i]);
                     }
                 }
-
-                $tags = array_unique($tags);
                 asort($tags);
+                $tags = PostUtils\filterLinksFromTags(array_unique($tags), $blog_url);
 
                 if (isset($filter)) {
                     $posts = array_values($posts);
@@ -146,7 +145,6 @@ $stats_dir = $blog_url;
                     <h4>Filter by tag</h4>
                     <ul class="list-unstyled">
                         <?php
-                        $tags = PostUtils\filterLinksFromTags($tags, $blog_url);
                         foreach ($tags as $tag) {
                             echo "<li>" . $tag . "</li>";
                         }

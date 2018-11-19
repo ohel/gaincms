@@ -60,6 +60,7 @@ Below is a rough example diagram of GainCMS structure, where + denotes a directo
    |
    |+ posts/
      \
+     |- _sort_override
      |+ 2015-08-26_example/
      | \
      | |- article.md
@@ -83,6 +84,8 @@ In the *includes* directory there are the common header (which also contains the
 
 Blog articles go to directories configured in *index.php*, by default to *posts*. Every article is contained in its own subdirectory, whose name must begin with a date in the `YYYY-MM-DD` format, with the exception of unpublished articles. Their directories begin with an underscore by default. The directory name of an article is also used as the ID for Disqus comments.
 
+Post order can be forced (for pinned posts, or posts with the same date) using *CONFIG_SORT_FILE*. The format for the file is two columns: left column post is "more recent" than the right column post. If right column post is "\*", the left column post is essentially pinned.
+
 ## Articles
 
 Each blog article consists of the article itself in *article.md*, a short intro in *intro.md* (which is shown in the blog post listing and social media shares), tags, and other files such as images if referred to in the article. The tags are just empty files whose names should begin with `tag_` by default. Spaces in tags are supported, but underscores are converted to spaces anyway in hyperlinks.
@@ -91,7 +94,7 @@ The paths and glob patterns are customizable in *index.php*.
 
 There are two special tags to roughly control the layout of the pictures within the article:
 * `<br>` inside an article paragraph will perform a clear for floating images.
-* Emphasis using asterisks around an image will make the image full width. In Markdown, you would write `*[![Alt text](jpg "Description.")](thumb.jpg)*`. This is useful for impressive panorama images.
+* `<div class="img-highlight"></div>` before an image will make it centered and stand out; useful for panorama images.
 
 ## Visitor statistics
 

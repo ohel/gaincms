@@ -104,14 +104,18 @@ article div.img-container figure figcaption {
     width: 100%;
 }
 
-/* Use <div class="prepare-img-highlight"></div> before an image
+/* Use <div class="img-highlight"></div> before an image
  * to make it stand out. Good for panorama images and such. */
-article div.prepare-img-highlight+p+div.img-container {
-    float: none;
-    margin: 1em 0;
+article div.img-highlight,div.img-highlight+p {
+    display: none;
 }
 
-article div.prepare-img-highlight+p+div.img-container>figure {
+article div.img-highlight+p+div.img-container {
+    float: none;
+    margin: 1.5em 0;
+}
+
+article div.img-highlight+p+div.img-container>figure {
     position: relative;
     left: 50%;
     transform: translateX(-50%);
