@@ -1,5 +1,5 @@
 <?php
-# Copyright 2015-2017 Olli Helin
+# Copyright 2015-2018 Olli Helin
 # This file is part of GainCMS, a free software released under the terms of the
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -13,7 +13,7 @@ if (!empty($url_elements)) {
 
 $page_title = CONFIG_TITLE . " - Projects";
 $page_meta_description = "Information about various projects made by " . CONFIG_AUTHOR . ", the author of the website.";
-include(DIR_INCLUDE . "/header.php");
+require DIR_INCLUDE . "/header.php";
 
 $stats_dir = "projects";
 ?>
@@ -34,7 +34,7 @@ $stats_dir = "projects";
         </div>
     </div>
 
-    <?php include(DIR_INCLUDE . "/poweredby.php");?>
+    <?php require DIR_INCLUDE . "/poweredby.php";?>
 
 </div>
 
@@ -51,4 +51,4 @@ $stats_dir = "projects";
     });
 </script>
 
-<?php include(DIR_INCLUDE . "/htmlend.php");?>
+<?php require DIR_INCLUDE . "/htmlend.php";?>

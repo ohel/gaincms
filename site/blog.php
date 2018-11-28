@@ -38,9 +38,9 @@ $og_data["og:title"] = $blog_title;
 $og_data["og:description"] = $blog_description;
 
 array_push($extra_styles, "blog");
-include(DIR_INCLUDE . "/header.php");
-include(DIR_INCLUDE . "/ExtParsedown.php");
-include(DIR_INCLUDE . "/PostUtils.php");
+require DIR_INCLUDE . "/header.php";
+require DIR_INCLUDE . "/ExtParsedown.php";
+require DIR_INCLUDE . "/PostUtils.php";
 
 $stats_dir = $blog_url;
 ?>
@@ -156,8 +156,8 @@ $stats_dir = $blog_url;
         </div>
     </div>
 
-    <?php include(DIR_INCLUDE . "/poweredby.php");?>
+    <?php require DIR_INCLUDE . "/poweredby.php";?>
 
 </div>
 
-<?php include(DIR_INCLUDE . "/htmlend.php");?>
+<?php require DIR_INCLUDE . "/htmlend.php";?>

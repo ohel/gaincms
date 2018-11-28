@@ -1,5 +1,5 @@
 <?php
-# Copyright 2015-2017 Olli Helin
+# Copyright 2015-2018 Olli Helin
 # This file is part of GainCMS, a free software released under the terms of the
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -71,25 +71,6 @@ if (empty($url_elements)) {
 $extra_styles = array();
 require DIR_SITE . $page . ".php";
 
-# Visitor statistics logging.
-if (file_exists(DIR_STATS_BASE) && isset($stats_dir) && isset($_SERVER["REMOTE_ADDR"])) {
-
-    if (file_exists(CONFIG_STATS_IP_IGNORE_FILE) &&
-        strpos(file_get_contents(CONFIG_STATS_IP_IGNORE_FILE), $_SERVER["REMOTE_ADDR"]) !== false) {
-        exit();
-    }
-
-    if (!file_exists(DIR_STATS_BASE . $stats_dir)) {
-        mkdir(DIR_STATS_BASE . $stats_dir, 0755, true);
-    }
-    $stats_file = fopen(DIR_STATS_BASE . $stats_dir . "/" . $_SERVER["REMOTE_ADDR"], "a");
-    # Write only a maximum of 200 characters for the user agent.
-    fwrite($stats_file,
-        date("Y-m-d H:i:s") .
-        " \"" . (isset($_SERVER["HTTP_USER_AGENT"]) ? substr($_SERVER["HTTP_USER_AGENT"], 0, 200) : "Unknown") . "\"" .
-        (isset($_SERVER["HTTP_REFERER"]) ? " " . $_SERVER["HTTP_REFERER"] : "") .
-        "\n");
-    fclose($stats_file);
-}
+include DIR_INCLUDE . "/visitorstats.php";
 
 ?>

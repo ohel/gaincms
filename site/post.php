@@ -1,5 +1,5 @@
 <?php
-# Copyright 2015-2017 Olli Helin
+# Copyright 2015-2018 Olli Helin
 # This file is part of GainCMS, a free software released under the terms of the
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -18,7 +18,7 @@ if (count($url_elements) != 1 || !file_exists(DIR_SITE . $blog_dir . $url_elemen
 $post_dir = $url_elements[0];
 $postpath = DIR_SITE . $blog_dir . $post_dir . "/";
 
-include(DIR_INCLUDE . "/ExtParsedown.php");
+require DIR_INCLUDE . "/ExtParsedown.php";
 $Parsedown = new ExtParsedown();
 $intro_contents = file_get_contents($postpath . "intro.md");
 $parsed_intro = $Parsedown->setLocalPath($postpath)->text($intro_contents);
@@ -39,8 +39,8 @@ $page_title = CONFIG_TITLE . " - " . $blog_title . " - " . $og_data["og:title"];
 $page_meta_description = $blog_title . " article - " . $og_data["og:title"];
 
 array_push($extra_styles, "post");
-include(DIR_INCLUDE . "/header.php");
-include(DIR_INCLUDE . "/PostUtils.php");
+require DIR_INCLUDE . "/header.php";
+require DIR_INCLUDE . "/PostUtils.php";
 
 $stats_dir = $blog_url . $post_dir;
 ?>
@@ -80,17 +80,17 @@ $stats_dir = $blog_url . $post_dir;
     <div class="to-top-button-container"><a onclick="scrollToTop()" title="To top">▲</a></div>
 
     <?php
-    include(DIR_INCLUDE . "/someshare.php");
+    require DIR_INCLUDE . "/someshare.php";
     $comments_id = $post_dir;
-    include(DIR_INCLUDE . "/comments.php");
+    require DIR_INCLUDE . "/comments.php";
     ?>
 
     <div class="to-top-button-container"><a onclick="scrollToTop()" title="To top">▲</a></div>
 
     <div class="license"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>&nbsp;This article by <?php echo CONFIG_AUTHOR?> is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a><footer>
 
-    <?php include(DIR_INCLUDE . "/poweredby.php");?>
+    <?php require DIR_INCLUDE . "/poweredby.php";?>
 
 </div>
 
-<?php include(DIR_INCLUDE . "/htmlend.php");?>
+<?php require DIR_INCLUDE . "/htmlend.php";?>

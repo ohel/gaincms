@@ -1,12 +1,12 @@
 <?php 
-# Copyright 2015-2017 Olli Helin
+# Copyright 2015-2018 Olli Helin
 # This file is part of GainCMS, a free software released under the terms of the
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 
 if (count(get_included_files()) == 1) { exit("Direct access is not permitted."); }
 
 $page_meta_description = "The personal website of " . CONFIG_AUTHOR . ".";
-include(DIR_INCLUDE . "/header.php");
+require DIR_INCLUDE . "/header.php";
 
 $stats_dir = "home";
 ?>
@@ -35,8 +35,8 @@ $stats_dir = "home";
 
     </section>
 
-    <?php include(DIR_INCLUDE . "/poweredby.php");?>
+    <?php require DIR_INCLUDE . "/poweredby.php";?>
 
 </div>
 
-<?php include(DIR_INCLUDE . "/htmlend.php");?>
+<?php require DIR_INCLUDE . "/htmlend.php";?>
