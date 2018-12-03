@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-# Copyright 2016-2017 Olli Helin
+# Copyright 2016-2018 Olli Helin
 # This file is part of GainCMS, a free software released under the terms of the
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -95,11 +95,11 @@ def parseGeoData(visits):
 
             split_data = geolite2_csv_line.split(",")
             ipv4_blocks = split_data[0].split(".")
-            self.ipv4_block_1 = ipv4_blocks[0]
-            self.ipv4_block_2 = ipv4_blocks[1]
-            self.ipv4_block_3 = ipv4_blocks[2]
-            self.ipv4_block_4 = ipv4_blocks[3].split("/")[0]
-            self.netmask = split_data[0].split("/")[1]
+            self.ipv4_block_1 = int(ipv4_blocks[0])
+            self.ipv4_block_2 = int(ipv4_blocks[1])
+            self.ipv4_block_3 = int(ipv4_blocks[2])
+            self.ipv4_block_4 = int(ipv4_blocks[3].split("/")[0])
+            self.netmask = int(split_data[0].split("/")[1])
             self.geoid = split_data[1]
             self.ipv4_min_val = 0
             self.ipv4_max_val = 0
@@ -127,12 +127,15 @@ def parseGeoData(visits):
 
     def ip2value(b1, b2, b3, b4):
 
-        return pow(2,24) * int(b1) + pow(2,16) * int(b2) + pow(2,8) * int(b3) + int(b4)
+        # pow(2,24) = 16777216
+        # pow(2,16) = 65536
+        # pow(2,8) = 256
+        return 16777216 * b1 + 65536 * b2 + 256 * b3 + b4
 
-    def applyValues(gip):
+    def getIPv4MinMaxValues(gip):
 
         gip.ipv4_min_val = ip2value(gip.ipv4_block_1, gip.ipv4_block_2, gip.ipv4_block_3, gip.ipv4_block_4)
-        gip.ipv4_max_val = int(gip.ipv4_min_val) + pow(2, (32 - int(gip.netmask)) - 1)
+        gip.ipv4_max_val = gip.ipv4_min_val + pow(2, (32 - gip.netmask) - 1)
 
     def applyCountry(visit):
 
@@ -143,6 +146,8 @@ def parseGeoData(visits):
         else:
             visit.country = country_candidate[0].country.replace("\n", "").replace("\"", "")
 
+    geo_main_ip_blocks = {}
+
     def applyGeoData(visit):
 
         if (visit.ipv4 in known_geoips):
@@ -150,17 +155,19 @@ def parseGeoData(visits):
             return
 
         try:
-            [vb1, vb2, vb3, vb4] = visit.ipv4.split(".")
+            [vb1, vb2, vb3, vb4] = map(lambda vb: int(vb), visit.ipv4.split("."))
         except:
             print("Applying GeoData failed for IP: %s" % visit.ipv4)
             visit.country = "Unknown"
             known_geoips[visit.ipv4] = [visit.geoid, visit.country]
             return
 
-        main_block_matches = list(filter(lambda gip: gip.ipv4_block_1 == vb1, geoips))
-        candidates = lambda c: [c] if c else []
-        candidates = candidates(next((gip for gip in reversed(main_block_matches) if gip.ipv4_block_2 < vb2), None))
-        candidates.extend(list(filter(lambda gip: gip.ipv4_block_2 == vb2, main_block_matches)))
+        if (vb1 not in geo_main_ip_blocks):
+            geo_main_ip_blocks[vb1] = list(filter(lambda gip: gip.ipv4_block_1 == vb1, geoips))
+
+        first_candidate = next((gip for gip in reversed(geo_main_ip_blocks[vb1]) if gip.ipv4_block_2 < vb2), None)
+        candidates = [first_candidate] if first_candidate else []
+        candidates.extend(list(filter(lambda gip: gip.ipv4_block_2 == vb2, geo_main_ip_blocks[vb1])))
 
         if len(candidates) == 0:
             print("No GeoIP candidate found for IP: %s" % visit.ipv4)
@@ -174,9 +181,9 @@ def parseGeoData(visits):
             known_geoips[visit.ipv4] = [visit.geoid, visit.country]
             return
 
-        uninitialized = list(filter(lambda c: c.ipv4_min_val == 0, candidates))
-        for u in uninitialized:
-            applyValues(u)
+        ips_without_values = list(filter(lambda c: c.ipv4_min_val == 0, candidates))
+        for ip in ips_without_values:
+            getIPv4MinMaxValues(ip)
 
         visit_ip_val = ip2value(vb1, vb2, vb3, vb4)
         match = list(filter(lambda c: c.ipv4_min_val <= visit_ip_val and c.ipv4_max_val >= visit_ip_val, candidates))
@@ -234,7 +241,6 @@ def showAll():
 
 def parseStats():
 
-    visits = [];
     parseVisitData(visits)
     parseGeoData(visits)
     printStats(visits)
