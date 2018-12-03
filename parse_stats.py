@@ -6,7 +6,7 @@
 
 import os, re
 from ipaddress import ip_address # Requires Python 3.3 or newer.
-from sys import argv, exit
+from sys import argv, exit, stderr
 
 FILE_IP2ID = "GeoLite2-Country-Blocks-IPv4.csv"
 FILE_ID2COUNTRY = "GeoLite2-Country-Locations-en.csv"
@@ -42,7 +42,7 @@ def parseVisitData(visits):
 
         split_data = re.search(r"(?P<timestamp>\S+ \S+) (?P<ua>\".*\")( (?P<ref>\S+))?", visit_data)
         if (not split_data or not split_data.group("timestamp") or not split_data.group("ua")):
-            print("Regex matching went wrong with data: %s" % visit_data)
+            print("Regex matching went wrong with data: %s" % visit_data, file=stderr)
             return
 
         ref = split_data.group("ref") if split_data.group("ref") else ""
@@ -67,7 +67,7 @@ def parseVisitData(visits):
                         ip_address(ip) # ipv4 or ipv6
                     visitors.extend(ips)
                 except:
-                    print("Not a valid statistics file: %s" % check_ip)
+                    print("Not a valid statistics file: %s" % check_ip, file=stderr)
                 finally:
                     break
 
@@ -84,7 +84,7 @@ def parseGeoData(visits):
     if not (os.path.isfile(FILE_IP2ID) and os.path.isfile(FILE_ID2COUNTRY)):
         geopath = argv[1]
         if not (os.path.isfile(os.path.join(geopath, FILE_IP2ID)) and os.path.isfile(os.path.join(geopath, FILE_ID2COUNTRY))):
-            print("GeoLite2 data not found, not parsing country data.")
+            print("GeoLite2 data not found, not parsing country data.", file=stderr)
             return
 
     print("Parsing GeoIP country data...")
@@ -141,12 +141,20 @@ def parseGeoData(visits):
 
         country_candidate = list(filter(lambda c: c.geoid == visit.geoid, countries))
         if len(country_candidate) == 0:
-            print("Applying GeoIP country failed for IP: %s, GeoID: %s" % (visit.ipv4, visit.geoid))
-            visit.country = "Unknown"
+            print("Applying GeoIP country failed for IP: %s, GeoID: %s" % (visit.ipv4, visit.geoid), file=stderr)
+            visit.country = " Unknown"
         else:
             visit.country = country_candidate[0].country.replace("\n", "").replace("\"", "")
 
     geo_main_ip_blocks = {}
+
+    def getPreviousMainIPBlock(b):
+
+        for i in range(b - 1, 0, -1):
+            if (i not in geo_main_ip_blocks):
+                geo_main_ip_blocks[i] = list(filter(lambda gip: gip.ipv4_block_1 == i, geoips))
+            if len(geo_main_ip_blocks[i]) > 0:
+                return geo_main_ip_blocks[i][-1]
 
     def applyGeoData(visit):
 
@@ -157,27 +165,27 @@ def parseGeoData(visits):
         try:
             [vb1, vb2, vb3, vb4] = map(lambda vb: int(vb), visit.ipv4.split("."))
         except:
-            print("Applying GeoData failed for IP: %s" % visit.ipv4)
-            visit.country = "Unknown"
+            # This will always fail for IPv6, which is intentional.
+            print("Applying GeoData failed for IP: %s" % visit.ipv4, file=stderr)
+            visit.country = " Not IPv4"
             known_geoips[visit.ipv4] = [visit.geoid, visit.country]
             return
 
         if (vb1 not in geo_main_ip_blocks):
             geo_main_ip_blocks[vb1] = list(filter(lambda gip: gip.ipv4_block_1 == vb1, geoips))
 
+        candidates = []
         first_candidate = next((gip for gip in reversed(geo_main_ip_blocks[vb1]) if gip.ipv4_block_2 < vb2), None)
-        candidates = [first_candidate] if first_candidate else []
+        # If visitor IP might be in the first part of a matching main block, it might be in a previous main block also.
+        if (len(geo_main_ip_blocks[vb1]) > 0 and first_candidate == geo_main_ip_blocks[vb1][0]):
+            candidates.append(getPreviousMainIPBlock(vb1))
+        if (first_candidate):
+            candidates.append(first_candidate)
         candidates.extend(list(filter(lambda gip: gip.ipv4_block_2 == vb2, geo_main_ip_blocks[vb1])))
 
         if len(candidates) == 0:
             print("No GeoIP candidate found for IP: %s" % visit.ipv4)
-            visit.country = "Unknown"
-            known_geoips[visit.ipv4] = [visit.geoid, visit.country]
-            return
-
-        if all(map(lambda gip: gip.geoid == candidates[0].geoid, candidates)):
-            visit.geoid = candidates[0].geoid
-            applyCountry(visit)
+            visit.country = " Unknown"
             known_geoips[visit.ipv4] = [visit.geoid, visit.country]
             return
 
@@ -188,10 +196,11 @@ def parseGeoData(visits):
         visit_ip_val = ip2value(vb1, vb2, vb3, vb4)
         match = list(filter(lambda c: c.ipv4_min_val <= visit_ip_val and c.ipv4_max_val >= visit_ip_val, candidates))
         if len(match) > 1:
-            print("Multiple GeoIP matches for IP %s, something is wrong." % visit.ipv4)
+            print("Multiple GeoIP matches for IP %s, something is wrong." % visit.ipv4, file=stderr)
+            visit.country = " Error"
         elif len(match) == 0:
             print("No GeoIP match found for IP: %s" % visit.ipv4)
-            visit.country = "Unknown"
+            visit.country = " Unknown"
         else:
             visit.geoid = match[0].geoid
             applyCountry(visit)
