@@ -4,8 +4,9 @@
 # This file is part of GainCMS, a free software released under the terms of the
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 
-import os, re
 from ipaddress import ip_address # Requires Python 3.3 or newer.
+from os import path, walk
+from re import search
 from sys import argv, exit, stderr
 
 FILE_IP2ID = "GeoLite2-Country-Blocks-IPv4.csv"
@@ -20,7 +21,7 @@ if (len(argv) < 2):
     print("Give the site statistics directory as a parameter.")
     exit()
 
-print("Run the script with: python3 -i %s <site statistics directory> for studying statistics manually." % os.path.basename(argv[0]))
+print("For studying statistics interactively, run the script using: python3 -i %s <site statistics directory> [<ignore IPs file>]" % path.basename(argv[0]))
 
 def parseVisitData(visits):
 
@@ -40,7 +41,7 @@ def parseVisitData(visits):
 
     def addPageVisit(page, ip, visit_data):
 
-        split_data = re.search(r"(?P<timestamp>\S+ \S+) (?P<ua>\".*\")( (?P<ref>\S+))?", visit_data)
+        split_data = search(r"(?P<timestamp>\S+ \S+) (?P<ua>\".*\")( (?P<ref>\S+))?", visit_data)
         if (not split_data or not split_data.group("timestamp") or not split_data.group("ua")):
             print("Regex matching went wrong with data: %s" % visit_data, file=stderr)
             return
@@ -51,43 +52,64 @@ def parseVisitData(visits):
 
         visits.append(Visit(page, ip, split_data.group("timestamp"), ua, ref))
 
-    for root_dir, directories, ordinary_files in os.walk(argv[1] if len(argv) > 1 else '.'):
+    ignore_ips = {}
+    ignore_ip_file = argv[2] if len(argv) > 2 else "stats_ip_ignore.txt"
+    if (path.isfile(ignore_ip_file)):
+
+        file = open(ignore_ip_file)
+        for ip_to_ignore in file: ignore_ips[ip_to_ignore.rstrip()] = False
+        file.close()
+
+    for root_dir, directories, ordinary_files in walk(argv[1] if len(argv) > 1 else '.'):
 
         for page in directories:
 
-            visitors = []
-            page_dir = os.path.join(root_dir, page)
+            visitors_ips = []
+            page_dir = path.join(root_dir, page)
+            check_ip = ""
 
-            for page_root_dir, page_directories, ips in os.walk(page_dir):
+            # Non-directory file names are IP addresses.
+            for page_root_dir, page_directories, ips in walk(page_dir):
 
-                check_ip = ""
                 try:
                     for ip in ips:
                         check_ip = ip
-                        ip_address(ip) # ipv4 or ipv6
-                    visitors.extend(ips)
+                        ip_address(ip) # IPv4 or IPv6 are both valid here.
+                    visitors_ips.extend(ips)
                 except:
                     print("Not a valid statistics file: %s" % check_ip, file=stderr)
                 finally:
                     break
 
-            for visitor in visitors:
+            for visitor_ip in visitors_ips:
 
-                file = open(os.path.join(page_dir, visitor))
-                for visit_data in file: addPageVisit(page, visitor, visit_data)
+                if visitor_ip in ignore_ips:
+                    if not ignore_ips[visitor_ip]:
+                        print("Ignoring IP: %s" % visitor_ip)
+                        ignore_ips[visitor_ip] = True
+                    continue
+                file = open(path.join(page_dir, visitor_ip))
+                for visit_data in file: addPageVisit(page, visitor_ip, visit_data)
                 file.close()
 
 def parseGeoData(visits):
 
-    # GeoIP parsing requires sorted GeoLite2 data, which is available on MaxMind's website.
+    # GeoIP parsing requires *sorted* GeoLite2 data, which is available on MaxMind's website.
     geopath = '.'
-    if not (os.path.isfile(FILE_IP2ID) and os.path.isfile(FILE_ID2COUNTRY)):
+    if not (path.isfile(FILE_IP2ID) and path.isfile(FILE_ID2COUNTRY)):
         geopath = argv[1]
-        if not (os.path.isfile(os.path.join(geopath, FILE_IP2ID)) and os.path.isfile(os.path.join(geopath, FILE_ID2COUNTRY))):
+        if not (path.isfile(path.join(geopath, FILE_IP2ID)) and path.isfile(path.join(geopath, FILE_ID2COUNTRY))):
             print("GeoLite2 data not found, not parsing country data.", file=stderr)
             return
 
     print("Parsing GeoIP country data...")
+
+    def ip2value(b1, b2, b3, b4):
+
+        # pow(2,24) = 16777216
+        # pow(2,16) = 65536
+        # pow(2,8) = 256
+        return 16777216 * b1 + 65536 * b2 + 256 * b3 + b4
 
     class GeoIP:
 
@@ -101,8 +123,23 @@ def parseGeoData(visits):
             self.ipv4_block_4 = int(ipv4_blocks[3].split("/")[0])
             self.netmask = int(split_data[0].split("/")[1])
             self.geoid = split_data[1]
-            self.ipv4_min_val = 0
-            self.ipv4_max_val = 0
+
+            netmask_str = self.netmask * '1' + (32 - self.netmask) * '0'
+            nm1 = int(netmask_str[0:8], 2)
+            nm2 = int(netmask_str[8:16], 2)
+            nm3 = int(netmask_str[16:24], 2)
+            nm4 = int(netmask_str[24:32], 2)
+            min1 = nm1 & self.ipv4_block_1
+            min2 = nm2 & self.ipv4_block_2
+            min3 = nm3 & self.ipv4_block_3
+            min4 = nm4 & self.ipv4_block_4
+            max1 = min1 | ~nm1 + 256
+            max2 = min2 | ~nm2 + 256
+            max3 = min3 | ~nm3 + 256
+            max4 = min4 | ~nm4 + 256
+
+            self.ipv4_min_val = ip2value(min1, min2, min3, min4)
+            self.ipv4_max_val = ip2value(max1, max2, max3, max4)
 
     class GeoCountry:
 
@@ -113,29 +150,17 @@ def parseGeoData(visits):
             self.country = split_data[5]
 
     geoips = []
-    with open(os.path.join(geopath, FILE_IP2ID)) as f:
+    with open(path.join(geopath, FILE_IP2ID)) as f:
         firstline = True
         for line in f:
             # Skip the header line.
             if not firstline: geoips.append(GeoIP(line))
             firstline = False
 
-    with open(os.path.join(geopath, FILE_ID2COUNTRY)) as f: data_id2country = f.readlines()
+    with open(path.join(geopath, FILE_ID2COUNTRY)) as f: data_id2country = f.readlines()
     data_id2country.pop(0) # Pop the header line.
     countries = list(map(GeoCountry, data_id2country))
     known_geoips = {}
-
-    def ip2value(b1, b2, b3, b4):
-
-        # pow(2,24) = 16777216
-        # pow(2,16) = 65536
-        # pow(2,8) = 256
-        return 16777216 * b1 + 65536 * b2 + 256 * b3 + b4
-
-    def getIPv4MinMaxValues(gip):
-
-        gip.ipv4_min_val = ip2value(gip.ipv4_block_1, gip.ipv4_block_2, gip.ipv4_block_3, gip.ipv4_block_4)
-        gip.ipv4_max_val = gip.ipv4_min_val + pow(2, (32 - gip.netmask) - 1)
 
     def applyCountry(visit):
 
@@ -177,7 +202,7 @@ def parseGeoData(visits):
         candidates = []
         first_candidate = next((gip for gip in reversed(geo_main_ip_blocks[vb1]) if gip.ipv4_block_2 < vb2), None)
         # If visitor IP might be in the first part of a matching main block, it might be in a previous main block also.
-        if (len(geo_main_ip_blocks[vb1]) > 0 and first_candidate == geo_main_ip_blocks[vb1][0]):
+        if (not first_candidate or (len(geo_main_ip_blocks[vb1]) > 0 and first_candidate == geo_main_ip_blocks[vb1][0])):
             candidates.append(getPreviousMainIPBlock(vb1))
         if (first_candidate):
             candidates.append(first_candidate)
@@ -188,10 +213,6 @@ def parseGeoData(visits):
             visit.country = " Unknown"
             known_geoips[visit.ipv4] = [visit.geoid, visit.country]
             return
-
-        ips_without_values = list(filter(lambda c: c.ipv4_min_val == 0, candidates))
-        for ip in ips_without_values:
-            getIPv4MinMaxValues(ip)
 
         visit_ip_val = ip2value(vb1, vb2, vb3, vb4)
         match = list(filter(lambda c: c.ipv4_min_val <= visit_ip_val and c.ipv4_max_val >= visit_ip_val, candidates))
