@@ -12,6 +12,15 @@ $write_stats = file_exists(DIR_STATS_BASE) &&
     (!file_exists(CONFIG_STATS_IP_IGNORE_FILE) ||
     strpos(file_get_contents(CONFIG_STATS_IP_IGNORE_FILE), $_SERVER["REMOTE_ADDR"]) === false);
 
+# If IPv6, check the prefix from ignore file.
+if ($write_stats && strpos($_SERVER["REMOTE_ADDR"], ":") !== false)
+{
+    $ipv6_bin = inet_pton($_SERVER["REMOTE_ADDR"]);
+    $ipv6_prefix_bin = substr($ipv6_bin, 0, 8) . "\x00\x00\x00\x00\x00\x00\x00\x00";
+    $ipv6_prefix = inet_ntop($ipv6_prefix_bin);
+    $write_stats = strpos(file_get_contents(CONFIG_STATS_IP_IGNORE_FILE), $ipv6_prefix) === false;
+}
+
 if ($write_stats) {
 
     if (!file_exists(DIR_STATS_BASE . $stats_dir)) {

@@ -98,7 +98,7 @@ There are two special tags to roughly control the layout of the pictures within 
 
 ## Visitor statistics
 
-GainCMS has its own simple visitor statistics support so as not to give too much information to big corporations. To enable the visitor statistic, simply create the directory *DIR_STATS_BASE*, defined in *index.php*. Statistics may be parsed with the Python script *parse_stats.py*. You may also ignore IP addresses from the statistics: see `CONFIG_STATS_IP_IGNORE_FILE` in *index.php*. List one IP per line in the file. The addresses mentioned there won't be logged.
+GainCMS has its own simple visitor statistics support so as not to give too much information to big corporations. To enable the visitor statistic, simply create the directory *DIR_STATS_BASE*, defined in *index.php*. Statistics may be parsed with the Python script *parse_stats.py*. You may also ignore IP addresses from the statistics: see `CONFIG_STATS_IP_IGNORE_FILE` in *index.php*. List one IPv4 address or IPv6 prefix per line in the file. The addresses mentioned there won't be logged.
 
 ## Web server configuration
 
