@@ -41,6 +41,7 @@ array_push($extra_styles, "blog");
 require DIR_INCLUDE . "/header.php";
 require DIR_INCLUDE . "/ExtParsedown.php";
 require DIR_INCLUDE . "/PostUtils.php";
+require DIR_INCLUDE . "/BlogUpdates.php";
 
 $stats_dir = $blog_url;
 ?>
@@ -51,6 +52,8 @@ $stats_dir = $blog_url;
         <h1><?php echo $blog_title?></h1>
         <h2><?php echo $blog_description?></h2>
     </header>
+
+    <?php BlogUpdates\listBlogUpdates($blog_dir, 5);?>
 
     <div class="container">
         <div class="row">

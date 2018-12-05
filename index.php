@@ -19,6 +19,7 @@ define("DIR_POSTS_GLOB", "[^_]*"); # Used to glob blog posts. Begin article dire
 define("DIR_SITE", "site/"); # Location of site data. You may use a subdirectory to keep the root more clean.
 define("DIR_STATS_BASE", "site_stats/"); # If collecting visitor statistics, the location to store them.
 define("DIR_TAG_PREFIX", "tag_"); # Prefix used to identify blog article tags.
+define("DIR_UPDATE_PREFIX", "update_"); # Prefix used to identify blog article updates.
 
 # We don't expect any query parameters so strip them.
 # Query parameters are not an error either, because for example social media sites sometimes add some parameters to links.

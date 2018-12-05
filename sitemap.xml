@@ -100,8 +100,13 @@
   <changefreq>yearly</changefreq>
 </url>
 <url>
+  <loc>http://10.0.1.2/posts/2015-08-17_not_newest</loc>
+  <lastmod>2018-11-20</lastmod>
+  <changefreq>yearly</changefreq>
+</url>
+<url>
   <loc>http://10.0.1.2/posts/2015-08-17_new_testpost</loc>
-  <lastmod>2015-08-17</lastmod>
+  <lastmod>2018-12-04</lastmod>
   <changefreq>yearly</changefreq>
 </url>
 
