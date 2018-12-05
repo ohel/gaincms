@@ -20,6 +20,10 @@
     margin: 0;
 }
 
+.navbar-submenu li {
+    width: 100%;
+}
+
 @media only screen and (max-width: 767px) {
     .navbar-submenu>li>a {
         padding-left: 50px;
