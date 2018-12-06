@@ -161,7 +161,7 @@ ul.custom-padding {
     padding: 0;
 }
 
-ul.custom-padding > li::before {
+ul.custom-padding > li::before, table.custom-padding tr > td:first-child:before {
     content: "\2022";
     display: inline-block;
     font-size: 3rem;
@@ -170,6 +170,14 @@ ul.custom-padding > li::before {
     text-align: left;
     vertical-align: middle;
     width: 1.5rem;
+}
+
+table.blog-updates {
+    font-size: 1.5rem;
+}
+
+table.custom-padding tr > td:first-child {
+    padding: 0 1rem 0 0;
 }
 
 div.blog-updates {
@@ -187,13 +195,4 @@ div.blog-updates > hr {
 div.blog-updates > h4 {
     margin: 1rem 0;
     text-align: left;
-}
-
-ul.blog-updates {
-    font-size: 1.5rem;
-}
-
-ul.blog-updates > li::before {
-    width: 1.5rem;
-    margin-left: -1.5rem;
 }
