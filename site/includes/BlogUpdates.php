@@ -46,7 +46,7 @@ class BlogUpdate
 
     function listInfo() {
         $url = substr($this->_path, strlen(DIR_SITE));
-        return "<li>" . $this->_date . " <a href=\"" . $url . "\">" . $this->_title . "</a>: " . $this->_changelog . "</li>";
+        return $this->_date . " <a href=\"" . $url . "\">" . $this->_title . "</a>: " . $this->_changelog;
     }
 
     static function sortBlogUpdate($a, $b) {
@@ -77,17 +77,21 @@ function listBlogUpdates($blog_paths, $max_updates) {
         }
     }
     usort($updates, array("BlogUpdates\BlogUpdate", "sortBlogUpdate"));
-    $updates = array_slice($updates, 0, $max_updates);
+    $updates = array_slice($updates, 0, $max_updates);?>
 
-    foreach ($updates as $update) {
-        $update->readInfo();
-    }
-
-    echo "<section><ul>";
-    foreach ($updates as $update) {
-        echo $update->listInfo();
-    }
-    echo "</ul></section>";
+    <div class="blog-updates">
+        <hr>
+        <h4>Latest blog updates</h4>
+        <ul class="custom-padding blog-updates">
+        <?php
+        foreach ($updates as $update) {
+            $update->readInfo();
+            echo "<li>" . $update->listInfo() . "</li>";
+        }?>
+        </ul>
+        <hr>
+    </div>
+    <?php
 }
 
 ?>

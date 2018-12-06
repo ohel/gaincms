@@ -11,7 +11,7 @@ require DIR_INCLUDE . "/header.php";
 
 <div class="container">
 
-    <header>
+    <header class="spaced">
         <h1>Error</h1>
         <h2>The resource was not found</h2>
     </header>

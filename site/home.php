@@ -14,7 +14,7 @@ $stats_dir = "home";
 
 <div class="container">
 
-    <header>
+    <header class="spaced">
         <h1><?php echo CONFIG_TITLE?></h1>
         <h2><?php echo CONFIG_AUTHOR?>'s website</h2>
     </header>

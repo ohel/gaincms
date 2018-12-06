@@ -20,7 +20,7 @@ $stats_dir = "projects";
 
 <div class="container">
 
-    <header>
+    <header class="spaced">
         <h1>Projects</h1>
         <h2>Various projects of mine</h2>
     </header>
@@ -47,7 +47,7 @@ $stats_dir = "projects";
         for (var i = 0; i < data.length; i++) {
             repos.push('<li><a href="' + data[i].svn_url + '">' + data[i].name + "</a>: " + data[i].description + "</li>");
         };
-        $("#github-projects").html($("<ul/>", {"class": "repo-listing", html: repos.join("")}));
+        $("#github-projects").html($("<ul/>", {"class": "custom-padding", html: repos.join("")}));
     });
 </script>
 

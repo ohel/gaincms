@@ -78,7 +78,7 @@ h1 + h2 {
     font-weight: 300;
 }
 
-div.container > header:first-child {
+header.spaced {
     margin-bottom: 60px;
 }
 
@@ -139,9 +139,51 @@ div.flex-filler {
     flex: 1;
 }
 
-#powered-by, #powered-by > a {
+#powered-by {
     color: #909090;
     font-size: 1.25rem;
     margin-top: 15px;
     text-align: center;
+}
+
+ul.custom-padding {
+    list-style: none;
+    padding: 0;
+}
+
+ul.custom-padding > li::before {
+    content: "\2022";
+    display: inline-block;
+    font-size: 3rem;
+    line-height: 1rem;
+    margin-left: -1.5rem;
+    text-align: left;
+    vertical-align: middle;
+    width: 1.5rem;
+}
+
+div.blog-updates {
+    display: inline-block;
+    margin: 1rem auto 3rem auto;
+    padding: 0 2rem;
+}
+
+div.blog-updates > hr {
+    border-top: 1px solid #606060;
+    margin: 1rem 0;
+    width: 100%;
+}
+
+div.blog-updates > h4 {
+    margin: 1rem 0;
+    text-align: left;
+}
+
+ul.blog-updates {
+    font-size: 1.5rem;
+}
+
+ul.blog-updates > li::before {
+    width: 1.5rem;
+    margin-left: -1.5rem;
 }
