@@ -4,6 +4,8 @@
 # This file is part of GainCMS, a free software released under the terms of the
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 
+# Parse GainCMS site statistics.
+
 from ipaddress import ip_address # Requires Python 3.3 or newer.
 from os import path, walk
 from re import search
@@ -12,9 +14,21 @@ from sys import argv, exit, stderr
 FILE_IP2ID = "GeoLite2-Country-Blocks-IPv4.csv"
 FILE_ID2COUNTRY = "GeoLite2-Country-Locations-en.csv"
 UA_IGNORE_LIST = [
-    "Googlebot",
     "AdsBot",
-    "XML-Sitemaps"
+    "bingbot",
+    "Cliqzbot",
+    "Exabot",
+    "Facebot Twitterbot",
+    "Findxbot",
+    "Googlebot",
+    "linkdexbot",
+    "MauiBot",
+    "MJ12bot",
+    "SemrushBot",
+    "Twitterbot",
+    "XML-Sitemaps",
+    "YandexBot",
+    "YandexMobileBot"
 ]
 
 if (len(argv) < 2):
