@@ -44,9 +44,9 @@ class BlogUpdate
         $this->_order = $order;
         $updates = glob($postpath . DIR_UPDATE_PREFIX . "*");
         $this->_last_update = end($updates);
-        $this->_date = \PostUtils\dateFromPath($postpath,
-            $this->_last_update === False ? 0 : strlen(DIR_UPDATE_PREFIX));
-
+        $this->_date = $this->_last_update === False ?
+            \PostUtils\dateFromPath($postpath) :
+            \PostUtils\dateFromPath($this->_last_update, strlen(DIR_UPDATE_PREFIX));
     }
 
     function readInfo() {

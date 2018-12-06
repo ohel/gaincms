@@ -14,6 +14,7 @@ GainCMS is a simple PHP blog engine for generic websites and blogs, influenced b
 * PHP routing
 * Multiple blog support
 * Simple visitor statistics
+* Updates listing for blogs
 
 Sample screenshot from the original author's blog:
 ![Screenshot](screenshot.jpg)
@@ -25,7 +26,7 @@ Required software:
 * Either **Apache** or **nginx**:
     * Apache 2.2.16 or newer with rewrite module.
     * nginx 1.10 tested, probably works also with earlier versions.
-* **PHP** 4.3 or newer.
+* **PHP** 5.6 or newer.
 * For statistics parsing (optional), Python 3 is required.
 
 To get things running:
@@ -65,11 +66,13 @@ Below is a rough example diagram of GainCMS structure, where + denotes a directo
      | \
      | |- article.md
      | |- intro.md
+     | |- pic.jpg
      | |- tag_software
      | |- tag_spaces work too
      | |- tag_but_are_converted_anyway
-     | |- thumb_woot.jpg
-     | |- woot.jpg
+     | |- thumb_pic.jpg
+     | |- update_2016-09-01
+     | |- update_2018-12-06
      |+ _2015-11_26_unpublished/
        \
        |- article.md
@@ -89,6 +92,8 @@ Post order can be forced (for pinned posts, or posts with the same date) using *
 ## Articles
 
 Each blog article consists of the article itself in *article.md*, a short intro in *intro.md* (which is shown in the blog post listing and social media shares), tags, and other files such as images if referred to in the article. The tags are just empty files whose names should begin with `tag_` by default. Spaces in tags are supported, but underscores are converted to spaces anyway in hyperlinks.
+
+Updates for changelogs can be done by creating files which begin with `update_` by default, and end in a date. A short description of the update should be written in the file.
 
 The paths and glob patterns are customizable in *index.php*.
 
