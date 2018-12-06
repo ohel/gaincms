@@ -5,6 +5,7 @@
 
 # Site configuration and paths.
 define("CONFIG_AUTHOR", "Site Author"); # Your name.
+define("CONFIG_DEFAULT_CHANGELOG", "New article."); # Description to show for new posts/articles in blog updates listing.
 define("CONFIG_GITHUB_USER", "user"); # Your GitHub user name, for retrieving projects.
 define("CONFIG_META_SEPARATOR", " | "); # Used to separate displayed post metadata, for example date and tags.
 define("CONFIG_PAGINATION", 8); # How many posts to show per blog page.

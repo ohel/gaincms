@@ -34,7 +34,7 @@ class BlogUpdate
 
     function readInfo() {
         if ($this->_last_update === False) {
-            $this->_changelog = "New article.";
+            $this->_changelog = CONFIG_DEFAULT_CHANGELOG;
         } else {
             $this->_changelog = file_get_contents($this->_last_update);
         }
@@ -71,8 +71,8 @@ function listBlogUpdates($blog_paths, $max_updates) {
     }
     foreach ($blog_paths as $path) {
         $order_solver += $max_updates;
-        $posts = array_slice(\PostUtils\getPostsByPath($path), 0, $max_updates);
-        for ($i = 0; $i < min($max_updates, count($posts)); $i++) {
+        $posts = \PostUtils\getPostsByPath($path);
+        for ($i = 0; $i < count($posts); $i++) {
             $updates[] = new BlogUpdate($posts[$i], $i + $order_solver);
         }
     }
