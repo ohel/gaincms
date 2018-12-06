@@ -4,9 +4,6 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-
-
-
 <url>
   <loc>http://10.0.1.2/</loc>
   <lastmod>2017-04-05</lastmod>
@@ -30,40 +27,6 @@
   <changefreq>yearly</changefreq>
   <priority>0.7</priority>
 </url>
-
-
-
-<url>
-  <loc>http://10.0.1.2/blog/1</loc>
-  <lastmod>2017-04-28</lastmod>
-  <changefreq>monthly</changefreq>
-</url>
-
-
-
-<url>
-  <loc>http://10.0.1.2/blog/tags/audio</loc>
-  <lastmod>2017-04-28</lastmod>
-  <changefreq>yearly</changefreq>
-</url>
-<url>
-  <loc>http://10.0.1.2/blog/tags/hardware</loc>
-  <lastmod>2017-04-28</lastmod>
-  <changefreq>yearly</changefreq>
-</url>
-<url>
-  <loc>http://10.0.1.2/blog/tags/new_posts</loc>
-  <lastmod>2017-04-28</lastmod>
-  <changefreq>yearly</changefreq>
-</url>
-<url>
-  <loc>http://10.0.1.2/blog/tags/software</loc>
-  <lastmod>2017-04-28</lastmod>
-  <changefreq>yearly</changefreq>
-</url>
-
-
-
 <url>
   <loc>http://10.0.1.2/posts/2015-08-14_testpost_1</loc>
   <lastmod>2015-08-14</lastmod>
@@ -91,7 +54,7 @@
 </url>
 <url>
   <loc>http://10.0.1.2/posts/2015-08-14_testpost_6</loc>
-  <lastmod>2015-08-14</lastmod>
+  <lastmod>2018-12-05</lastmod>
   <changefreq>yearly</changefreq>
 </url>
 <url>
@@ -100,16 +63,18 @@
   <changefreq>yearly</changefreq>
 </url>
 <url>
-  <loc>http://10.0.1.2/posts/2015-08-17_not_newest</loc>
-  <lastmod>2018-11-20</lastmod>
+  <loc>http://10.0.1.2/posts/2015-08-17_new_testpost</loc>
+  <lastmod>2018-12-03</lastmod>
   <changefreq>yearly</changefreq>
 </url>
 <url>
-  <loc>http://10.0.1.2/posts/2015-08-17_new_testpost</loc>
-  <lastmod>2018-12-04</lastmod>
+  <loc>http://10.0.1.2/posts/2015-08-17_not_newest</loc>
+  <lastmod>2015-08-17</lastmod>
   <changefreq>yearly</changefreq>
 </url>
-
-
-
+<url>
+  <loc>http://10.0.1.2/posts2/2020-01-01_futurepost</loc>
+  <lastmod>2020-01-01</lastmod>
+  <changefreq>yearly</changefreq>
+</url>
 </urlset>

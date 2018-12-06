@@ -6,7 +6,7 @@
 
 # Updates sitemap to match existing posts and their update dates.
 
-base_url=https://localhost
+base_url=http://10.0.1.2
 sitemap=sitemap.xml
 date_regex="[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}"
 
