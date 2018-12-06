@@ -146,6 +146,16 @@ div.flex-filler {
     text-align: center;
 }
 
+div.img-container {
+    text-align: center;
+}
+
+div.img-container img {
+    margin: 5px;
+    max-width: 100%;
+    height: auto;
+}
+
 ul.custom-padding {
     list-style: none;
     padding: 0;
