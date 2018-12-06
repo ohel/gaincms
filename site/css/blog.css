@@ -106,3 +106,12 @@ article {
     margin: 0 0 1rem 0;
     text-align: left;
 }
+
+.postlisting div.blog-updates {
+    margin: 0;
+    padding: 0;
+}
+
+.postlisting div.blog-updates > h4 {
+    margin: 0 0 0.5rem 0;
+}

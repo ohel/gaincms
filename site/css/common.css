@@ -172,18 +172,19 @@ ul.custom-padding > li::before, table.custom-padding tr > td:first-child:before 
     width: 1.5rem;
 }
 
-table.blog-updates {
-    font-size: 1.5rem;
-}
-
 table.custom-padding tr > td:first-child {
     padding: 0 1rem 0 0;
 }
 
 div.blog-updates {
     display: inline-block;
+    font-size: 1.5rem;
     margin: 1rem auto 3rem auto;
     padding: 0 2rem;
+}
+
+div.blog-updates > table {
+    margin: 0 2rem;
 }
 
 div.blog-updates > hr {
@@ -193,6 +194,6 @@ div.blog-updates > hr {
 }
 
 div.blog-updates > h4 {
-    margin: 1rem 0;
+    margin: 1rem 2rem;
     text-align: left;
 }

@@ -5,6 +5,8 @@
 
 namespace PostUtils;
 
+require_once DIR_INCLUDE . "/ExtParsedown.php";
+
 function localizedDateFromPath($path, $lang = "en") {
 
     $date = dateFromPath($path);
@@ -28,16 +30,17 @@ function localizedDateFromPath($path, $lang = "en") {
 
 }
 
-function dateFromPath($path) {
+function dateFromPath($path, $prefix_len = 0) {
 
     $pathelements = explode("/", $path);
     $lastelement = end($pathelements);
     if (empty($lastelement)) {
+        # In case path was an URL ending in slash.
         array_pop($pathelements);
     }
 
     # Date format is: yyyy-mm-dd
-    return substr(end($pathelements), 0, 10);
+    return substr(end($pathelements), $prefix_len, 10);
 
 }
 
@@ -98,6 +101,39 @@ function getPostsByPath($path) {
     }
 
     return(array_values($posts));
+
+}
+
+function getPostIntro($postpath, $blog_url) {
+
+    $mdparser = new \ExtParsedown();
+
+    $postdate = dateFromPath($postpath);
+    $posttags = tagsStringFromPath($postpath, $blog_url);
+
+    $contents = file_get_contents($postpath . "intro.md");
+
+    # Remove first path part and last slash for proper href URL to the article.
+    $hrefpath = implode("/", array_slice(explode("/", $postpath), 1, -1));
+
+    $preview_ext = "";
+    if (file_exists($postpath . "intro.jpg")) {
+        $preview_ext = "jpg";
+    } elseif (file_exists($postpath . "intro.png")) {
+        $preview_ext = "png";
+    }
+
+    # Except for the link, the element structure is as Parsedown would do it.
+    $preview_image = empty($preview_ext) ? "" :
+        ('<p></p><a href="' . $hrefpath . '"><div class="img-container"><img src="' .
+        $postpath . '/intro.' . $preview_ext . '" alt="Preview"></div></a><p></p>');
+
+    # Add header links to article and post metadata.
+    return preg_replace("/<h1>(.*)<\/h1>(\n<h2>.*<\/h2>)?/",
+        '<h1><a href="' . $hrefpath . '">$1</a></h1>$2' .
+        '<p class="postmetadata">Posted: ' . $postdate . CONFIG_META_SEPARATOR . "Tags: " . $posttags . "</p>" .
+        $preview_image,
+        $mdparser->setLocalPath($postpath)->text($contents), 1);
 
 }
 

@@ -7,6 +7,28 @@ namespace BlogUpdates;
 
 require_once DIR_INCLUDE . "/PostUtils.php";
 
+function getPostUpdates($postpath) {
+
+    $returnstring = "<div class=\"blog-updates\">";
+    $updates = array_reverse(glob($postpath . DIR_UPDATE_PREFIX . "*"));
+    if (count($updates) > 0) {
+        $returnstring .= "<h4>Updates</h4>";
+    }
+    $returnstring .= "<table class=\"custom-padding\">";
+
+    foreach ($updates as $update) {
+        $returnstring .= "<tr><td>";
+        $returnstring .= \PostUtils\dateFromPath($update, strlen(DIR_UPDATE_PREFIX));
+        $returnstring .= "</td><td>";
+        $returnstring .= file_get_contents($update);
+        $returnstring .= "</td></tr>";
+    }
+
+    $returnstring .= "</table></div>";
+    return $returnstring;
+
+}
+
 class BlogUpdate
 {
     private $_date;
@@ -16,20 +38,15 @@ class BlogUpdate
     private $_last_update;
     private $_order;
 
-    function __construct($path, $order) {
+    function __construct($postpath, $order) {
 
-        $this->_path = $path;
+        $this->_path = $postpath;
         $this->_order = $order;
-        $updates = glob($path . DIR_UPDATE_PREFIX . "*");
+        $updates = glob($postpath . DIR_UPDATE_PREFIX . "*");
         $this->_last_update = end($updates);
-        if ($this->_last_update !== False) {
-            $update_files = explode("/", $this->_last_update);
-            $last_update_file = end($update_files);
-            # Date format is: yyyy-mm-dd
-            $this->_date = substr($last_update_file, strlen(DIR_UPDATE_PREFIX), 10);
-        } else {
-            $this->_date = \PostUtils\dateFromPath($path);
-        }
+        $this->_date = \PostUtils\dateFromPath($postpath,
+            $this->_last_update === False ? 0 : strlen(DIR_UPDATE_PREFIX));
+
     }
 
     function readInfo() {
@@ -84,7 +101,7 @@ function listBlogUpdates($blog_paths, $max_updates) {
     <div class="blog-updates">
         <hr>
         <h4>Latest blog updates</h4>
-        <table class="custom-padding blog-updates">
+        <table class="custom-padding">
         <?php
         foreach ($updates as $update) {
             $update->readInfo();

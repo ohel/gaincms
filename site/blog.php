@@ -39,7 +39,6 @@ $og_data["og:description"] = $blog_description;
 
 array_push($extra_styles, "blog");
 require DIR_INCLUDE . "/header.php";
-require DIR_INCLUDE . "/ExtParsedown.php";
 require DIR_INCLUDE . "/PostUtils.php";
 require DIR_INCLUDE . "/BlogUpdates.php";
 
@@ -60,7 +59,6 @@ $stats_dir = $blog_url;
 
             <div class="col-sm-7 col-sm-offset-1 col-lg-6 col-lg-offset-2 postlisting">
                 <?php
-                $Parsedown = new ExtParsedown();
                 $posts = PostUtils\getPostsByPath($blog_dir);
                 $postcount = count($posts);
 
@@ -82,63 +80,42 @@ $stats_dir = $blog_url;
 
                 for ($i = (($page - 1) * CONFIG_PAGINATION); $i < (min($page * CONFIG_PAGINATION, count($posts))); $i++) {
                     $postpath = $posts[$i];
-                    $postdate = PostUtils\dateFromPath($postpath);
-                    $posttags = PostUtils\tagsStringFromPath($postpath, $blog_url);
-
                     # If intro does not exist there is nothing to show. Note: this is a user error.
                     if (!file_exists($postpath . "intro.md")) {
                         continue;
                     }
-                    $contents = file_get_contents($postpath . "intro.md");
 
-                    # Remove first path part and last slash for proper href URL to the article.
-                    $hrefpath = implode("/", array_slice(explode("/", $postpath), 1, -1));
-
-                    $preview_ext = "";
-                    if (file_exists($postpath . "intro.jpg")) {
-                        $preview_ext = "jpg";
-                    } elseif (file_exists($postpath . "intro.png")) {
-                        $preview_ext = "png";
-                    }
-                    # Except for the link, the element structure is as Parsedown would do it.
-                    $preview_image = empty($preview_ext) ? "" :
-                        ('<p></p><a href="' . $hrefpath . '"><div class="img-container"><img src="' .
-                        $postpath . '/intro.' . $preview_ext . '" alt="Preview"></div></a><p></p>');
-
-                    # Add header links to article and post metadata.
-                    echo "<article>" . preg_replace("/<h1>(.*)<\/h1>(\n<h2>.*<\/h2>)?/",
-                        '<h1><a href="' . $hrefpath . '">$1</a></h1>$2' .
-                        '<p class="postmetadata">Posted: ' . $postdate . CONFIG_META_SEPARATOR . "Tags: " . $posttags . "</p>" .
-                        $preview_image,
-                        $Parsedown->setLocalPath($postpath)->text($contents), 1) . "</article>";
+                    echo "<article>";
+                    echo PostUtils\getPostIntro($postpath, $blog_url);
+                    echo BlogUpdates\getPostUpdates($postpath);
+                    echo "</article>";
                 } ?>
 
                 <nav class="navbuttoncontainer">
                     <ul class="pagination">
                         <?php
-                            if ($page == 1) {
-                                echo '<li class="disabled"><span aria-hidden="true">&laquo;</span></li>';
-                            } else {
-                                echo '<li><a href="' . $blog_url . (isset($filter) ? ("tags/" . $filter . "/") : "") .
-                                ($page - 1) . '" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
-                            }
+                        if ($page == 1) {
+                            echo '<li class="disabled"><span aria-hidden="true">&laquo;</span></li>';
+                        } else {
+                            echo '<li><a href="' . $blog_url . (isset($filter) ? ("tags/" . $filter . "/") : "") .
+                            ($page - 1) . '" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
+                        }
 
-                            $page_count = (int) ceil(count($posts) / CONFIG_PAGINATION);
-                            for ($i = 1; $i <= $page_count; $i++) {
-                                if ($i == $page) {
-                                    echo '<li class="active"><a>' . $i . '<span class="sr-only">(current)</span></a></li>';
-                                } else {
-                                    echo '<li><a href="' . $blog_url . (isset($filter) ? ("tags/" . $filter . "/") : "") . $i . '">' . $i . '</a></li>';
-                                }
-                            }
-
-                            if ($page == $page_count) {
-                                echo '<li class="disabled"><span aria-hidden="true">&raquo;</span></li>';
+                        $page_count = (int) ceil(count($posts) / CONFIG_PAGINATION);
+                        for ($i = 1; $i <= $page_count; $i++) {
+                            if ($i == $page) {
+                                echo '<li class="active"><a>' . $i . '<span class="sr-only">(current)</span></a></li>';
                             } else {
-                                echo '<li><a href="' . $blog_url . (isset($filter) ? ("tags/" . $filter . "/") : "") .
-                                ($page + 1) . '" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>';
+                                echo '<li><a href="' . $blog_url . (isset($filter) ? ("tags/" . $filter . "/") : "") . $i . '">' . $i . '</a></li>';
                             }
-                        ?>
+                        }
+
+                        if ($page == $page_count) {
+                            echo '<li class="disabled"><span aria-hidden="true">&raquo;</span></li>';
+                        } else {
+                            echo '<li><a href="' . $blog_url . (isset($filter) ? ("tags/" . $filter . "/") : "") .
+                            ($page + 1) . '" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>';
+                        } ?>
                     </ul>
                 </nav>
             </div>
@@ -150,8 +127,7 @@ $stats_dir = $blog_url;
                         <?php
                         foreach ($tags as $tag) {
                             echo "<li>" . $tag . "</li>";
-                        }
-                        ?>
+                        } ?>
                     </ul>
                 </div>
             </div>
