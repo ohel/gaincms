@@ -177,10 +177,14 @@ service php7.0-fpm restart
 service nginx restart
 ```
 
+### Permissions
+
+File permissions need to be set correctly. There's a sourceable file called *permissions* in the *site* directory which you may use to quickly fix everything file permission related.
+
 ## Project goals by the original author
 
 I made this CMS to have a simple yet flexible platform to write about things I've wanted to share. Some of these are for a very small audience (Linux audio for example), and some are just for my personal fun. Professionally, I wanted to have some experience on modern responsive web design. This CMS uses Bootstrap along with custom styles (e.g. responsive YouTube-video containers). I also wanted to see how routing works in practice.
 
 ## License
 
-GainCMS is released under the terms of the [GNU General Public License v3](http://www.gnu.org/licenses/gpl-3.0.txt). GainCMS uses Parsedown and Bootstrap, which are [MIT](http://opensource.org/licenses/MIT) licensed. The social media share icons are [CC](https://creativecommons.org/licenses/by/3.0/) by [Aha-Soft Team](http://www.aha-soft.com/free-icons/). By default all the articles published with GainCMS have the [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/). Edit the file *post.php* to change that.
+GainCMS is released under the terms of the [GNU General Public License v3](http://www.gnu.org/licenses/gpl-3.0.txt). GainCMS uses Parsedown and Bootstrap, which are [MIT](http://opensource.org/licenses/MIT) licensed. The social media share icons are [CC](https://creativecommons.org/licenses/by/3.0/) by [Aha-Soft Team](http://www.aha-soft.com/free-icons/). By default all the articles published with GainCMS have the [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/). Edit the file *post.php* to change that. If you make modifications to the files, feel free to add credits to you.
