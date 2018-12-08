@@ -47,17 +47,15 @@ $stats_dir = $blog_url . $post_dir;
 
 <div class="container">
 
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-10 col-sm-offset-1">
-                <?php
-                $postdate = PostUtils\dateFromPath($postpath);
-                $posttags = PostUtils\tagsStringFromPath($postpath, $blog_url);
-                $contents = file_get_contents($postpath . "article.md");
-                echo '<p class="postmetadata">Posted: ' . $postdate . CONFIG_META_SEPARATOR . "Tags: " . $posttags . "</p>";
-                echo "<article>" . $Parsedown->setLocalPath($postpath)->text($contents) . "</article>";
-                ?>
-            </div>
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+            <?php
+            $postdate = PostUtils\dateFromPath($postpath);
+            $posttags = PostUtils\tagsStringFromPath($postpath, $blog_url);
+            $contents = file_get_contents($postpath . "article.md");
+            echo '<p class="postmetadata">Posted: ' . $postdate . CONFIG_META_SEPARATOR . "Tags: " . $posttags . "</p>";
+            echo "<article>" . $Parsedown->setLocalPath($postpath)->text($contents) . "</article>";
+            ?>
         </div>
     </div>
 

@@ -25,12 +25,10 @@ $stats_dir = "projects";
         <h2>Various projects of mine</h2>
     </header>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-8 col-sm-offset-2">
-                <h2>GitHub</h2>
-                <div id="github-projects"><noscript>Enable JavaScript to see listing of <a href="https://github.com/<?php echo CONFIG_GITHUB_USER?>/">my repos.</a></noscript></div>
-            </div>
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <h2>GitHub</h2>
+            <div id="github-projects"><noscript>Enable JavaScript to see listing of <a href="https://github.com/<?php echo CONFIG_GITHUB_USER?>/">my repos.</a></noscript></div>
         </div>
     </div>
 

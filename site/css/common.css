@@ -37,7 +37,7 @@ body > div.container {
     /* display: flex; /* Mozilla needs this to flex, but IE doesn't work with it at all. */
     height: auto;
     min-height: 100%;
-    padding: 40px 0;
+    padding: 20px 15px 2rem 15px;
     -webkit-flex-direction: column;
     -moz-flex-direction: column;
     flex-direction: column;
@@ -79,7 +79,7 @@ h1 + h2 {
 }
 
 header.spaced {
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 
 header, section {

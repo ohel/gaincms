@@ -24,23 +24,21 @@ $stats_dir = "about";
         <h1>About</h1>
     </header>
 
-    <div class="container">
-        <div class="row">
+    <div class="row">
 
-            <div class="col-sm-8 col-sm-offset-2">
+        <div class="col-sm-8 col-sm-offset-2">
 
-                <h2>About me</h2>
-                <p>Coming soon...</p>
+            <h2>About me</h2>
+            <p>Coming soon...</p>
 
-                <h2>My social network sites</h2>
-                <p>Coming soon...</p>
+            <h2>My social network sites</h2>
+            <p>Coming soon...</p>
 
-                <h2>About this website</h2>
-                <p>Coming soon...</p>
-
-            </div>
+            <h2>About this website</h2>
+            <p>Coming soon...</p>
 
         </div>
+
     </div>
 
     <?php require DIR_INCLUDE . "/poweredby.php";?>
