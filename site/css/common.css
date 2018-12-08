@@ -27,7 +27,7 @@ body > div.background {
 }
 
 body > div.background-glow {
-    background-image: radial-gradient(at bottom, rgba(40, 58, 64, 0.6), rgba(0, 0, 0, 0.6));
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(40, 54, 64, 0.5));
 }
 
 body > div.container {
