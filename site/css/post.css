@@ -35,15 +35,14 @@ ul.share-buttons img {
     word-spacing: 0px;
 }
 
-h1 {
-    margin-bottom: 40px;
+h1:first-child {
+    margin-top: 30px;
     text-align: center;
 }
 
 h1 + h2 {
     font-size: 3.0rem;
     margin-bottom: 30px;
-    margin-top: -30px;
 }
 
 .pager li>a, .pager li>span {
