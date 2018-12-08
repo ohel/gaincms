@@ -53,7 +53,7 @@ $stats_dir = $blog_url;
     </header>
 
     <div class="row">
-        <div class="col-sm-10 col-sm-offset-1 col-md-9 col-md-offset-1 col-lg-8 col-lg-offset-2">
+        <div class="col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
             <?php BlogUpdates\listBlogUpdates($blog_dir, 5);?>
         </div>
     </div>
@@ -123,7 +123,7 @@ $stats_dir = $blog_url;
             </nav>
         </div>
 
-        <div class="col-sm-3 col-lg-2">
+        <div class="col-sm-3 col-lg-2 top-sticky">
             <div class="well">
                 <h4>Filter by tag</h4>
                 <ul class="list-unstyled">

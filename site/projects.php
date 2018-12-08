@@ -20,7 +20,7 @@ $stats_dir = "projects";
 
 <div class="container">
 
-    <header class="spaced">
+    <header>
         <h1>Projects</h1>
         <h2>Various projects of mine</h2>
     </header>

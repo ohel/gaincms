@@ -90,6 +90,7 @@ article {
 
 .well {
     background-color: #cccccc;
+    width: fit-content;
 }
 
 .well, .well a {
@@ -101,8 +102,9 @@ article {
 }
 
 @media only screen and (min-width: 768px) {
-    .well {
-        position: fixed;
+    .top-sticky {
+        position: sticky;
+        top: 50px;
     }
 }
 
