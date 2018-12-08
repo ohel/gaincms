@@ -175,6 +175,7 @@ ul.custom-padding > li::before, table.custom-padding tr > td:first-child:before 
 table.custom-padding tr > td:first-child {
     min-width: 10rem;
     padding: 0 1rem 0 0;
+    vertical-align: top;
 }
 
 div.blog-updates {
