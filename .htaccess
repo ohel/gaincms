@@ -1,12 +1,23 @@
 RewriteEngine On
 
-# Private address for local development and testing.
-RewriteCond %{HTTP_HOST} !^10\.0\.1\.2$
+# Private address for local development and testing, skips redirect rules.
+RewriteCond %{HTTP_HOST} ^10\.0\.1\.2$
+RewriteRule ".?" "-" [S=2]
+
+# Remove trailing slashes if not a directory or file. Also forces HTTPS.
+RewriteCond %{REQUEST_URI} (.+)/$
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ https://%{HTTP_HOST}%1 [R=301,L]
+
+# Force HTTPS.
 RewriteCond %{HTTP:X-Forwarded-Proto} !https
 RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
 # Setting DirectoryIndex prevents net::ERR_INCOMPLETE_CHUNKED_ENCODING errors on main page.
 DirectoryIndex index.php
 FallbackResource /index.php
 Options -Indexes
+
+ErrorDocument 404 /error
