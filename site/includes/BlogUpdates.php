@@ -62,7 +62,7 @@ class BlogUpdate
     }
 
     function listInfo() {
-        $url = substr($this->_path, strlen(DIR_SITE));
+        $url = rtrim(substr($this->_path, strlen(DIR_SITE)), "/");
         return "<tr><td>" . $this->_date .
             "</td><td><a href=\"" . $url . "\">" . $this->_title .
             "</a>: " . $this->_changelog . "</td>";
