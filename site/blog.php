@@ -1,5 +1,5 @@
 <?php
-# Copyright 2015-2018 Olli Helin
+# Copyright 2015-2019 Olli Helin
 # This file is part of GainCMS, a free software released under the terms of the
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -13,6 +13,7 @@ if (!empty($url_elements) && $url_elements[0] == "tags") {
     array_shift($url_elements);
 }
 
+# Default to page 1 on listings if not given in the URL.
 $page = 1;
 if (!empty($url_elements) && is_numeric($url_elements[0])) {
     $page = $url_elements[0];
@@ -100,8 +101,14 @@ $stats_dir = $blog_url;
                     if ($page == 1) {
                         echo '<li class="disabled"><span aria-hidden="true">&laquo;</span></li>';
                     } else {
-                        echo '<li><a href="' . $blog_url . (isset($filter) ? ("tags/" . $filter . "/") : "") .
-                        ($page - 1) . '" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
+                        # This forces canonical unique URLs so that the first page /1 is never in a link.
+                        $nav_url = $blog_url . (isset($filter) ? ("tags/" . $filter . "/") : "");
+                        if ($page != 2) {
+                            $nav_url .= ($page - 1);
+                        }
+                        $nav_url = rtrim($nav_url, "/");
+
+                        echo '<li><a href="' . $nav_url . '" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
                     }
 
                     $page_count = (int) ceil(count($posts) / CONFIG_PAGINATION);
@@ -109,7 +116,14 @@ $stats_dir = $blog_url;
                         if ($i == $page) {
                             echo '<li class="active"><a>' . $i . '<span class="sr-only">(current)</span></a></li>';
                         } else {
-                            echo '<li><a href="' . $blog_url . (isset($filter) ? ("tags/" . $filter . "/") : "") . $i . '">' . $i . '</a></li>';
+                            # This forces canonical unique URLs so that the first page /1 is never in a link.
+                            $nav_url = $blog_url . (isset($filter) ? ("tags/" . $filter . "/") : "");
+                            if ($i != 1) {
+                                $nav_url .= $i;
+                            }
+                            $nav_url = rtrim($nav_url, "/");
+
+                            echo '<li><a href="' . $nav_url . '">' . $i . '</a></li>';
                         }
                     }
 
