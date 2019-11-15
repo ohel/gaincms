@@ -1,3 +1,4 @@
+site/files/*
 site_stats
 GeoLite2-Country-Blocks-IPv4.csv
 GeoLite2-Country-Locations-en.csv
