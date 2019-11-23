@@ -115,6 +115,10 @@ article div.img-highlight+p+div.img-container {
     margin: 1.5em 0;
 }
 
+article video {
+    margin: 1.5em 0;
+}
+
 article div.img-highlight+p+div.img-container>figure {
     position: relative;
     left: 50%;
