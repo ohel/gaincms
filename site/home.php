@@ -1,5 +1,5 @@
 <?php 
-# Copyright 2015-2018 Olli Helin
+# Copyright 2015-2018, 2020 Olli Helin
 # This file is part of GainCMS, a free software released under the terms of the
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -7,7 +7,7 @@ if (count(get_included_files()) == 1) { exit("Direct access is not permitted.");
 
 $page_meta_description = "The personal website of " . CONFIG_AUTHOR . ".";
 require DIR_INCLUDE . "/header.php";
-require DIR_INCLUDE . "/BlogUpdates.php";
+require_once DIR_INCLUDE . "/BlogUpdates.php";
 
 $stats_dir = "home";
 ?>
@@ -36,9 +36,10 @@ $stats_dir = "home";
 
     </section>
 
-    <?php BlogUpdates\listBlogUpdates(array("posts/", "posts2/"), 10);?>
-
-    <?php require DIR_INCLUDE . "/poweredby.php";?>
+    <?php
+    BlogUpdates\listBlogUpdates(array("posts/", "posts2/"), 10);
+    require DIR_INCLUDE . "/poweredby.php";
+    ?>
 
 </div>
 

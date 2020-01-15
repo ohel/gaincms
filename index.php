@@ -52,6 +52,7 @@ if (empty($url_elements)) {
         $page_meta = array("blog/", "posts/", "Blog", "A tech-oriented blog");
         $navbarhighlight = "blogs";
         break;
+
     case "blog2":
         $page = "blog";
     case "posts2":
@@ -59,14 +60,17 @@ if (empty($url_elements)) {
         $page_meta = array("blog2/", "posts2/", "Blog 2", "Another blog");
         $navbarhighlight = "blogs";
         break;
+
     case "projects":
         $page = "projects";
         $navbarhighlight = $page;
         break;
+
     case "about":
         $page = "about";
         $navbarhighlight = $page;
         break;
+
     default:
         $page = "error";
 }
