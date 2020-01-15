@@ -179,7 +179,7 @@ table.custom-padding tr > td:first-child {
     vertical-align: top;
 }
 
-div.blog-updates {
+div.blog-updates, div.search-tools {
     display: inline-block;
     font-size: 1.5rem;
     margin: 0 auto;
@@ -197,7 +197,7 @@ div.blog-updates > hr {
 }
 
 div.blog-updates > hr:last-child {
-    margin: 1rem 0 3rem 0;
+    margin: 1rem 0;
 }
 
 div.blog-updates > h4 {
