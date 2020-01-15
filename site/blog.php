@@ -5,7 +5,7 @@
 
 if (count(get_included_files()) == 1) { exit("Direct access is not permitted."); }
 
-if (!empty($url_elements)) {
+if (!empty($url_elements) && !is_numeric($url_elements[0])) {
     $url_part = $url_elements[0];
     array_shift($url_elements);
     if (!empty($url_elements)) {
@@ -161,7 +161,7 @@ $stats_dir = $blog_url;
                     }
 
                     # Right arrow link.
-                    if ($page == $page_count) {
+                    if ($page == $page_count || $page_count == 0) {
                         echo '<li class="disabled"><span aria-hidden="true">&raquo;</span></li>';
                     } else {
                         echo '<li><a href="' . $nav_url_base . ($page + 1) .
