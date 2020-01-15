@@ -11,6 +11,7 @@ GainCMS is a simple PHP blog engine for generic websites and blogs, influenced b
 * Disqus comments
 * Pagination
 * Tagging
+* Searching (with regular expressions)
 * PHP routing
 * Multiple blog support
 * Simple visitor statistics
@@ -27,7 +28,7 @@ Required software:
     * Apache 2.2.16 or newer with rewrite module.
     * nginx 1.10 tested, probably works also with earlier versions.
 * **PHP** 5.6 or newer.
-* For statistics parsing (optional), Python 3 is required.
+* For statistics parsing (optional), Python is required.
 
 To get things running:
 
