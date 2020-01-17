@@ -14,7 +14,7 @@ define("CONFIG_REGEX_DELIMITER", "^"); # Used as the regex search delimiter char
 define("CONFIG_SORT_FILE", "_sort_override"); # Name of the per-blog file used to force post sort order.
 define("CONFIG_STATS_IP_IGNORE_FILE", "stats_ip_ignore.txt"); # Skip the IPv4 addresses and IPv6 prefixes found in this file from visitor statistics.
 define("CONFIG_TITLE", "Site Title"); # Name of your website.
-define("CONFIG_URL_BASE", "http://10.0.1.2"); # One could prefix URLs with a slash, but this saves the trouble and is needed for Open Graph data anyway.
+define("CONFIG_URL_BASE", "http://10.0.1.2"); # One could prefix URLs with a slash, but this saves the trouble and is needed for Open Graph data anyway. Note: when using sync_webhost.sh to push updates, this may be left to point to a local host here.
 define("CONFIG_URL_DISQUS", "mysite.disqus.com"); # URL for Disqus comments.
 define("DIR_FILES", "site/files/"); # Location of miscellaneous files (e.g. downloadable documents). Optional, use where it feels handy.
 define("DIR_INCLUDE", "site/includes/"); # Location of includable code files.

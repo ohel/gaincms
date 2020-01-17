@@ -94,7 +94,7 @@ Post order can be forced (for pinned posts, or posts with the same date) using *
 
 Each blog article consists of the article itself in *article.md*, a short intro in *intro.md* (which is shown in the blog post listing and social media shares), tags, and other files such as images if referred to in the article. The tags are just empty files whose names should begin with `tag_` by default. Spaces in tags are supported, but underscores are converted to spaces anyway in hyperlinks.
 
-Updates for changelogs can be done by creating files which begin with `update_` by default, and end in a date. A short description of the update should be written in the file.
+Updates for article changelogs can be done by creating files which begin with `update_` by default, and end in a date. A short description of the update should be written in the file.
 
 The paths and glob patterns are customizable in *index.php*.
 
@@ -181,6 +181,10 @@ service nginx restart
 ### Permissions
 
 File permissions need to be set correctly. There's a sourceable file called *permissions* in the *site* directory which you may use to quickly fix everything file permission related.
+
+### Updating
+
+To quickly update the site to your web host, there's a convenience script *sync_webhost.sh*.
 
 ## Project goals by the original author
 
