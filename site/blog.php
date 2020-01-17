@@ -85,7 +85,7 @@ $stats_dir = $blog_url;
                     $search = BlogSearch\getUsableSearchString($search);
                     echo '<p><span class="filterinfo">';
                     if ($search) {
-                        echo 'Showing articles matching regular expression: </span>' . $search . "</p>";
+                        echo 'Showing articles matching regular expression: </span><span class="monospaced">' . $search . "</span></p>";
                     } else {
                         echo 'Please use a simpler search pattern.';
                         unset($search);

@@ -181,12 +181,12 @@ table.custom-padding tr > td:first-child {
 
 div.blog-updates, div.search-tools {
     display: inline-block;
-    font-size: 1.5rem;
     margin: 0 auto;
     padding: 0 2rem;
 }
 
 div.blog-updates > table {
+    font-size: 1.5rem;
     margin: 0 2rem;
 }
 

@@ -19,7 +19,7 @@ function getPostUpdates($postpath) {
     foreach ($updates as $update) {
         $returnstring .= "<tr><td>";
         $returnstring .= \PostUtils\dateFromPath($update, strlen(DIR_UPDATE_PREFIX));
-        $returnstring .= "</td><td>";
+        $returnstring .= '</td><td class="post-update-description">';
         $returnstring .= file_get_contents($update);
         $returnstring .= "</td></tr>";
     }

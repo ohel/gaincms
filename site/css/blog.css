@@ -139,3 +139,11 @@ div.search-tools button {
 .filterinfo {
     color: #ff3060;
 }
+
+.post-update-description {
+    text-align: left;
+}
+
+.monospaced {
+    font-family: monospace;
+}

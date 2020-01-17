@@ -51,7 +51,7 @@ function renderSearchTools() {
     <noscript><div style="display:none"></noscript>
     <div class="search-tools">
         <p>Regex search:</p>
-        <input id="searchbox" type="text"/>
+        <input id="searchbox" type="text" class="monospaced"/>
         <button title="Search" onclick="return doSearch()">🔍</button>
     </div>
     <script>
