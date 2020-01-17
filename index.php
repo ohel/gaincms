@@ -10,6 +10,7 @@ define("CONFIG_EMAIL", "info@gainit.fi"); # Email for article comments.
 define("CONFIG_GITHUB_USER", "user"); # Your GitHub user name, for retrieving projects.
 define("CONFIG_META_SEPARATOR", " | "); # Used to separate displayed post metadata, for example date and tags.
 define("CONFIG_PAGINATION", 8); # How many posts to show per blog page.
+define("CONFIG_REGEX_DELIMITER", "^"); # Used as the regex search delimiter character.
 define("CONFIG_SORT_FILE", "_sort_override"); # Name of the per-blog file used to force post sort order.
 define("CONFIG_STATS_IP_IGNORE_FILE", "stats_ip_ignore.txt"); # Skip the IPv4 addresses and IPv6 prefixes found in this file from visitor statistics.
 define("CONFIG_TITLE", "Site Title"); # Name of your website.

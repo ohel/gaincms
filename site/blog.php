@@ -82,8 +82,14 @@ $stats_dir = $blog_url;
                 }
 
                 if (isset($search)) {
-                    echo '<p><span class="filterinfo">Showing articles matching regular expression: </span>'
-                        . str_replace("/", "\/", BlogSearch\base64urlDecode($search)) . "</p>";
+                    $search = BlogSearch\getUsableSearchString($search);
+                    echo '<p><span class="filterinfo">';
+                    if ($search) {
+                        echo 'Showing articles matching regular expression: </span>' . $search . "</p>";
+                    } else {
+                        echo 'Please use a simpler search pattern.';
+                        unset($search);
+                    }
                 }
                 ?>
             </div>
