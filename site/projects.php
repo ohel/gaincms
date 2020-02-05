@@ -11,7 +11,7 @@ if (!empty($url_elements)) {
     exit();
 }
 
-$page_title = CONFIG_TITLE . " - Projects";
+$page_title = "Projects | " . CONFIG_TITLE;
 $page_meta_description = "Information about various projects made by " . CONFIG_AUTHOR . ", the author of the website.";
 require DIR_INCLUDE . "/header.php";
 

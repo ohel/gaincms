@@ -35,8 +35,8 @@ $og_data["og:description"] = strip_tags(substr($parsed_intro, $description_start
 if (file_exists($postpath . "og_image.jpg")) {
     $og_data["og:image"] = $postpath . "og_image.jpg";
 }
-$page_title = CONFIG_TITLE . " - " . $blog_title . " - " . $og_data["og:title"];
-$page_meta_description = $blog_title . " article - " . $og_data["og:title"];
+$page_title = $og_data["og:title"];
+$page_meta_description = CONFIG_TITLE . " | " . $blog_title . " article | " . $og_data["og:title"];
 
 array_push($extra_styles, "post");
 require DIR_INCLUDE . "/header.php";

@@ -14,7 +14,7 @@ terms of the GPL-3.0 license. See more at https://github.com/ohel/gaincms -->
 
     <?php
     if (!isset($page_meta_description)) {
-        $page_meta_description = CONFIG_AUTHOR . "'s Website";
+        $page_meta_description = CONFIG_AUTHOR . "'s website";
     } ?>
     <meta name="description" content="<?php echo $page_meta_description?>">
     <meta name="author" content="<?php echo CONFIG_AUTHOR?>">
