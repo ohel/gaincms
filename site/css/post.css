@@ -1,5 +1,5 @@
 /*
-    Copyright 2015-2019 Olli Helin
+    Copyright 2015-2020 Olli Helin
     This file is part of GainCMS, a free software released under the terms of the
     GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 */
@@ -52,7 +52,7 @@ h1 + h2 {
     color: #303030;
 }
 
-.pager .disabled>a, .pager .disabled>a:focus, .pager .disabled>a:hover, .pager .disabled>span {    
+.pager .disabled>a, .pager .disabled>a:focus, .pager .disabled>a:hover, .pager .disabled>span {
     background-color: #cccccc;
     border-color: #606060;
     color: #a0a0a0;
@@ -111,6 +111,7 @@ article div.img-highlight,div.img-highlight+p {
 }
 
 article div.img-highlight+p+div.img-container {
+    clear: both;
     float: none;
     margin: 1.5em 0;
 }
@@ -145,6 +146,29 @@ article .video-container {
     position: relative;
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
+}
+
+article div.audio-container {
+    border: outset #a0a0a0 2px;
+    border-radius: 15px;
+    display: inline-block;
+    float: left;
+    margin: 1rem 1.5rem 1.5rem 0;
+    padding: 1rem;
+}
+
+article div.audio-container>audio {
+    min-width: 300px;
+    width: 100%;
+}
+
+article div.audio-container>p {
+    font-style: italic;
+    margin: 0;
+}
+
+article div.audio-container>p:before {
+    display: none;
 }
 
 article p>br {
