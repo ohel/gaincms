@@ -50,8 +50,8 @@ function renderSearchTools() {
     ?>
     <noscript><div style="display:none"></noscript>
     <div class="search-tools">
-        <p>Regex search:</p>
-        <input id="searchbox" type="text" class="monospaced"/>
+        <p id="searchlabel">Regex search:</p>
+        <input id="searchbox" type="text" class="monospaced" aria-labelledby="searchlabel"/>
         <button title="Search" onclick="return doSearch()">🔍</button>
     </div>
     <script>

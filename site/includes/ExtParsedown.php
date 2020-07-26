@@ -1,5 +1,5 @@
 <?php
-# Copyright 2015-2018 Olli Helin
+# Copyright 2015-2018, 2020 Olli Helin
 # This file is part of GainCMS, a free software released under the terms of the
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -26,6 +26,7 @@ class ExtParsedown extends Parsedown
             return parent::element($Element);
         }
 
+        // TODO/FIXME: cannot have div or figure elements inside p elements
         $markup = '<div class="img-container">';
         if (isset($Element['attributes']['title'])) {
             $markup .= '<figure>';

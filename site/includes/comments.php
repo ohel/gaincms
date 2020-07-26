@@ -4,7 +4,7 @@
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 ?>
 
-<div class="contactnote">Send me <a href="mailto:<?php echo CONFIG_EMAIL?>" title="Email" onclick="window.open('mailto:<?php echo CONFIG_EMAIL?>?subject=' + encodeURIComponent(document.title)); return false;">email</a> or comment below:
+<div class="contactnote">Send me <a href="mailto:<?php echo CONFIG_EMAIL?>" title="Email author" aria-label="Send email to the author" onclick="window.open('mailto:<?php echo CONFIG_EMAIL?>?subject=' + encodeURIComponent(document.title)); return false;">email</a> or comment below:
 </br>
 <span class="disclaimer">(Please note: comments with direct links to commercial sites might not be published.)</span>
 </div>

@@ -30,7 +30,7 @@ body > div.background-glow {
     background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(40, 54, 64, 0.5));
 }
 
-body > div.container {
+main {
     background-color: rgba(48, 48, 48, 0.8);
     box-shadow: 0 0 10px 2px #202020;
     display: -webkit-flex;
@@ -129,7 +129,7 @@ pre, code {
     color: #ffffff;
 }
 
-header + div.container {
+header + main {
     text-align: justify;
 }
 
@@ -200,7 +200,15 @@ div.blog-updates > hr:last-child {
     margin: 1rem 0;
 }
 
-div.blog-updates > h4 {
-    margin: 1rem 2rem;
-    text-align: left;
+div.blog-updates > h1 {
+    font-family: Raleway, Helvetica, Tahoma, Geneva, Arial, sans-serif;
+    font-size: 18px;
+    margin: 1rem 0;
+}
+
+div.blog-updates > h2 {
+    font-family: Raleway, Helvetica, Tahoma, Geneva, Arial, sans-serif;
+    font-size: 2.0rem;
+    font-weight: 300;
+    margin: 1rem 0;
 }

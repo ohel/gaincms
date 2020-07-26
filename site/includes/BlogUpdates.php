@@ -12,7 +12,7 @@ function getPostUpdates($postpath) {
     $returnstring = "<div class=\"blog-updates\">";
     $updates = array_reverse(glob($postpath . DIR_UPDATE_PREFIX . "*"));
     if (count($updates) > 0) {
-        $returnstring .= "<h4>Updates</h4>";
+        $returnstring .= "<h2>Updates</h2>";
     }
     $returnstring .= "<table class=\"custom-padding\">";
 
@@ -100,7 +100,7 @@ function listBlogUpdates($blog_paths, $max_updates) {
 
     <div class="blog-updates">
         <hr>
-        <h4>Latest blog updates</h4>
+        <h1>Latest blog updates</h1>
         <table class="custom-padding">
         <?php
         foreach ($updates as $update) {

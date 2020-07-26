@@ -1,5 +1,5 @@
 <?php
-# Copyright 2015-2018 Olli Helin
+# Copyright 2015-2018, 2020 Olli Helin
 # This file is part of GainCMS, a free software released under the terms of the
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -18,7 +18,7 @@ require DIR_INCLUDE . "/header.php";
 $stats_dir = "about";
 ?>
 
-<div class="container">
+<main class="container">
 
     <header>
         <h1>About</h1>
@@ -43,6 +43,6 @@ $stats_dir = "about";
 
     <?php require DIR_INCLUDE . "/poweredby.php";?>
 
-</div>
+</main>
 
 <?php require DIR_INCLUDE . "/htmlend.php";?>

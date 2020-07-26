@@ -50,7 +50,7 @@ require_once DIR_INCLUDE . "/BlogSearch.php";
 $stats_dir = $blog_url;
 ?>
 
-<div class="container">
+<main class="container">
 
     <header>
         <h1><?php echo $blog_title?></h1>
@@ -132,7 +132,7 @@ $stats_dir = $blog_url;
             ?>
 
             <!-- Page selection links. -->
-            <nav class="navbuttoncontainer">
+            <nav aria-label="pager" class="navbuttoncontainer">
                 <ul class="pagination">
                     <?php
                     $nav_url_base = $blog_url;
@@ -181,7 +181,7 @@ $stats_dir = $blog_url;
         <!-- Filter by tag. -->
         <div class="col-sm-3 col-lg-2 top-sticky">
             <div class="well">
-                <h4>Filter by tag</h4>
+                <h1>Filter by tag</h1>
                 <ul class="list-unstyled">
                     <?php
                     foreach ($tags as $tag) {
@@ -196,6 +196,6 @@ $stats_dir = $blog_url;
 
     <?php require DIR_INCLUDE . "/poweredby.php";?>
 
-</div>
+</main>
 
 <?php require DIR_INCLUDE . "/htmlend.php";?>

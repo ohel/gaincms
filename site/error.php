@@ -1,5 +1,5 @@
 <?php
-# Copyright 2015-2018 Olli Helin
+# Copyright 2015-2018, 2020 Olli Helin
 # This file is part of GainCMS, a free software released under the terms of the
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -9,7 +9,7 @@ header($_SERVER['SERVER_PROTOCOL'] . " 404 Not Found");
 require DIR_INCLUDE . "/header.php";
 ?>
 
-<div class="container">
+<main class="container">
 
     <header>
         <h1>Error</h1>
@@ -18,6 +18,6 @@ require DIR_INCLUDE . "/header.php";
 
     <?php require DIR_INCLUDE . "/poweredby.php";?>
 
-</div>
+</main>
 
 <?php require DIR_INCLUDE . "/htmlend.php";?>

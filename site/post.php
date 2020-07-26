@@ -45,7 +45,7 @@ require_once DIR_INCLUDE . "/PostUtils.php";
 $stats_dir = $blog_url . $post_dir;
 ?>
 
-<div class="container">
+<main class="container">
 
     <div class="row">
         <div class="col-sm-10 col-sm-offset-1">
@@ -59,7 +59,7 @@ $stats_dir = $blog_url . $post_dir;
         </div>
     </div>
 
-    <nav>
+    <nav aria-label="index">
         <ul class="pager">
             <?php
             $posts = glob(DIR_SITE . $blog_dir . DIR_POSTS_GLOB, GLOB_ONLYDIR|GLOB_MARK);
@@ -90,6 +90,6 @@ $stats_dir = $blog_url . $post_dir;
     require DIR_INCLUDE . "/poweredby.php";
     ?>
 
-</div>
+</main>
 
 <?php require DIR_INCLUDE . "/htmlend.php";?>

@@ -1,5 +1,5 @@
 <?php
-# Copyright 2015-2017 Olli Helin
+# Copyright 2015-2017, 2020 Olli Helin
 # This file is part of GainCMS, a free software released under the terms of the
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 ?>
@@ -53,7 +53,7 @@ terms of the GPL-3.0 license. See more at https://github.com/ohel/gaincms -->
 </head>
 <body>
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav aria-label="main-nav" class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">

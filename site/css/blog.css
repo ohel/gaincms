@@ -107,8 +107,14 @@ article {
     }
 }
 
-.well h4 {
+.well h1 {
+    background: #606060;
+    border-radius: 4px;
+    color: #cccccc;
+    font-family: Raleway, Helvetica, Tahoma, Geneva, Arial, sans-serif;
+    font-size: 2.0rem;
     margin: 0 0 1rem 0;
+    padding: 4px;
     text-align: left;
 }
 
