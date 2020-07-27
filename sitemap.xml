@@ -11,7 +11,13 @@
 </url>
 <url>
   <loc>http://10.0.1.2/blog</loc>
-  <lastmod>2017-04-05</lastmod>
+  <lastmod>2018-12-05</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>1.0</priority>
+</url>
+<url>
+  <loc>http://10.0.1.2/blog2</loc>
+  <lastmod>2020-01-01</lastmod>
   <changefreq>monthly</changefreq>
   <priority>1.0</priority>
 </url>
