@@ -106,11 +106,7 @@ article div.img-container figure figcaption {
 
 /* Use <div class="img-highlight"></div> before an image
  * to make it stand out. Good for panorama images and such. */
-article div.img-highlight,div.img-highlight+p {
-    display: none;
-}
-
-article div.img-highlight+p+div.img-container {
+article div.img-highlight+div.img-container {
     clear: both;
     float: none;
     margin: 1.5em 0;
@@ -120,7 +116,7 @@ article video {
     margin: 1.5em 0;
 }
 
-article div.img-highlight+p+div.img-container>figure {
+article div.img-highlight+div.img-container>figure {
     position: relative;
     left: 50%;
     transform: translateX(-50%);
