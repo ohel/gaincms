@@ -116,7 +116,7 @@ article video {
     margin: 1.5em 0;
 }
 
-article div.img-highlight+div.img-container>figure {
+article div.img-highlight+div.img-container figure {
     position: relative;
     left: 50%;
     transform: translateX(-50%);
