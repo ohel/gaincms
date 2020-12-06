@@ -7,12 +7,12 @@ namespace BlogUpdates;
 
 require_once DIR_INCLUDE . "/PostUtils.php";
 
-function getPostUpdates($postpath) {
+function getPostUpdates($postpath, $bare = False) {
 
     $returnstring = "<div class=\"blog-updates\">";
     $updates = array_reverse(glob($postpath . DIR_UPDATE_PREFIX . "*"));
-    if (count($updates) > 0) {
-        $returnstring .= "<h2>Updates</h2>";
+    if ((count($updates) > 0)) {
+        $returnstring .= $bare ? "Updates:" : "<h2>Updates</h2>";
     }
     $returnstring .= "<table class=\"custom-padding\">";
 

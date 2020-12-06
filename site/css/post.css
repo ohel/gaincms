@@ -206,3 +206,16 @@ div.license {
     padding-right: 15px;
     text-align: center;
 }
+
+#postmetadata .blog-updates {
+    display: block;
+    padding: 0;
+}
+
+#postmetadata .custom-padding {
+    font-size: inherit;
+}
+
+#postmetadata td {
+    min-width: 0;
+}

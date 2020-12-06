@@ -41,6 +41,7 @@ $page_meta_description = CONFIG_TITLE . " | " . $blog_title . " article | " . $o
 array_push($extra_styles, "post");
 require DIR_INCLUDE . "/header.php";
 require_once DIR_INCLUDE . "/PostUtils.php";
+require_once DIR_INCLUDE . "/BlogUpdates.php";
 
 $stats_dir = $blog_url . $post_dir;
 ?>
@@ -52,8 +53,10 @@ $stats_dir = $blog_url . $post_dir;
             <?php
             $postdate = PostUtils\dateFromPath($postpath);
             $posttags = PostUtils\tagsStringFromPath($postpath, $blog_url);
+            echo '<div id="postmetadata" class="postmetadata">Posted: ' . $postdate . CONFIG_META_SEPARATOR . "Tags: " . $posttags;
+            echo BlogUpdates\getPostUpdates($postpath, True) . "</div>";
+
             $contents = file_get_contents($postpath . "article.md");
-            echo '<p class="postmetadata">Posted: ' . $postdate . CONFIG_META_SEPARATOR . "Tags: " . $posttags . "</p>";
             echo "<article>" . $Parsedown->setLocalPath($postpath)->text($contents) . "</article>";
             ?>
         </div>
