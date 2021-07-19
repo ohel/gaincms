@@ -180,7 +180,7 @@ service nginx restart
 
 ### Permissions
 
-File permissions need to be set correctly. There's a sourceable file called *permissions* in the *site* directory which you may use to quickly fix everything file permission related.
+File permissions need to be set correctly. There's a sourceable (. operator) file called *permissions* in the *site* directory which you may use to quickly fix everything file permission related.
 
 ### Updating
 
