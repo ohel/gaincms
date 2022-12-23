@@ -1,4 +1,4 @@
-# Copyright 2018, 2020, 2021 Olli Helin
+# Copyright 2018, 2020-2022 Olli Helin
 #
 # This file is part of GainCMS, a free software released under the terms of the
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
@@ -6,10 +6,12 @@
 # To fix file access permissions quickly, source (dot) this file.
 
 chmod 604 * # rw----r-- (php, md, jpg, svg, png, etc.)
-chmod 701 posts posts2 css files graphics includes # rwx-----x
+chmod 701 posts posts2 css graphics includes # rwx-----x
 chmod 701 posts/* posts2/*
 chmod 604 -fR posts/*/* posts2/*/*
 chmod 604 css/* graphics/* includes/* includes/.htaccess
-chmod 604 -fR files/*
+chmod 705 -fR files
 find files/ -type d | xargs chmod 701
+find files/ -type f | xargs chmod 604
+chmod 701 files
 chmod 604 ../.htaccess ../index.php ../sitemap.xml
