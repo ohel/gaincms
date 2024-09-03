@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright 2018, 2020 Olli Helin
+# Copyright 2018, 2020, 2024 Olli Helin
 # This file is part of GainCMS, a free software released under the terms of the
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -62,8 +62,8 @@ for blog_dir in ${!blog_updates[@]}; do
     blog_date=$(echo ${blog_updates[${blog_dir}]} | tr " " "\n" | sort -g | tail -n 1)
     blog_number=$(echo $blog_dir | grep -o "[0-9]$")
     blog_url="$base_url/blog$blog_number"
-    smap_date=$(grep -A 1 "<loc>$blog_url<\/loc>" $sitemap | tail -n 1 | tr -d -c "[:digit:]-")
-    smap_date_line=$(grep -n -A 1 "<loc>$blog_url<\/loc>" $sitemap | tail -n 1 | cut -f 1 -d '-')
+    smap_date=$(grep -A 1 "<loc>$blog_url</loc>" $sitemap | tail -n 1 | tr -d -c "[:digit:]-")
+    smap_date_line=$(grep -n -A 1 "<loc>$blog_url</loc>" $sitemap | tail -n 1 | cut -f 1 -d '-')
     if [ ! "$smap_date" ]
     then
         echo "Missing from sitemap: $blog_url"
