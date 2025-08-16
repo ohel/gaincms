@@ -1,5 +1,6 @@
 site/files/*
 site_stats
 GeoLite2-Country-Blocks-IPv4.csv
+GeoLite2-Country-Blocks-IPv6.csv
 GeoLite2-Country-Locations-en.csv
 stats_ip_ignore.txt

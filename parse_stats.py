@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-# Copyright 2016-2018 Olli Helin
+# Copyright 2016-2018, 2025 Olli Helin
 # This file is part of GainCMS, a free software released under the terms of the
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -14,22 +14,10 @@ from sys import argv, exit, stderr
 FILE_IP2ID = "GeoLite2-Country-Blocks-IPv4.csv"
 FILE_ID2COUNTRY = "GeoLite2-Country-Locations-en.csv"
 UA_IGNORE_LIST = [
-    "AdsBot",
-    "bingbot",
-    "Cliqzbot",
-    "Exabot",
-    "Facebot Twitterbot",
-    "Findxbot",
-    "Googlebot",
-    "linkdexbot",
-    "MauiBot",
-    "MJ12bot",
-    "SemrushBot",
-    "Twitterbot",
-    "XML-Sitemaps",
-    "YandexBot",
-    "YandexMobileBot"
+    "bot",
+    "Bot"
 ]
+UA_BOT = "BOT"
 
 if (len(argv) < 2):
     print("Give the site statistics directory as a parameter.")
@@ -37,34 +25,42 @@ if (len(argv) < 2):
 
 print("For studying statistics interactively, run the script using: python3 -i %s <site statistics directory> [<ignore IPs file>]" % path.basename(argv[0]))
 
+class Visit:
+
+    def __init__(self, page, ipv4, ipv6, timestamp, ua, ref):
+
+        self.country = ""
+        self.geoid = 0
+        self.ipv4 = ipv4
+        self.ipv6 = ipv6
+        self.page = page
+        self.ref = ref
+        self.timestamp = timestamp
+        self.useragent = ua
+
 def parseVisitData(visits):
 
     print("Parsing visit data...")
 
-    class Visit:
-
-        def __init__(self, page, ipv4, timestamp, ua, ref):
-
-            self.country = "";
-            self.geoid = 0;
-            self.ipv4 = ipv4;
-            self.page = page;
-            self.ref = ref;
-            self.timestamp = timestamp;
-            self.useragent = ua;
-
-    def addPageVisit(page, ip, visit_data):
+    def addPageVisit(page, ip, visit_data, filename):
 
         split_data = search(r"(?P<timestamp>\S+ \S+) (?P<ua>\".*\")( (?P<ref>\S+))?", visit_data)
         if (not split_data or not split_data.group("timestamp") or not split_data.group("ua")):
-            print("Regex matching went wrong with data: %s" % visit_data, file=stderr)
+            print("Regex error in file %s: %s" % (filename, visit_data), file=stderr)
             return
 
-        ref = split_data.group("ref") if split_data.group("ref") else ""
         ua = split_data.group("ua")
-        if (any(map(lambda x: x in ua, UA_IGNORE_LIST))): return
+        if (any(map(lambda x: x in ua, UA_IGNORE_LIST))): ua = UA_BOT
 
-        visits.append(Visit(page, ip, split_data.group("timestamp"), ua, ref))
+        ts = split_data.group("timestamp")
+        ref = split_data.group("ref") if split_data.group("ref") else ""
+
+        ipv4 = ipv6 = None
+        if (str(ip).find(":") < 0):
+            ipv4 = ip
+        else:
+            ipv6 = ip
+        visits.append(Visit(page, ipv4, ipv6, ts, ua, ref))
 
     ignore_ips = {}
     ignore_ip_file = argv[2] if len(argv) > 2 else "stats_ip_ignore.txt"
@@ -74,7 +70,7 @@ def parseVisitData(visits):
         for ip_to_ignore in file: ignore_ips[ip_to_ignore.rstrip()] = False
         file.close()
 
-    for root_dir, directories, ordinary_files in walk(argv[1] if len(argv) > 1 else '.'):
+    for root_dir, directories, _ in walk(argv[1] if len(argv) > 1 else '.'):
 
         for page in directories:
 
@@ -83,12 +79,12 @@ def parseVisitData(visits):
             check_ip = ""
 
             # Non-directory file names are IP addresses.
-            for page_root_dir, page_directories, ips in walk(page_dir):
+            for _, _, ips in walk(page_dir):
 
                 try:
                     for ip in ips:
                         check_ip = ip
-                        ip_address(ip) # IPv4 or IPv6 are both valid here.
+                        ip_address(ip) # IPv4 or IPv6 are both valid here. Throws error if invalid.
                     visitors_ips.extend(ips)
                 except:
                     print("Not a valid statistics file: %s" % check_ip, file=stderr)
@@ -103,7 +99,7 @@ def parseVisitData(visits):
                         ignore_ips[visitor_ip] = True
                     continue
                 file = open(path.join(page_dir, visitor_ip))
-                for visit_data in file: addPageVisit(page, visitor_ip, visit_data)
+                for visit_data in file: addPageVisit(page, visitor_ip, visit_data, file.name)
                 file.close()
 
 def parseGeoData(visits):
@@ -162,6 +158,9 @@ def parseGeoData(visits):
             split_data = geolite2_csv_line.split(",")
             self.geoid = split_data[0]
             self.country = split_data[5]
+            # There might be IPs that don't belong to any specific country. In that case, use the continent.
+            if (len(self.country) == 0):
+                self.country = "(No country data) " + split_data[3]
 
     geoips = []
     with open(path.join(geopath, FILE_IP2ID)) as f:
@@ -180,8 +179,8 @@ def parseGeoData(visits):
 
         country_candidate = list(filter(lambda c: c.geoid == visit.geoid, countries))
         if len(country_candidate) == 0:
-            print("Applying GeoIP country failed for IP: %s, GeoID: %s" % (visit.ipv4, visit.geoid), file=stderr)
-            visit.country = " Unknown"
+            # print("Applying GeoIP country failed for IP: %s, GeoID: %s" % (visit.ipv4, visit.geoid), file=stderr)
+            visit.country = "(No GeoIP data) Unknown"
         else:
             visit.country = country_candidate[0].country.replace("\n", "").replace("\"", "")
 
@@ -195,7 +194,7 @@ def parseGeoData(visits):
             if len(geo_main_ip_blocks[i]) > 0:
                 return geo_main_ip_blocks[i][-1]
 
-    def applyGeoData(visit):
+    def applyGeoDataIPv4(visit):
 
         if (visit.ipv4 in known_geoips):
             [visit.geoid, visit.country] = known_geoips[visit.ipv4]
@@ -204,9 +203,8 @@ def parseGeoData(visits):
         try:
             [vb1, vb2, vb3, vb4] = map(lambda vb: int(vb), visit.ipv4.split("."))
         except:
-            # This will always fail for IPv6, which is intentional.
             print("Applying GeoData failed for IP: %s" % visit.ipv4, file=stderr)
-            visit.country = " Not IPv4"
+            visit.country = "(Invalid IPv4)"
             known_geoips[visit.ipv4] = [visit.geoid, visit.country]
             return
 
@@ -217,14 +215,15 @@ def parseGeoData(visits):
         first_candidate = next((gip for gip in reversed(geo_main_ip_blocks[vb1]) if gip.ipv4_block_2 < vb2), None)
         # If visitor IP might be in the first part of a matching main block, it might be in a previous main block also.
         if (not first_candidate or (len(geo_main_ip_blocks[vb1]) > 0 and first_candidate == geo_main_ip_blocks[vb1][0])):
-            candidates.append(getPreviousMainIPBlock(vb1))
+            pb = getPreviousMainIPBlock(vb1) # Will be None if vb1 == 1
+            if pb: candidates.append(pb)
         if (first_candidate):
             candidates.append(first_candidate)
         candidates.extend(list(filter(lambda gip: gip.ipv4_block_2 == vb2, geo_main_ip_blocks[vb1])))
 
         if len(candidates) == 0:
-            print("No GeoIP candidate found for IP: %s" % visit.ipv4)
-            visit.country = " Unknown"
+            #print("No GeoIP candidate found for IP: %s" % visit.ipv4)
+            visit.country = "(No GeoIP data) Unknown"
             known_geoips[visit.ipv4] = [visit.geoid, visit.country]
             return
 
@@ -232,34 +231,47 @@ def parseGeoData(visits):
         match = list(filter(lambda c: c.ipv4_min_val <= visit_ip_val and c.ipv4_max_val >= visit_ip_val, candidates))
         if len(match) > 1:
             print("Multiple GeoIP matches for IP %s, something is wrong." % visit.ipv4, file=stderr)
-            visit.country = " Error"
+            visit.country = "(No country data) Error"
         elif len(match) == 0:
-            print("No GeoIP match found for IP: %s" % visit.ipv4)
-            visit.country = " Unknown"
+            #print("No GeoIP match found for IP: %s" % visit.ipv4)
+            visit.country = "(No GeoIP data) Unknown"
         else:
             visit.geoid = match[0].geoid
             applyCountry(visit)
 
         known_geoips[visit.ipv4] = [visit.geoid, visit.country]
 
-    for visit in visits: applyGeoData(visit)
+    def applyGeoData(visit):
+
+        if (visit.ipv4):
+            applyGeoDataIPv4(visit)
+        else:
+            visit.geoid = 0
+            visit.country = "(IPv6 GeoIP not implemented)"
+
+    for visit in visits:
+        if visit.useragent != UA_BOT: applyGeoData(visit)
 
 def printStats(visits):
 
-    print("\nTotal site visits: %s" % len(visits))
+    ignored_count = 0
+    visits[:] = [visit for visit in visits if not (visit.useragent == UA_BOT and (ignored_count := ignored_count + 1))]
+    if (ignored_count > 0): print("\nIgnored (bot) visitor count: %s" % ignored_count)
 
-    unique_ips = set([visit.ipv4 for visit in visits])
-    print("\nTotal site visitors: %s" % len(unique_ips))
+    print("\nTotal site visits (non-unique): %s" % len(visits))
 
-    print("\nVisits by page:\n")
+    unique_ips = set([(visit.ipv4 or visit.ipv6) for visit in visits])
+    print("\nTotal unique site visitors: %s" % len(unique_ips))
+
+    print("\nVisits by page (non-unique): \n")
     pages = list(set([visit.page for visit in visits]))
     pages.sort()
     for page in pages:
         page_visits = list(filter(lambda v: v.page == page, visits))
         print("   %50s %s" % ((page + " ").ljust(49, "."), len(page_visits)))
 
-    print("\nVisitors by country:\n")
-    unique_visitors = list(filter(lambda v: v.ipv4 in unique_ips and not unique_ips.remove(v.ipv4), visits))
+    print("\nUnique visitors by country:\n")
+    unique_visitors = list(filter(lambda v: (v.ipv4 or v.ipv6) in unique_ips and not unique_ips.remove(v.ipv4 or v.ipv6), visits))
     countries = list(set([visit.country for visit in visits]))
     countries.sort()
     for country in countries:
@@ -274,7 +286,7 @@ def pageStats(page):
     print("\nStatistics for page: %s\n" % page)
     print("   %15s %15s %20s %s" % ("Visitor".ljust(15), "Country".ljust(15), "Timestamp".ljust(20), "Referrer\n"))
     for visit in page_visits:
-        print("   %15s %15s %20s %s" % (visit.ipv4.ljust(15), visit.country.ljust(15), visit.timestamp.ljust(20), visit.ref))
+        print("   %15s %15s %20s %s" % ((visit.ipv4 or visit.ipv6).ljust(15), visit.country.ljust(15), visit.timestamp.ljust(20), visit.ref))
 
 def showAll():
 
