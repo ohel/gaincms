@@ -6,11 +6,14 @@
 
 # Parse GainCMS site statistics.
 
-from ipaddress import ip_address, ip_network # Requires Python 3.3 or newer.
+from collections import defaultdict
+from datetime import datetime
+from ipaddress import ip_address, ip_network
 from os import path, walk
-from re import search
+from re import search, sub
 from sys import argv, exit, stderr
 import bisect
+import json
 
 FILE_IPV4_2ID = "GeoLite2-Country-Blocks-IPv4.csv"
 FILE_IPV6_2ID = "GeoLite2-Country-Blocks-IPv6.csv"
@@ -24,6 +27,8 @@ UA_BOT = "BOT"
 if (len(argv) < 2):
     print("Give the site statistics directory as a parameter.")
     exit()
+
+STATS_DIR = argv[1] if len(argv) > 1 else '.'
 
 print("For studying statistics interactively, run the script using: python3 -i %s <site statistics directory> [<ignore IPs file>]" % path.basename(argv[0]))
 
@@ -64,9 +69,10 @@ def ipBinarySearch(ip, networks, net_addrs):
             return geoname_id
     return None
 
-def parseVisitData(visits):
+def parseVisitData(visits, timestamp_cutoff = None):
 
     print("Parsing visit data...")
+    old_len = len(visits)
 
     def addPageVisit(page, ip, visit_data, filename):
 
@@ -78,9 +84,12 @@ def parseVisitData(visits):
         ua = split_data.group("ua")
         if (any(map(lambda x: x in ua, UA_IGNORE_LIST))): ua = UA_BOT
 
-        ts = split_data.group("timestamp")
         ref = split_data.group("ref") if split_data.group("ref") else ""
 
+        # Strip control characters and especially null bytes as there might be some stray ones otherwise.
+        ts = sub(r"[\x00-\x1F\x7F]", "", split_data.group("timestamp"))
+
+        if (timestamp_cutoff and (ts <= timestamp_cutoff)): return
         visits.append(Visit(page, ip, ts, ua, ref))
 
     ignore_ips = {}
@@ -91,7 +100,7 @@ def parseVisitData(visits):
         for ip_to_ignore in file: ignore_ips[ip_to_ignore.rstrip()] = False
         file.close()
 
-    for root_dir, directories, _ in walk(argv[1] if len(argv) > 1 else '.'):
+    for root_dir, directories, _ in walk(STATS_DIR):
 
         for page in directories:
 
@@ -120,6 +129,9 @@ def parseVisitData(visits):
                 file = open(path.join(page_dir, str(visitor_ip)))
                 for visit_data in file: addPageVisit(page, visitor_ip, visit_data, file.name)
                 file.close()
+
+    added_count = len(visits) - old_len
+    print("Parsed %s visits from files." % added_count)
 
 def parseGeoData():
 
@@ -192,38 +204,132 @@ def pageStatsFromVisits(visits, page):
     for visit in page_visits:
         print("   %30s %15s %20s %s" % (str(visit.ip).ljust(30), visit.country.ljust(15), visit.timestamp.ljust(20), visit.ref))
 
-def printStatsFromVisits(visits):
+def printStatsFromVisits(visits, ignored_count = 0):
 
-    ignored_count = 0
-    visits[:] = [visit for visit in visits if not (visit.useragent == UA_BOT and (ignored_count := ignored_count + 1))]
+    filtered_visits = [visit for visit in visits if not (visit.useragent == UA_BOT and (ignored_count := ignored_count + 1))]
     if (ignored_count > 0): print("Ignored (bot) visitor count: %s" % ignored_count)
 
-    print("Total site visits (non-unique): %s" % len(visits))
+    print("Total site visits (non-unique): %s" % len(filtered_visits))
 
-    unique_ips = set([str(visit.ip) for visit in visits])
+    unique_ips = set([str(visit.ip) for visit in filtered_visits])
     print("Total unique site visitors: %s" % len(unique_ips))
 
     print("\nUnique visitors per country:\n")
-    unique_visitors = list(filter(lambda v: str(v.ip) in unique_ips and not unique_ips.remove(str(v.ip)), visits))
-    countries = list(set([visit.country for visit in visits]))
+    unique_visitors = list(filter(lambda v: str(v.ip) in unique_ips and not unique_ips.remove(str(v.ip)), filtered_visits))
+    countries = list(set([visit.country for visit in filtered_visits]))
     countries.sort()
     for country in countries:
         country_visits = list(filter(lambda v: v.country == country, unique_visitors))
         print("   %50s %s" % ((country + " ").ljust(49, "."), len(country_visits)))
 
     print("\nVisits per page (non-unique): \n")
-    pages = list(set([visit.page for visit in visits]))
+    pages = list(set([visit.page for visit in filtered_visits]))
     pages.sort()
     for page in pages:
-        page_visits = list(filter(lambda v: v.page == page, visits))
+        page_visits = list(filter(lambda v: v.page == page, filtered_visits))
         print("   %50s %s" % ((page + " ").ljust(49, "."), len(page_visits)))
 
+"""
+Archive visits into JSON with metadata and nested structure:
+{
+    "metadata": {
+        "ignored_count": int,
+        "first_visit": str,
+        "last_visit": str
+    },
+    "data": {
+        "page1": {
+            "ip1": [
+                {"timestamp": "...", "ref": "not empty ref"},
+                {"timestamp": "..."}
+            ],
+            "ip2": [...]
+        },
+        "page2": {...}
+    }
+}
+"""
+def archiveStats(visits, ignored_count, filename=(STATS_DIR + "/archived_site_stats.json")):
+
+    # Take into account even UA_BOT visits with timestamps. The actual visits might not be stored.
+    sorted_visits = sorted(visits, key=lambda v: v.timestamp)
+    first_ts = sorted_visits[0].timestamp
+    last_ts = sorted_visits[-1].timestamp
+
+    filtered_visits = [visit for visit in visits if not (visit.useragent == UA_BOT and (ignored_count := ignored_count + 1))]
+
+    if not filtered_visits:
+        print("No filtered visits to archive.")
+        return
+
+    # Nested dict: page -> ip -> list of visits
+    data = defaultdict(lambda: defaultdict(list))
+    for v in filtered_visits:
+        entry = {"timestamp": v.timestamp}
+        if v.ref: entry["ref"] = v.ref
+        data[v.page][str(v.ip)].append(entry)
+
+    archive = {
+        "metadata": {
+            "ignored_count": ignored_count,
+            "first_visit": first_ts,
+            "last_visit": last_ts
+        },
+        "data": data
+    }
+
+    # Convert defaultdict -> normal dict for JSON
+    def to_regular(d):
+        if isinstance(d, defaultdict):
+            d = {k: to_regular(v) for k, v in d.items()}
+        elif isinstance(d, dict):
+            d = {k: to_regular(v) for k, v in d.items()}
+        elif isinstance(d, list):
+            d = [to_regular(x) for x in d]
+        return d
+
+    archive_clean = to_regular(archive)
+
+    with open(filename, "w", encoding="utf-8") as f:
+        json.dump(archive_clean, f, indent=2, ensure_ascii=False)
+
+    print(f"Archived {len(filtered_visits)} visits into {filename}")
+
+def readArchivedStats(visits, filename=(STATS_DIR + "/archived_site_stats.json")):
+    try:
+        with open(filename, "r", encoding="utf-8") as f:
+            archive = json.load(f)
+    except FileNotFoundError:
+        print(f"No archive file {filename}, starting fresh.")
+        return 0, None
+
+    metadata = archive.get("metadata", {})
+    data = archive.get("data", {})
+
+    ignored_count = metadata.get("ignored_count", 0)
+    last_visit = metadata.get("last_visit")
+
+    for page, ips in data.items():
+        for ip, entries in ips.items():
+            for e in entries:
+                ts = e["timestamp"]
+                ref = e.get("ref", "")
+                visits.append(Visit(page, ip_address(ip), ts, "ARCHIVE", ref))
+
+    print(f"Loaded {len(visits)} visits from {filename} (ignored_count={ignored_count})")
+    return ignored_count, last_visit
+
 visits = [];
+ignored_count, archived_timestamp = readArchivedStats(visits)
+
 geoips, countries = parseGeoData()
-parseVisitData(visits)
+parseVisitData(visits, archived_timestamp)
 applyGeoData(visits, geoips, countries)
+
 def pageStats(page): pageStatsFromVisits(visits, page)
-def printStats(): printStatsFromVisits(visits)
+def printStats(): printStatsFromVisits(visits, ignored_count)
 print("\nTo show detailed visitor data for a single page: pageStats(visits, \"page name\")")
-print("To print stats again: printStats()\n")
+print("To print stats again: printStats()")
+print("To archive stats: archiveStats(visits, ignored_count, [<filename>])\n")
+
 printStats()
