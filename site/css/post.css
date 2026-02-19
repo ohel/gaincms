@@ -24,6 +24,12 @@ ul.share-buttons img {
     width: 32px;
 }
 
+ul.share-buttons #share-native {
+    background: none;
+    border: none;
+    padding: 0;
+}
+
 .postmetadata {
     font-style: italic;
     font-size: 1.2rem;
