@@ -1,5 +1,5 @@
 <?php
-# Copyright 2015-2018, 2020 Olli Helin
+# Copyright 2015-2018, 2020, 2026 Olli Helin
 # This file is part of GainCMS, a free software released under the terms of the
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -36,17 +36,20 @@ $stats_dir = "projects";
 
 </main>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="<?php echo DIR_INCLUDE?>jquery.min.js">\x3C/script>')</script>
 <script>
-    $("#github-projects").html('<span>Querying <a href="https://github.com/<?php echo CONFIG_GITHUB_USER?>/">my GitHub repositories</a>...</span>');
-    $.getJSON("https://api.github.com/users/<?php echo CONFIG_GITHUB_USER?>/repos", function(data) {
-        var repos = [];
-        for (var i = 0; i < data.length; i++) {
-            repos.push('<li><a href="' + data[i].svn_url + '">' + data[i].name + "</a>: " + data[i].description + "</li>");
-        };
-        $("#github-projects").html($("<ul/>", {"class": "custom-padding", html: repos.join("")}));
-    });
+    const e = document.getElementById("github-projects");
+    e.innerHTML = '<span>Querying <a href="https://github.com/<?php echo CONFIG_GITHUB_USER?>/">my GitHub repositories</a>...</span>';
+
+    fetch("https://api.github.com/users/<?php echo CONFIG_GITHUB_USER?>/repos")
+        .then(response => response.json())
+        .then(data => {
+            const repos = data.map(repo => `<li><a href="${repo.svn_url}">${repo.name}</a>: ${repo.description || ""}</li>`);
+            e.innerHTML = `<ul class="custom-padding">${repos.join("")}</ul>`;
+        })
+        .catch(error => {
+            e.innerHTML = `<span>Error loading GitHub repositories.</span>`;
+            console.error("GitHub API error:", error);
+        });
 </script>
 
 <?php require DIR_INCLUDE . "/htmlend.php";?>
