@@ -33,7 +33,7 @@ terms of the GPL-3.0 license. See more at https://github.com/ohel/gaincms -->
         "og:description" => $page_meta_description,
     ];
     $og_array = [];
-    if (is_array($og_data)) {
+    if (isset($og_data) && is_array($og_data)) {
         $og_array = $og_data;
     }
     foreach ($og_defaults as $key => $value) {

@@ -82,7 +82,7 @@ $stats_dir = $blog_url . $post_dir;
         </ul>
     </nav>
 
-    <div class="to-top-button-container"><a onclick="scrollToTop()" title="To top">▲</a></div>
+    <div class="to-top-button-container"><a role="button" class="to-top-button" title="To top">▲</a></div>
 
     <?php
     require DIR_INCLUDE . "/someshare.php";
@@ -90,7 +90,7 @@ $stats_dir = $blog_url . $post_dir;
     require DIR_INCLUDE . "/comments.php";
     ?>
 
-    <div class="to-top-button-container"><a onclick="scrollToTop()" title="To top">▲</a></div>
+    <div class="to-top-button-container"><a role="button" class="to-top-button" title="To top">▲</a></div>
 
     <?php
     require DIR_INCLUDE . "/postlicense.php";

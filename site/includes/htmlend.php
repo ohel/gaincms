@@ -40,10 +40,15 @@
             link.parentElement.classList.add("active");
         }
 
-        function scrollToTop() {
+        function scrollToTop(e) {
+            e.preventDefault();
             window.scrollTo({ top: 0, behavior: "smooth" });
-            return false;
         }
+        const buttons = document.querySelectorAll(".to-top-button");
+        buttons.forEach(button => {
+            button.addEventListener("click", scrollToTop);
+        });
+
     });
 </script>
 

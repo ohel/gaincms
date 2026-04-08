@@ -109,7 +109,7 @@ function share(platform) {
         </li>
 
         <li>
-            <a href="mailto:?subject=<?php echo rawurlencode($title); ?>&amp;body=<?php echo urlencode($url); ?>"
+            <a href="mailto:?subject=<?php echo rawurlencode($page_title ?? CONFIG_TITLE); ?>&amp;body=<?php echo urlencode($url); ?>"
                title="Share link via email"
                aria-label="Share link to post via email"
                onclick="return share('email');">
