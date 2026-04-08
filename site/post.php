@@ -1,5 +1,5 @@
 <?php
-# Copyright 2015-2018, 2020 Olli Helin
+# Copyright 2015-2018, 2020, 2026 Olli Helin
 # This file is part of GainCMS, a free software released under the terms of the
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -27,16 +27,20 @@ $parsed_intro = $Parsedown->setLocalPath($postpath)->text($intro_contents);
 $description_start = strpos($parsed_intro, "<p>");
 $pre_description = substr($parsed_intro, 0, $description_start);
 preg_match("/<h1>(?P<main>.*)<\/h1>[^<]*(<h2>(?P<sub>.*)<\/h2>)?/", $pre_description, $titles);
+$page_title = $titles["main"] . (isset($titles["sub"]) ? (": " . $titles["sub"]) : "");
+$page_meta_description = CONFIG_TITLE . " | " . $blog_title . " article | " . $page_title;
+
+# Open Graph metadata.
 $og_data = array();
 $og_data["og:url"] = $blog_dir . $post_dir;
 $og_data["og:type"] = "article";
-$og_data["og:title"] = $titles["main"] . (isset($titles["sub"]) ? (": " . $titles["sub"]) : "");
+$og_data["og:title"] = $page_title;
 $og_data["og:description"] = strip_tags(substr($parsed_intro, $description_start));
 if (file_exists($postpath . "og_image.jpg")) {
     $og_data["og:image"] = $postpath . "og_image.jpg";
+} else if (file_exists($postpath . "og_image.png")) {
+    $og_data["og:image"] = $postpath . "og_image.png";
 }
-$page_title = $og_data["og:title"];
-$page_meta_description = CONFIG_TITLE . " | " . $blog_title . " article | " . $og_data["og:title"];
 
 array_push($extra_styles, "post");
 require DIR_INCLUDE . "/header.php";

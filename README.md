@@ -58,8 +58,9 @@ Below is a rough example diagram of GainCMS structure, where + denotes a directo
    |+ css/
    |+ files/
    |+ graphics/
+   | \
+   | |- og_image.png
    |+ includes/
-   |
    |+ posts/
      \
      |- _sort_override
@@ -67,6 +68,8 @@ Below is a rough example diagram of GainCMS structure, where + denotes a directo
      | \
      | |- article.md
      | |- intro.md
+     | |- intro.jpg
+     | |- og_image.jpg
      | |- pic.jpg
      | |- tag_software
      | |- tag_spaces work too
@@ -92,9 +95,9 @@ Post order can be forced (for pinned posts, or posts with the same date) using *
 
 ## Articles
 
-Each blog article consists of the article itself in *article.md*, a short intro in *intro.md* (which is shown in the blog post listing and social media shares), tags, and other files such as images if referred to in the article. The tags are just empty files whose names should begin with `tag_` by default. Spaces in tags are supported, but underscores are converted to spaces anyway in hyperlinks.
+Each blog article consists of the article itself in *article.md*, a short intro in *intro.md* to be shown in the blog post listing, optional *intro.jpg* or *intro.png* to show in the blog listing, optional *og_image.jpg* or *og_image.png* for Open Graph thumbnail, tags, and other files such as images if referred to in the article. The tags are just empty files whose names should begin with `tag_` by default. Spaces in tags are supported, but underscores are converted to spaces anyway in hyperlinks.
 
-Updates for article changelogs can be done by creating files which begin with `update_` by default, and end in a date. A short description of the update should be written in the file.
+Updates for article changelogs can be done by creating files which begin with `update_` by default, and end in a date in the form YYYY-MM-DD (e.g. `update_2026-04-08`). A short description of the update should be written in the file.
 
 The paths and glob patterns are customizable in *index.php*.
 

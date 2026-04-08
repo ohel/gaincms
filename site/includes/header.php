@@ -1,5 +1,5 @@
 <?php
-# Copyright 2015-2017, 2020 Olli Helin
+# Copyright 2015-2017, 2020, 2026 Olli Helin
 # This file is part of GainCMS, a free software released under the terms of the
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 ?>
@@ -23,20 +23,43 @@ terms of the GPL-3.0 license. See more at https://github.com/ohel/gaincms -->
     if (!isset($page_title)) {
         $page_title = CONFIG_TITLE;
     }
-    echo "<title>" . $page_title . "</title>";
+    echo "<title>" . $page_title . "</title>\n";
 
-    if (isset($og_data) && is_array($og_data)) {
-        if (array_key_exists("og:url", $og_data)) { echo '<meta property="og:url" content="' . CONFIG_URL_BASE . "/" . $og_data["og:url"] . '" />'; }
-        if (array_key_exists("og:type", $og_data)) { echo '<meta property="og:type" content="' . $og_data["og:type"] . '" />'; }
-        if (array_key_exists("og:title", $og_data)) { echo '<meta property="og:title" content="' . $og_data["og:title"] . '" />'; }
-        if (array_key_exists("og:description", $og_data)) { echo '<meta property="og:description" content="' . $og_data["og:description"] . '" />'; }
-        if (array_key_exists("og:image", $og_data)) { echo '<meta property="og:image" content="' . CONFIG_URL_BASE . "/" . $og_data["og:image"] . '" />'; }
-    } else {
-        echo '
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="' . $page_title . '" />
-        <meta property="og:description" content="' . $page_meta_description . '" />';
-    } ?>
+    # Open Graph metadata.
+    $og_defaults = [
+        "og:url" => "/",
+        "og:type" => "website",
+        "og:title" => $page_title,
+        "og:description" => $page_meta_description,
+    ];
+    $og_array = [];
+    if (is_array($og_data)) {
+        $og_array = $og_data;
+    }
+    foreach ($og_defaults as $key => $value) {
+        if (!isset($og_array[$key])) {
+            $og_array[$key] = $value;
+        }
+    }
+    if (!isset($og_array["og:image"])) {
+        if (file_exists(DIR_SITE . "graphics/og_image.jpg")) {
+            $og_array["og:image"] = DIR_SITE . "graphics/og_image.jpg";
+        } elseif (file_exists(DIR_SITE . "graphics/og_image.png")) {
+            $og_array["og:image"] = DIR_SITE . "graphics/og_image.png";
+        }
+    }
+
+    foreach ($og_array as $key => $value) {
+        # Note: assumes relative URLs for images.
+        if ($key === "og:url" || $key === "og:image") {
+            $value = CONFIG_URL_BASE . "/" . ltrim($value, "/");
+        }
+
+        echo '<meta property="' . htmlspecialchars($key, ENT_QUOTES, 'UTF-8') .
+            '" content="' . htmlspecialchars($value, ENT_QUOTES, 'UTF-8') . "\" />\n";
+    }
+    echo '<meta property="og:site_name" content="' . htmlspecialchars(CONFIG_TITLE, ENT_QUOTES, 'UTF-8') . "\" />\n";
+    ?>
 
     <base href="<?php echo CONFIG_URL_BASE?>">
     <link rel="icon" href="<?php echo DIR_SITE?>graphics/favicon.ico">
