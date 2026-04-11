@@ -62,6 +62,11 @@ class ExtParsedown extends Parsedown
         }
         $markup .= '<img';
 
+        # Lazy load always.
+        $Element['attributes']['loading'] = 'lazy';
+        $Element['attributes']['decoding'] = 'async';
+        $Element['attributes']['fetchpriority'] = 'low';
+
         foreach ($Element['attributes'] as $name => $value)
         {
             if ($value === null)
