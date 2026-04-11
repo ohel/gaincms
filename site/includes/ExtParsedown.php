@@ -49,7 +49,14 @@ class ExtParsedown extends Parsedown
             return parent::element($Element);
         }
 
-        $markup = '<div class="img-container">';
+        if (isset($Element['attributes']['src'])) {
+            $src = $Element['attributes']['src'];
+            $filename = basename($src);
+            $markup = '<div class="img-container" id="' . htmlspecialchars($filename, ENT_QUOTES, 'UTF-8') . '">';
+        } else {
+            $markup = '<div class="img-container">';
+        }
+
         if (isset($Element['attributes']['title'])) {
             $markup .= '<figure>';
         }
