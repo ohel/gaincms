@@ -1,5 +1,5 @@
 <?php
-# Copyright 2015-2018, 2020 Olli Helin
+# Copyright 2015-2018, 2020, 2026 Olli Helin
 # This file is part of GainCMS, a free software released under the terms of the
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -82,11 +82,18 @@ class ExtParsedown extends Parsedown
         }
 
         if (ExtParsedown::isLocal($Link['element']['attributes']['href']) && isset($this->localPath)) {
-            $Link['element']['attributes']['href'] = $this->localPath . $Link['element']['attributes']['href'];
+            $href = $Link['element']['attributes']['href'];
+            $base_path = $this->localPath;
+
+            # Make anchors point to inside the article, not a file path.
+            if (strlen($href) > 0 && $href[0] === '#' && strpos($base_path, DIR_SITE) === 0) {
+                $base_path = substr($base_path, strlen(DIR_SITE));
+            }
+
+            $Link['element']['attributes']['href'] = $base_path . $href;
         }
 
         return $Link;
-
     }
 }
 ?>
