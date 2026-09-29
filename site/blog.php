@@ -1,5 +1,5 @@
 <?php
-# Copyright 2015-2020 Olli Helin
+# Copyright 2015-2020, 2026 Olli Helin
 # This file is part of GainCMS, a free software released under the terms of the
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -36,7 +36,7 @@ $page_title = $blog_title . " | " . CONFIG_TITLE;
 $page_meta_description = $blog_description;
 
 $og_data = array();
-$og_data["og:url"] = preg_replace('%/$%', '', $blog_url);
+$og_data["og:url"] = rtrim($blog_url, '/');
 $og_data["og:type"] = "blog";
 $og_data["og:title"] = $blog_title;
 $og_data["og:description"] = $blog_description;

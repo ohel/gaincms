@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-# Copyright 2016-2018, 2025 Olli Helin
+# Copyright 2016-2018, 2025-2026 Olli Helin
 # This file is part of GainCMS, a free software released under the terms of the
 # GNU General Public License v3: http://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -110,14 +110,15 @@ def parseVisitData(visits, timestamp_cutoff = None):
             # Non-directory file names are IP addresses.
             for _, _, ips in walk(page_dir):
 
-                try:
-                    # IPv4 or IPv6 are both valid here. Throws error if invalid.
-                    ip_addresses = map(ip_address, ips)
-                    visitors_ips.extend(ip_addresses)
-                except:
-                    print("Not a valid IP on page: %s" % page, file=stderr)
-                finally:
-                    break
+                for ip in ips:
+                    try:
+                        # IPv4 or IPv6 are both valid here. Throws error if invalid.
+                        visitors_ips.append(ip_address(ip))
+                    except ValueError as e:
+                        print("Invalid IP on page %s: %s" % (page, e), file=stderr)
+
+                # This will skip subdirectories. Let outer for loop handle those also.
+                break
 
             for visitor_ip in visitors_ips:
 

@@ -27,7 +27,7 @@ Required software:
 * Either **Apache** or **nginx**:
     * Apache 2.2.16 or newer with rewrite module.
     * nginx 1.10 tested, probably works also with earlier versions.
-* **PHP** 5.6 or newer.
+* **PHP**: even 5.6 probably works, but current recommendation is 8.5.
 * For statistics parsing (optional), Python is required.
 
 To get things running:
