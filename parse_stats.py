@@ -210,10 +210,9 @@ def printStatsFromVisits(visits, ignored_count = 0):
     filtered_visits = [visit for visit in visits if not (visit.useragent == UA_BOT and (ignored_count := ignored_count + 1))]
     if (ignored_count > 0): print("Ignored (bot) visitor count: %s" % ignored_count)
 
-    print("Total site visits (non-unique): %s" % len(filtered_visits))
-
     unique_ips = set([str(visit.ip) for visit in filtered_visits])
-    print("Total unique site visitors: %s" % len(unique_ips))
+    num_total_unique_site_visitors = len(unique_ips)
+    num_total_site_visits = len(filtered_visits)
 
     print("\nUnique visitors per country:\n")
     unique_visitors = list(filter(lambda v: str(v.ip) in unique_ips and not unique_ips.remove(str(v.ip)), filtered_visits))
@@ -229,6 +228,9 @@ def printStatsFromVisits(visits, ignored_count = 0):
     for page in pages:
         page_visits = list(filter(lambda v: v.page == page, filtered_visits))
         print("   %50s %s" % ((page + " ").ljust(49, "."), len(page_visits)))
+
+    print("\nTotal site visits (non-unique): %s" % num_total_site_visits)
+    print("Total unique site visitors: %s" % num_total_unique_site_visitors)
 
 """
 Archive visits into JSON with metadata and nested structure:
@@ -250,7 +252,7 @@ Archive visits into JSON with metadata and nested structure:
     }
 }
 """
-def archiveStats(visits, ignored_count, filename=(STATS_DIR + "/archived_site_stats.json")):
+def archiveStatsFromVisits(visits, ignored_count, filename=(STATS_DIR + "/archived_site_stats.json")):
 
     # Take into account even UA_BOT visits with timestamps. The actual visits might not be stored.
     sorted_visits = sorted(visits, key=lambda v: v.timestamp)
@@ -318,9 +320,10 @@ def readArchivedStats(visits, filename=(STATS_DIR + "/archived_site_stats.json")
                 visits.append(Visit(page, ip_address(ip), ts, "ARCHIVE", ref))
 
     print(f"Loaded {len(visits)} visits from {filename} (ignored_count={ignored_count})")
+    print(f"Date range of visits: {metadata.get("first_visit")} - {last_visit}")
     return ignored_count, last_visit
 
-visits = [];
+visits = []
 ignored_count, archived_timestamp = readArchivedStats(visits)
 
 geoips, countries = parseGeoData()
@@ -329,8 +332,10 @@ applyGeoData(visits, geoips, countries)
 
 def pageStats(page): pageStatsFromVisits(visits, page)
 def printStats(): printStatsFromVisits(visits, ignored_count)
-print("\nTo show detailed visitor data for a single page: pageStats(visits, \"page name\")")
-print("To print stats again: printStats()")
-print("To archive stats: archiveStats(visits, ignored_count, [<filename>])\n")
+def archiveStats(): archiveStatsFromVisits(visits, ignored_count)
 
 printStats()
+
+print("\npageStats(\"page name\") - show detailed visitor data for a single page")
+print("printStats() - print global stats again")
+print("archiveStats() - archive stats with default settings")
